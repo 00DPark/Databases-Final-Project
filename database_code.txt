@@ -315,4 +315,64 @@ VALUES
 (19, 19, 10.10, "Board Game"),
 (20, 20, 9.99, "Board Game");
 
+INSERT INTO EMPLOYEE(Employee_ID, Store_ID, Sales_No, Shift, First_Name, Last_Name)
+VALUES
+(1, 4, 250, '9AM-5PM', 'John', 'Smith'),
+(2, 4, 300, '9AM-5PM', 'Jane', 'Doe'),
+(3, 4, 400, '9AM-5PM', 'Jack', 'Black'),
+(4, 4, 450, '5PM - 10PM', 'Jill', 'White'),
+(5, 4, 134, '5PM - 10PM', 'Jim', 'Brown'),
+(6, 4, 134, '5PM - 10PM', 'Jill', 'Smith'),
+(7, 4, 134, '5PM - 10PM', 'John', 'Doe'),
+(8, 12, 8, '9AM-5PM', 'Jane', 'Smith'),
+(9, 12, 9, '9AM-5PM', 'Jack', 'Doe'),
+(10, 1, 10, '9AM - 1PM', 'Jill', 'Brown'),
+(11, 1, 11, '9AM - 1PM', 'Jim', 'Smith'),
+(12, 1, 12, '9AM - 1PM', 'Jill', 'Doe'),
+(13, 1, 13, '9AM - 1PM', 'John', 'Brown'),
+(14, 1, 14, '9AM-5PM', 'Jane', 'Smith'),
+(15, 9, 15, '9AM-5PM', 'Jack', 'Doe'),
+(16, 9, 16, '9AM-5PM', 'Jill', 'Brown'),
+(17, 9, 17, '9AM-1PM', 'Jim', 'Smith'),
+(18, 9, 18, '9AM-1PM', 'Jill', 'Doe'),
+(19, 9, 19, '9AM-1PM', 'John', 'Brown'),
+(20, 9, 20, '9AM-1PM', 'Jane', 'Smith')
+;
+
+INSERT INTO DEPARTMENT(Dept_No, Store_ID, Dept_Name, Dept_Address)
+VALUES
+(1, 4, 'Books', '700 Oak Street, Brockton MA 2301'),
+(2, 4, 'Board Games', '700 Oak Street, Brockton MA 2301'),
+(3, 4, 'Drinks', '700 Oak Street, Brockton MA 2301'),
+(4, 12, 'Books', '1201 Hwy 31 NW, Hartselle AL 35640'),
+(5, 12, 'Board Games', '1201 Hwy 31 NW, Hartselle AL 35640'),
+(6, 12, 'Drinks', '1201 Hwy 31 NW, Hartselle AL 35640'),
+(7, 1, 'Books', '3100 Hough Rd, Florence AL 35630'),
+(8, 1, 'Board Games', '3100 Hough Rd, Florence AL 35630'),
+(9, 1, 'Drinks', '3100 Hough Rd, Florence AL 35630'),
+(10, 9, 'Books', '11697 US Hwy 431, Guntersville AL 35976'),
+(11, 9, 'Board Games', '11697 US Hwy 431, Guntersville AL 35976'),
+(12, 9, 'Drinks', '11697 US Hwy 431, Guntersville AL 35976');
+
+INSERT INTO MANAGER(Employee_ID, Store_ID, Sales_No, Shift, First_Name, Last_Name, Manager_ID, Manager_Type)
+VALUES
+(1, 4, 250, '9AM-5PM', 'John', 'Smith', 1, 'Store Manager'),
+(2, 4, 300, '9AM-5PM', 'Jane', 'Doe', 2, 'Store Manager'),
+(3, 4, 400, '9AM-5PM', 'Jack', 'Black', 3, 'Store Manager'),
+(4, 4, 450, '5PM - 10PM', 'Jill', 'White', 4, 'Store Manager'),
+(5, 4, 134, '5PM - 10PM', 'Jim', 'Brown', 5, 'Store Manager'),
+(6, 4, 134, '5PM - 10PM', 'Jill', 'Smith', 6, 'Store Manager'),
+(7, 4, 134, '5PM - 10PM', 'John', 'Doe', 7, 'Employee Manager'),
+(8, 12, 8, '9AM-5PM', 'Jane', 'Smith', 8, 'Employee Manager'),
+(9, 12, 9, '9AM-5PM', 'Jack', 'Doe', 9, 'Employee Manager'),
+(10, 1, 10, '9AM - 1PM', 'Jill', 'Brown', 10, 'Store Manager'),
+(11, 1, 11, '9AM - 1PM', 'Jim', 'Smith', 11, 'Store Manager'),
+(12, 1, 12, '9AM - 1PM', 'Jill', 'Doe', 12, 'Employee Manager'),
+(13, 1, 13, '9AM - 1PM', 'John', 'Brown', 13, 'Employee Manager'),
+(14, 1, 14, '9AM-5PM', 'Jane', 'Smith', 14, 'Store Manager'),
+(15, 9, 15, '9AM-5PM', 'Jack', 'Doe', 15, 'Store Manager'),
+(16, 9, 16, '9AM-5PM', 'Jill', 'Brown', 16, 'Employee Manager');
+
+I
+
 
