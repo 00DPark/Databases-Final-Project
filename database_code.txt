@@ -246,6 +246,30 @@ VALUES
 (19, 'Stephen King'),
 (20, 'Franz Kafka');
 
+INSERT INTO BOOK_STORE(Store_ID, Address)
+VALUES
+(0, '1201 Rt 300, Newburgh NY 12550'),
+(1, '255 W Main St, Avon CT 6001'),
+(2, '120 Commercial Parkway, Branford CT 6405'),
+(3, '1400 Farmington Ave, Bristol CT 6010'),
+(4, '161 Berlin Road, Cromwell CT 6416'),
+(5, '67 Newton Rd, Danbury CT 6810'),
+(6, '656 New Haven Ave, Derby CT 6418'),
+(7, '69 Prospect Hill Road, East Windsor CT 6088'),
+(8, '150 Gold Star Hwy, Groton CT 6340'),
+(9, '900 Boston Post Road, Guilford CT 6437'),
+(10, '2300 Dixwell Ave, Hamden CT 6514'),
+(11, '495 Flatbush Ave, Hartford CT 6106'),
+(12, '180 River Rd, Lisbon CT 6351'),
+(13, '420 Buckland Hills Dr, Manchester CT 6040'),
+(14, '1365 Boston Post Road, Milford CT 6460'),
+(15, '1100 New Haven Road, Naugatuck CT 6770'),
+(16, '315 Foxon Blvd, New Haven CT 6513'),
+(17, '164 Danbury Rd, New Milford CT 6776'),
+(18, '3164 Berlin Turnpike, Newington CT 6111'),
+(19, '474 Boston Post Road, North Windham CT 6256'),
+(20, '650 Main Ave, Norwalk CT 6851');
+
 INSERT INTO WAREHOUSE(Warehouse_No, Total_Books, Address)
 VALUES
 (1, 1019, '3100 Hough Rd, Florence AL 35630'),
