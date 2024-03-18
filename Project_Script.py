@@ -68,7 +68,7 @@ product_table = get_product_inserts(updated_data)
 book_table = get_book_inserts(updated_data)
 
 # output file with sql print statements
-with open('script_insert_output.txt', 'w') as file: 
+with open('sample_data_input_code.txt', 'w') as file: 
     # Write SQL insert statements for author, publisher, warehouse, product, and book tables in a single line each
     for inserts in [author_table, publisher_table, product_table, book_table]:
         file.write('\n'.join(inserts) + '\n')
