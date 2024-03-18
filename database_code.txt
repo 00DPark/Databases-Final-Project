@@ -269,6 +269,29 @@ VALUES
 (19, 215325, '1501 Skyland Blvd E, Tuscaloosa AL 35405'),
 (20, 69, '4538 Us Hwy 231, Wetumpka AL 36092');
 
+INSERT INTO PUBLISHER(Publisher_ID, Publisher_NAME)
+VALUES
+(1, 'Big Books Co'),
+(2, 'Books and Stuff'),
+(3, 'Red Apple'),
+(4, 'Paperbros'),
+(5, 'LITerary'),
+(6, 'Papercuts'),
+(7, 'More Books'),
+(8, 'Books+'),
+(9, 'Ultimate Reading Co'),
+(10, 'Barnes and Noble'),
+(11, 'Coffee House Press'),
+(12, 'Maplewood Books'),
+(13, 'I love books!'),
+(14, 'Novella Bros'),
+(15, 'Kafka Homies'),
+(16, 'Prose Publishing Pals'),
+(17, 'Books!!!'),
+(18, 'DB Press'),
+(19, 'Goerdell Incompleteness Press'),
+(20, 'Paperback Press');
+
 
 
 
