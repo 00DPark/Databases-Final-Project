@@ -292,6 +292,27 @@ VALUES
 (19, 'Goerdell Incompleteness Press'),
 (20, 'Paperback Press');
 
-
+INSERT INTO PRODUCT(Item_Number, Warehouse_No, Price, Product_Type)
+VALUES
+(1, 1, 1.00, "Drink"),
+(2, 2, 1.00, "Drink"),
+(3, 3, 1.00, "Drink"),
+(4, 4, 1.00, "Drink"),
+(5, 5, 1.00, "Drink"),
+(6, 6, 1.00, "Drink"),
+(7, 7, 1.00, "Drink"),
+(8, 8, 1.00, "Drink"),
+(9, 9, 1.00, "Drink"),
+(10, 10, 12.00, "Book"),
+(11, 11, 12.00, "Book"),
+(12, 12, 12.29, "Book"),
+(13, 13, 15.72, "Book"),
+(14, 14, 16.92, "Book"),
+(15, 15, 20.34, "Board Game"),
+(16, 16, 22.84, "Board Game"),
+(17, 17, 29.31,  "Board Game"),
+(18, 18, 31.50, "Board Game"),
+(19, 19, 10.10, "Board Game"),
+(20, 20, 9.99, "Board Game");
 
 
