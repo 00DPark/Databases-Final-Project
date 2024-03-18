@@ -200,5 +200,30 @@ CREATE TABLE STOCKED_BY (
     PRIMARY KEY (Employee_ID, Item_Number)
 );
 
+INSERT INTO CUSTOMER(Loyalty_No, Address, First_Name, Last_Name)
+VALUES
+(1, '777 Brockton Avenue, Abington MA 2351' , 'Matt', 'Smith'),
+(2, '30 Memorial Drive, Avon MA 2322', 'Jon', 'Don'),
+(3, '250 Hartford Avenue, Bellingham MA 2019', 'Jake', 'Park'),
+(4, '700 Oak Street, Brockton MA 2301', 'Jack', 'Black'),
+(5, '66-4 Parkhurst Rd, Chelmsford MA 1824', 'Doug', 'Sampson'),
+(6, '591 Memorial Dr, Chicopee MA 1020', 'Bill', 'White'),
+(7, '55 Brooksby Village Way, Danvers MA 1923', 'Matt', 'Brown'),
+(8, ' 137 Teaticket Hwy, East Falmouth MA 2536', 'Raven', 'So'),
+(9, '42 Fairhaven Commons Way, Fairhaven MA 2719', 'Jackie', 'Smith'),
+(10, '374 William S Canning Blvd, Fall River MA 2721', 'Smith', 'Smith'),
+(11, '121 Worcester Rd, Framingham MA 1701', 'Darien', 'Parker'),
+(12, '677 Timpany Blvd, Gardner MA 1440', 'Sam', 'Smith'),
+(13, '337 Russell St, Hadley MA 1035', 'Lebron' , 'James'),
+(14, '295 Plymouth Street, Halifax MA 2338', 'Steph', 'Curry'),
+(15, '1775 Washington St, Hanover MA 2339', 'Tim', 'Duncan'),
+(16, '280 Washington Street, Hudson MA 1749', 'Greg', 'Rose'),
+(17, '20 Soojian Dr, Leicester MA 1524', 'Justin', 'Fields'),
+(18, '11 Jungle Road, Leominster MA 1453', 'CJ', 'Stround'),
+(19, '301 Massachusetts Ave, Lunenburg MA 1462', 'Derrick', 'Morris'),
+(20, '780 Lynnway, Lynn MA 1905', 'John', 'John'),
+(21, '70 Pleasant Valley Street, Methuen MA 1844', 'Wanos', 'Bahiru');
+
+
 
 
