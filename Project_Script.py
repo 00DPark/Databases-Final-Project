@@ -16,9 +16,9 @@ def add_previous_columns_to_author(df):
 
 # get author ids separated by a space
 def generate_author_ids(authors):
-    return ' '.join(str(generate_unique_code(author.strip())) for author in authors)
+    return ' '.join(str(generate_unique_code(author)) for author in authors)
 
-# generate positive hash value
+# generate unique code values using hash code
 def generate_unique_code(value):
     return abs(hash(value))
 
@@ -36,7 +36,7 @@ def get_publisher_inserts(df):
 def get_product_inserts(df):
     default_warehouse_no = 1
     unique_books = df.drop_duplicates(subset=['ISBN'])
-    return [f"INSERT INTO PRODUCT(Item_Number, Warehouse_No, Price, Product_Type) VALUES ('{isbn}', {default_warehouse_no}, {price.replace('$', '').strip()}, '{update_string(category)}');" 
+    return [f"INSERT INTO PRODUCT(Item_Number, Warehouse_No, Price, Product_Type) VALUES ('{isbn}', {default_warehouse_no}, {price.replace('$', '')}, '{update_string(category)}');" 
             for isbn, price, category in zip(unique_books['ISBN'], unique_books['Price'], unique_books['Category'])]
 
 # get insert statements for books
@@ -68,7 +68,7 @@ product_table = get_product_inserts(updated_data)
 book_table = get_book_inserts(updated_data)
 
 # output file with sql print statements
-with open('output.sql', 'w') as file: 
+with open('script_insert_output.txt', 'w') as file: 
     # Write SQL insert statements for author, publisher, warehouse, product, and book tables in a single line each
     for inserts in [author_table, publisher_table, product_table, book_table]:
         file.write('\n'.join(inserts) + '\n')
