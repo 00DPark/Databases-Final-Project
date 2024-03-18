@@ -328,7 +328,29 @@ VALUES
 (27, 7, 1.13, "Drink"),
 (28, 8, 1.60, "Drink"),
 (29, 9, 1.30, "Drink"),
-(30, 10, 1.50, "Drink");
+(30, 10, 1.50, "Drink"),
+(31, 3, 1.50, 'Drink'),
+(32, 5,  20.00, "Board Game"),
+(33, 5, 20.00, "Board Game"),
+(34, 5, 20.00, "Board Game"),
+(35, 5, 20.00, "Board Game"),
+(36, 5, 20.00, "Board Game"),
+(37, 5, 20.00, "Board Game"),
+(38, 5, 20.00, "Board Game"),
+(39, 5, 20.00, "Board Game"),
+(40, 5, 20.00, "Board Game"),
+(41, 5, 20.00, "Board Game"),
+(42, 5, 20.00, "Board Game"),
+(43, 5, 20.00, "Board Game"),
+(44, 5, 20.00, "Board Game"),
+(45, 5, 20.00, "Board Game"),
+(46, 5, 20.00, "Board Game"),
+(47, 5, 20.00, "Board Game"),
+(48, 5, 20.00, "Board Game"),
+(49, 5, 20.00, "Board Game"),
+(50, 5, 20.00, "Board Game"),
+(51, 5, 20.00, "Board Game"),
+(52, 5, 20.00, "Board Game");
 
 INSERT INTO PURCHASE(Transaction_ID, Shopping_Address, Billing_Address, Payment_Method, Date, Customer_ID,  Product_Number)
 VALUES
@@ -374,13 +396,10 @@ VALUES
 (27, 7, 17, 1.13, 'Drink', 'Zero Sugar Sprite'),
 (28, 8, 18, 1.60, 'Drink', 'Sprite Cranberry'),
 (29, 9, 19, 1.30, 'Drink', 'Fanta Orange'),
-(30, 10, 20, 1.50, 'Drink', 'Pepsi');
+(30, 10, 20, 1.50, 'Drink', 'Pepsi'),
+(31, 10, 20, 1.50, 'Drink', 'Pepsi');
 
-INSERT INTO PRODUCT
-VALUES (31, 10, 1.50, "Drink");
 
-INSERT INTO DRINK 
-VALUES (31, 10, 20, 1.50, 'Drink', 'Pepsi');
 
 INSERT INTO BOARD_GAME(Item_Number, Warehouse_No, Transaction_ID, Price, Product_Type, Game_Type)
 VALUES
