@@ -224,6 +224,52 @@ VALUES
 (20, '780 Lynnway, Lynn MA 1905', 'John', 'John'),
 (21, '70 Pleasant Valley Street, Methuen MA 1844', 'Wanos', 'Bahiru');
 
+INSERT INTO AUTHOR(Author_ID, Author_Name)
+VALUES
+(1, 'Ernest Hemingway'),
+(2, 'Jim Talamo'),
+(3, 'Sarah Walo'),
+(4, 'George Orwell'),
+(5, 'Jane Austen'),
+(6, 'Virginia Woolf'),
+(7, 'Rick Riordan'),
+(8, 'William Shakespeare'),
+(9, 'Oscar Wilde'),
+(10, 'Leo Tolstoy'),
+(11, 'Mark Twain'),
+(12, 'John Steinbeck'),
+(13, 'Charles Dickens'),
+(14, 'Alduous Huxley'),
+(15, 'Henry Redder'),
+(16, 'R.L. Stine'),
+(17, 'Agatha Christie'),
+(18, 'Danielle Steel'),
+(19, 'Stephen King'),
+(20, 'Franz Kafka');
+
+INSERT INTO WAREHOUSE(Warehouse_No, Total_Books, Address)
+VALUES
+(1, 1019, '3100 Hough Rd, Florence AL 35630'),
+(2, 201, '2200 South Mckenzie St, Foley AL 36535'),
+(3, 433, '2001 Glenn Bldv Sw, Fort Payne AL 35968'),
+(4, 1231, '340 East Meighan Blvd, Gadsden AL 35903'),
+(5, 521, '890 Odum Road, Gardendale AL 35071'),
+(6, 52112, '1608 W Magnolia Ave, Geneva AL 36340'),
+(7, 7999, '501 Willow Lane, Greenville AL 36037'),
+(8, 82, '170 Fort Morgan Road, Gulf Shores AL 36542'),
+(9, 3, '11697 US Hwy 431, Guntersville AL 35976'),
+(10, 50000, '42417 Hwy 195, Haleyville AL 35565'),
+(11, 212, '1706 Military Street South, Hamilton AL 35570'),
+(12, 1345, '1201 Hwy 31 NW, Hartselle AL 35640'),
+(13, 52, '209 Lakeshore Parkway, Homewood AL 35209'),
+(14, 1243, '2780 John Hawkins Pkwy, Hoover AL 35244'),
+(15, 0, '5335 Hwy 280 South, Hoover AL 35242'),
+(16, 3523, '1007 Red Farmer Drive, Hueytown AL 35023'),
+(17, 531, '2900 S Mem PkwyDrake Ave, Huntsville AL 35801'),
+(18, 53143, '11610 Memorial Pkwy South, Huntsville AL 35803'),
+(19, 215325, '1501 Skyland Blvd E, Tuscaloosa AL 35405'),
+(20, 69, '4538 Us Hwy 231, Wetumpka AL 36092');
+
 
 
 
