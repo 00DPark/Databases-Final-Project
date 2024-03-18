@@ -315,4 +315,42 @@ VALUES
 (19, 19, 10.10, "Board Game"),
 (20, 20, 9.99, "Board Game");
 
+INSERT INTO PRODUCT(Item_Number, Warehouse_No, Price, Product_Type)
+VALUES
+(21, 1, 1.53, "Drink"),
+(22, 2, 1.82, "Drink"),
+(23, 3, 1.34, "Drink"),
+(24, 4, 1.30, "Drink"),
+(25, 5, 1.08, "Drink"),
+(26, 6, 1.02, "Drink"),
+(27, 7, 1.13, "Drink"),
+(28, 8, 1.60, "Drink"),
+(29, 9, 1.30, "Drink"),
+(30, 10, 1.50, "Drink");
+
+INSERT INTO PURCHASE(Transaction_ID, Shopping_Address, Billing_Address, Payment_Method, Date, Customer_ID,  Product_Number)
+VALUES
+(1, '777 Brockton Avenue, Abington MA 2351' , '777 Brockton Avenue, Abington MA 2351' , 'CREDIT', 2023-06-06, 1, 1),
+(2, '30 Memorial Drive, Avon MA 2322',  '30 Memorial Drive, Avon MA 2322', 'CREDIT', 2023-06-06, 2, 2),
+(3, '250 Hartford Avenue, Bellingham MA 2019', '250 Hartford Avenue, Bellingham MA 2019', 'CREDIT', 2023-01-03, 3, 3),
+(4, '700 Oak Street, Brockton MA 2301', '700 Oak Street, Brockton MA 2301', 'CREDIT', 2024-02-01, 4,4),
+(5, '66-4 Parkhurst Rd, Chelmsford MA 1824',  '66-4 Parkhurst Rd, Chelmsford MA 1824', 'CREDIT', 2023-02-29, 5, 5),
+(6, '591 Memorial Dr, Chicopee MA 1020',   '591 Memorial Dr, Chicopee MA 1020',  'CREDIT', 2023-06-09, 6, 6),
+(7, '55 Brooksby Village Way, Danvers MA 1923',  '55 Brooksby Village Way, Danvers MA 1923', 'CREDIT', 2024-01-01, 7, 7),
+(8, ' 137 Teaticket Hwy, East Falmouth MA 2536', ' 137 Teaticket Hwy, East Falmouth MA 2536','CREDIT', 2024-01-11, 8, 8),
+(9, '42 Fairhaven Commons Way, Fairhaven MA 2719', '42 Fairhaven Commons Way, Fairhaven MA 2719', 'CREDIT', 2024-01-31, 9, 9),
+(10, '374 William S Canning Blvd, Fall River MA 2721', '374 William S Canning Blvd, Fall River MA 2721', 'DEBIT ', 2024-02-21, 10, 10),
+(11, '121 Worcester Rd, Framingham MA 1701',   '121 Worcester Rd, Framingham MA 1701',  'DEBIT ', 2023-12-24, 11, 11),
+(12, '677 Timpany Blvd, Gardner MA 1440', '677 Timpany Blvd, Gardner MA 1440',  'DEBIT ',  2024-02-01, 12, 12),
+(13, '337 Russell St, Hadley MA 1035',  '337 Russell St, Hadley MA 1035',  'DEBIT ', 2024-01-07, 13, 13),
+(14, '295 Plymouth Street, Halifax MA 2338', '295 Plymouth Street, Halifax MA 2338',  'DEBIT ', 2024-01-08, 14, 14),
+(15, '1775 Washington St, Hanover MA 2339', '1775 Washington St, Hanover MA 2339',  'DEBIT ', 2024-04-01, 15, 15),
+(16, '280 Washington Street, Hudson MA 1749', '5399 W Genesse St, Camillus NY 13031', 'CASH', 2024-04-05, 16., 16),
+(17, '20 Soojian Dr, Leicester MA 1524', '30 Catskill, Catskill NY 12414', 'CASH', 2024-04-05, 17, 17),
+(18, '11 Jungle Road, Leominster MA 1453', '872 Route 13, Cortlandville NY 13045', 'CASH', 2024-04-05, 18, 18),
+(19, '301 Massachusetts Ave, Lunenburg MA 1462', '301 Massachusetts Ave, Lunenburg MA 1462','CASH', 2024-04-01, 19, 19),
+(20, '780 Lynnway, Lynn MA 1905', '301 Massachusetts Ave, Lunenburg MA 1462', 'CASH', 2023-04-05, 20, 20),
+(21, '70 Pleasant Valley Street, Methuen MA 1844', '70 Pleasant Valley Street, Methuen MA 1844', 'CASH', 2022-06-05, 21, 21);
+
+
 
