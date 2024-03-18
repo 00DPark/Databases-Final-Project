@@ -382,3 +382,26 @@ VALUES (31, 10, 1.50, "Drink");
 INSERT INTO DRINK 
 VALUES (31, 10, 20, 1.50, 'Drink', 'Pepsi');
 
+INSERT INTO BOARD_GAME(Item_Number, Warehouse_No, Transaction_ID, Price, Product_Type, Game_Type)
+VALUES
+(32, 5, 11, 20.00, "Board Game", 'Monopoly'),
+(33, 5, 11,20.00, "Board Game", 'Monopoly'),
+(34, 5, 11,20.00, "Board Game", 'Monopoly'),
+(35, 5,11, 20.00, "Board Game", 'Monopoly'),
+(36, 5,11, 20.00, "Board Game", 'Monopoly'),
+(37, 5,11, 20.00, "Board Game", 'Monopoly'),
+(38, 5, 11,20.00, "Board Game", 'Monopoly'),
+(39, 5, 11,20.00, "Board Game", 'Monopoly'),
+(40, 5, 11,20.00, "Board Game", 'Monopoly'),
+(41, 5, 11,20.00, "Board Game", 'Monopoly'),
+(42, 5, 11,20.00, "Board Game", 'Monopoly'),
+(43, 5,11, 20.00, "Board Game", 'Monopoly'),
+(44, 5, 11,20.00, "Board Game", 'Monopoly'),
+(45, 5,11, 20.00, "Board Game", 'Monopoly'),
+(46, 5,11, 20.00, "Board Game", 'Monopoly'),
+(47, 5, 11,20.00, "Board Game", 'Monopoly'),
+(48, 5,11, 20.00, "Board Game", 'Monopoly'),
+(49, 5,11, 20.00, "Board Game", 'Monopoly'),
+(50, 5, 11,20.00, "Board Game", 'Monopoly'),
+(51, 5,11, 20.00, "Board Game", 'Monopoly'),
+(52, 5,11, 20.00, "Board Game", 'Monopoly');
