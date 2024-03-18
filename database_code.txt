@@ -30,6 +30,7 @@ CREATE TABLE DRINK (
     Transaction_ID INT NOT NULL,
     Price DECIMAL(10, 2) NOT NULL DEFAULT 0.00,
     Product_Type VARCHAR(100) NOT NULL,
+    Drink_Type VARCHAR(100) NOT NULL,
     FOREIGN KEY (Item_Number) REFERENCES PRODUCT(Item_Number),
     PRIMARY KEY (Item_Number)
 
@@ -41,6 +42,7 @@ CREATE TABLE BOARD_GAME (
     Transaction_ID INT NOT NULL,
     Price DECIMAL(10, 2) NOT NULL DEFAULT 0.00,
     Product_Type VARCHAR(100) NOT NULL,
+    Game_Type VARCHAR(100) NOT NULL,
     FOREIGN KEY (Item_Number) REFERENCES PRODUCT(Item_Number),
     PRIMARY KEY (Item_Number)
 
@@ -352,5 +354,31 @@ VALUES
 (20, '780 Lynnway, Lynn MA 1905', '301 Massachusetts Ave, Lunenburg MA 1462', 'CASH', 2023-04-05, 20, 20),
 (21, '70 Pleasant Valley Street, Methuen MA 1844', '70 Pleasant Valley Street, Methuen MA 1844', 'CASH', 2022-06-05, 21, 21);
 
+INSERT INTO DRINK(Item_Number, Warehouse_No, Transaction_ID, Price, Product_Type, Drink_Type)
+VALUES
+(1, 1, 1, 1.00, 'Drink', 'Sprite'),
+(2, 2, 2, 1.00, 'Drink', 'Coke'),
+(3, 3, 3, 1.00, 'Drink', 'Sprite'),
+(4, 4, 4, 1.00, 'Drink' , 'Sprite'),
+(5, 5, 5, 1.00, 'Drink' , 'Sprite'),
+(6, 6, 6, 1.00, 'Drink', 'Ginger Ale'),
+(7, 7, 7, 1.00, 'Drink', 'Diet Coke'),
+(8, 8, 8, 1.00, 'Drink', 'Diet Coke'),
+(9, 9, 9,1.00, 'Drink', 'Mountain Dew'),
+(21, 1, 11, 1.53, 'Drink', 'Pink Lemonade'),
+(22, 2,  12, 1.82, 'Drink', 'Orange Crush'),
+(23, 3, 13, 1.34, 'Drink', 'Two Percent Milk'),
+(24, 4, 14, 1.30, 'Drink', 'Low Fat Milk'),
+(25, 5, 15, 1.08, 'Drink', 'Whole Milk'),
+(26, 6, 16, 1.02, 'Drink', 'Water'),
+(27, 7, 17, 1.13, 'Drink', 'Zero Sugar Sprite'),
+(28, 8, 18, 1.60, 'Drink', 'Sprite Cranberry'),
+(29, 9, 19, 1.30, 'Drink', 'Fanta Orange'),
+(30, 10, 20, 1.50, 'Drink', 'Pepsi');
 
+INSERT INTO PRODUCT
+VALUES (31, 10, 1.50, "Drink");
+
+INSERT INTO DRINK 
+VALUES (31, 10, 20, 1.50, 'Drink', 'Pepsi');
 
