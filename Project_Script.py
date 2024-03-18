@@ -50,17 +50,17 @@ def get_book_inserts(df):
             for isbn, title, publisher, authors in zip(books.index, books['Title'], books['Publisher'], books['Author(s)'])]
 
 # reads the csv file and skips first row with book as the only value
-df = pd.read_csv('data.csv', encoding='latin-1', skiprows=1)
+input_data = pd.read_csv('data.csv', encoding='latin-1', skiprows=1)
 
 # updates data to handle case where there are multiple authors
-df = add_previous_columns_to_author(df)
+updated_data = add_previous_columns_to_author(input_data)
 
 # set the insert statements for each table
-author_table = get_author_inserts(df)
-publisher_table = get_publisher_inserts(df)
+author_table = get_author_inserts(updated_data)
+publisher_table = get_publisher_inserts(updated_data)
 warehouse_table = get_warehouse_inserts()
-product_table = get_product_inserts(df)
-book_table = get_book_inserts(df)
+product_table = get_product_inserts(updated_data)
+book_table = get_book_inserts(updated_data)
 
 # opens file in write mode
 with open('output.sql', 'w') as file: 
