@@ -347,7 +347,7 @@ VALUES
 (2, 4, 300, '9AM-5PM', 'Jane', 'Doe'),
 (3, 4, 400, '9AM-5PM', 'Jack', 'Black'),
 (4, 4, 400, '9AM-5PM', 'Abhinav', 'Patel'),
-(5,4, 300, '5PM-10PM', 'Nicholas', 'Krieger',
+(5,4, 300, '5PM-10PM', 'Nicholas', 'Krieger'),
 (6, 4, 450, '5PM - 10PM', 'Jill', 'White'),
 (7, 4, 134, '5PM - 10PM', 'Jim', 'Brown'),
 (8, 4, 134, '5PM - 10PM', 'Jill', 'Smith'),
