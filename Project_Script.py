@@ -1,69 +1,88 @@
 import pandas as pd
+# NOTES: 
+# The first row is skipped in the file since it just contains the word Book
+# Since the warehouse is not given, just placed it in a random warehouse
+# Values are only inserted into author, publisher, product, and book tables as these are required based on the schema
+# define a function to update string with double single quotes for SQL compatibility
 
-#NOTES: 
-# books with multiple authors are assigned to whichever author appears first
-# authors that are not listed with each book are still added to the author list and given its attributes
-# abs(hash(...) is used to generate unique positive values 
-# zip() function is used to iterate over multiple lists at a single times
-# first row is skipped in file since it just contains title of file
-# since warehouse is not given, simply created a default warehouse to house them
-# values are only inserted into author, publisher, warehouse, product, and book tables as these are required based on the schema
-
-# handles the case where a single quote appears in name of something by replacing single quote with double single quotes
 def update_string(string):
     return string.replace("'", "''")
 
-# fills missing values from the previously filled row
-# this handles the case when a book has multiple authors
-def add_previous_columns_to_author(df):
+# fill missing values from the previously filled row and handle multiple authors
+def add_previous_columns_to_author(data):
     columns = ['ISBN', 'Title', 'Publisher', 'Year', 'Price', 'Category']
-    df[columns] = df[columns].ffill()
-    return df
+    data[columns] = data[columns].ffill()
+    return data
+
+# global counters and ID mappings for authors and publishers
+author_counter = 501
+publisher_counter = 501
+author_id_map = {}
+publisher_id_map = {}
+
+# Generate unique ID values using counters
+def generate_unique_code(entity_type):
+    global author_counter, publisher_counter
+    if entity_type == 'author':
+        author_counter += 1
+        return author_counter
+    elif entity_type == 'publisher':
+        publisher_counter += 1
+        return publisher_counter
 
 # get insert statements for authors
-def get_author_inserts(df):
-    authors = df['Author(s)'].unique() #gets the unique rows
-    return [f"INSERT INTO AUTHOR(Author_ID, Author_Name) VALUES ({abs(hash(author))}, '{update_string(author)}');" for author in authors]
+def get_author_inserts(data):
+    global author_id_map
+    inserts = []
+    for author in data['Author(s)'].unique():
+        author_id = generate_unique_code('author')
+        author_id_map[author] = author_id
+        inserts.append(f"INSERT INTO AUTHOR(Author_ID, Author_Name) VALUES ({author_id}, '{update_string(author)}');")
+    return inserts
 
 # get insert statements for publishers
-def get_publisher_inserts(df):
-    publishers = df['Publisher'].unique() #gets the unique rows
-    return [f"INSERT INTO PUBLISHER(Publisher_ID, Publisher_Name) VALUES ({abs(hash(pub))}, '{update_string(pub)}');" for pub in publishers]
-
-# get insert statements for warehouse
-def get_warehouse_inserts():
-    #since this data was not generated this is just a default warehouse value
-    default_warehouse = (1, 0, '123 Malibu Lane, Los Angeles, CA 11108')
-    return [f"INSERT INTO WAREHOUSE(Warehouse_No, Total_Books, Address) VALUES {default_warehouse};"]
+def get_publisher_inserts(data):
+    global publisher_id_map
+    inserts = []
+    for pub in data['Publisher'].unique():
+        pub_id = generate_unique_code('publisher')
+        publisher_id_map[pub] = pub_id
+        inserts.append(f"INSERT INTO PUBLISHER(Publisher_ID, Publisher_Name) VALUES ({pub_id}, '{update_string(pub)}');")
+    return inserts
 
 # get insert statements for products
-def get_product_inserts(df):
+def get_product_inserts(data):
     default_warehouse_no = 1
-    unique_books = df.drop_duplicates(subset=['ISBN']) #gets the unique book for each product
-    return [f"INSERT INTO PRODUCT(Item_Number, Warehouse_No, Transaction_ID, Price, Product_Type) VALUES ('{isbn}', {default_warehouse_no}, '', {price.replace('$', '').strip()}, '{update_string(category)}');" 
+    unique_books = data.drop_duplicates(subset=['ISBN'])
+    return [f"INSERT INTO PRODUCT(Item_Number, Warehouse_No, Price, Product_Type) VALUES ('{isbn}', {default_warehouse_no}, {price.replace('$', '')}, '{update_string(category)}');" 
             for isbn, price, category in zip(unique_books['ISBN'], unique_books['Price'], unique_books['Category'])]
 
-# gets SQL insert statements for books
-def get_book_inserts(df):
-    books = df.groupby('ISBN').first() #retrieves the author listed first
-    return [f"INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher, Author_ID) VALUES ('{isbn}', {abs(hash(publisher))}, '{isbn}', '{update_string(title)}', '{update_string(publisher)}', {abs(hash(authors))});" 
-            for isbn, title, publisher, authors in zip(books.index, books['Title'], books['Publisher'], books['Author(s)'])]
+# get insert statements for books
+def get_book_inserts(data):
+    book_inserts = []
+    joined_data = data.groupby('ISBN').agg({'Publisher': 'first', 'Title': 'first', 'Author(s)': '; '.join}).reset_index()
+    
+    for _, row in joined_data.iterrows():
+        author_ids = ' '.join(str(author_id_map[author]) for author in row['Author(s)'].split('; '))
+        publisher_id = publisher_id_map[row['Publisher']]
+        book_insert = (f"INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher, Author_ID) " f"VALUES ('{row['ISBN']}', {publisher_id}, '{row['ISBN']}', '{update_string(row['Title'])}', '{update_string(row['Publisher'])}', '{update_string(author_ids)}');")
+        book_inserts.append(book_insert)
+    
+    return book_inserts
 
-# reads the csv file and skips first row with book as the only value
+# read the CSV file and skip the first row with book as the only value
 input_data = pd.read_csv('data.csv', encoding='latin-1', skiprows=1)
 
-# updates data to handle case where there are multiple authors
+# update data to handle the case where there are multiple authors
 updated_data = add_previous_columns_to_author(input_data)
 
-# set the insert statements for each table
+# get the insert statements for each table
 author_table = get_author_inserts(updated_data)
 publisher_table = get_publisher_inserts(updated_data)
-warehouse_table = get_warehouse_inserts()
 product_table = get_product_inserts(updated_data)
 book_table = get_book_inserts(updated_data)
 
-# opens file in write mode
-with open('output.sql', 'w') as file: 
-    # write SQL insert statements for  author, publisher, warehouse, product, and book tables in a single line each
-    for inserts in [author_table, publisher_table, warehouse_table, product_table, book_table]:
+# output file with sql print statements
+with open('script_insert_output.txt', 'w') as file: 
+    for inserts in [author_table, publisher_table, product_table, book_table]:
         file.write('\n'.join(inserts) + '\n')
