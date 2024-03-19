@@ -1,0 +1,52 @@
+Find the titles of all books by Pratchett that cost less than $10
+
+SELECT B.Book_Title
+FROM BOOK as B, AUTHOR as A, PRODUCT as P
+WHERE B.Author_ID = A.Author_ID AND A.Author_Name = 'Terry Pratchett'
+AND B.Item_Number = P.Item_Number AND P.Price <= 10;
+
+
+Give all the titles and their dates of purchase made by a single customer (you choose how to designate the customer)
+
+SELECT B.Book_Title, P.Date
+FROM BOOK as B, PURCHASE as P, CUSTOMER as C
+WHERE C.Loyalty_No = P.Customer_ID AND 
+P.Product_Number = B.Item_Number
+LIMIT 1;
+
+
+Find the titles and ISBNs for all books with less than 5 copies in stock
+
+SELECT BOOK.Book_Title, BOOK.ISBN
+FROM BOOK, STORES_PRODUCT
+WHERE BOOK.Item_Number = STORES_PRODUCT.Item_Number AND
+STORES_PRODUCT.Quantity < 5;
+
+
+Give all the customers who purchased a book by Pratchett and the titles of Pratchett books they purchased
+
+SELECT C.First_Name, B.Book_Title
+FROM BOOK as B, CUSTOMER as C, AUTHOR as A, PURCHASE as P
+WHERE B.Author_ID = A.Author_ID AND A.Author_Name = 'Terry Pratchett'
+AND C.Loyalty_No = P.Customer_ID AND P.Product_Number = B.Item_Number;
+
+
+Find the total number of books purchased by a single customer (you choose how to designate the customer)
+
+SELECT COUNT(*)
+FROM BOOK as B, CUSTOMER as C, PURCHASE as P
+WHERE C.Loyalty_No = 1 AND P.Customer_ID = C.Loyalty_No 
+AND P.Product_Number = B.Item_Number
+GROUP BY C.Loyalty_No;
+
+
+Find the customer who has purchased the most books and the total number of books they have purchased
+
+SELECT MAX(NUM_COUNT) FROM (
+	SELECT COUNT(*) as NUM_COUNT
+	FROM BOOK as B, CUSTOMER as C, PURCHASE as P
+	WHERE P.Customer_ID = C.Loyalty_No 
+	AND P.Product_Number = B.Item_Number	
+	GROUP BY C.Loyalty_No
+);
+
