@@ -274,7 +274,7 @@ VALUES
 
 INSERT INTO WAREHOUSE(Warehouse_No, Total_Books, Address)
 VALUES
-(1, 1019, '3100 Hough Rd, Florence AL 35630'),
+(0, 1019, '3100 Hough Rd, Florence AL 35630'),
 (2, 201, '2200 South Mckenzie St, Foley AL 36535'),
 (3, 433, '2001 Glenn Bldv Sw, Fort Payne AL 35968'),
 (4, 1231, '340 East Meighan Blvd, Gadsden AL 35903'),
