@@ -63,12 +63,21 @@ def get_book_inserts(data):
     joined_data = data.groupby('ISBN').agg({'Publisher': 'first', 'Title': 'first', 'Author(s)': '; '.join}).reset_index()
     
     for _, row in joined_data.iterrows():
-        author_ids = ' '.join(str(author_id_map[author]) for author in row['Author(s)'].split('; '))
+        authors = row['Author(s)'].split('; ')
+        if len(authors) == 1:  # check if there's only one author
+            author_id = author_id_map[authors[0]]  # get the ID directly
+        else:
+            author_ids = ' '.join(str(author_id_map[author]) for author in authors)
         publisher_id = publisher_id_map[row['Publisher']]
-        book_insert = (f"INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher, Author_ID) " f"VALUES ('{row['ISBN']}', {publisher_id}, '{row['ISBN']}', '{update_string(row['Title'])}', '{update_string(row['Publisher'])}', '{update_string(author_ids)}');")
+        if len(authors) == 1:
+            book_insert = (f"INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher, Author_ID) " f"VALUES ('{row['ISBN']}', {publisher_id}, '{row['ISBN']}', '{update_string(row['Title'])}', '{update_string(row['Publisher'])}', '{author_id}');")
+        else:
+            book_insert = (f"INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher, Author_ID) " f"VALUES ('{row['ISBN']}', {publisher_id}, '{row['ISBN']}', '{update_string(row['Title'])}', '{update_string(row['Publisher'])}', '{update_string(author_ids)}');")
         book_inserts.append(book_insert)
     
     return book_inserts
+
+
 
 # read the CSV file and skip the first row with book as the only value
 input_data = pd.read_csv('data.csv', encoding='latin-1', skiprows=1)
