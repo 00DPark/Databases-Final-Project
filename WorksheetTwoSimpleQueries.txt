@@ -1,42 +1,42 @@
-Find the titles of all books by Pratchett that cost less than $10
+--Find the titles of all books by Pratchett that cost less than $10
 SELECT B.Book_Title
 FROM BOOK B, AUTHOR A, PRODUCT P, WRITTEN_BY W
-WHERE B.Item_Number= P.Item_Number AND W.Author_ID= A.Author_ID AND B.ISBN= W.ISBN AND A.Last_Name= 'Pratchett';
+WHERE B.Product_Number= P.Product_Number AND W.Author_ID= A.Author_ID AND B.ISBN= W.ISBN AND A.Last_Name= 'Pratchett';
 
-Give all the titles and their dates of purchase made by a single customer (you choose how to designate the customer)
+--Give all the titles and their dates of purchase made by a single customer (you choose how to designate the customer)
 SELECT B.Book_Title, P.Date
 FROM MAKES_PURCHASE M, PURCHASE P, BOOK B
-WHERE M.Transaction_ID= P.Transaction_ID AND B.Item_Number= P.Product_Number AND M.Loyalty_No= 21;
+WHERE M.Purchase_ID= P.Purchase_ID AND B.Product_Number= P.Product_Number AND M.Loyalty_No= 21;
 
-Find the titles and ISBNs for all books with less than 5 copies in stock
+
+--Find the titles and ISBNs for all books with less than 5 copies in stock
 SELECT BOOK.Book_Title, BOOK.ISBN
 FROM BOOK, STORES_PRODUCT
-WHERE BOOK.Item_Number = STORES_PRODUCT.Item_Number AND
+WHERE BOOK.Product_Number = STORES_PRODUCT.Product_Number AND
 STORES_PRODUCT.Quantity < 5;
 
-Give all the customers who purchased a book by Pratchett and the titles of Pratchett books they purchased
+
+--Give all the customers who purchased a book by Pratchett and the titles of Pratchett books they purchased
 SELECT CUSTOMER.First_Name, CUSTOMER.Last_Name, BOOK.Book_Title
 FROM BOOK, PURCHASE, AUTHOR, MAKES_PURCHASE, WRITTEN_BY, CUSTOMER
-WHERE BOOK.Item_Number= PURCHASE.Product_Number AND AUTHOR.Author_ID= WRITTEN_BY.Author_ID AND WRITTEN_BY.ISBN=BOOK.ISBN AND MAKES_PURCHASE.Loyalty_No=CUSTOMER.Loyalty_No AND AUTHOR.Last_Name= 'Pratchett' AND MAKES_PURCHASE.Transaction_ID= PURCHASE.Transaction_ID;
+WHERE BOOK.Product_Number= PURCHASE.Product_Number AND AUTHOR.Author_ID= WRITTEN_BY.Author_ID AND WRITTEN_BY.ISBN=BOOK.ISBN AND MAKES_PURCHASE.Loyalty_No=CUSTOMER.Loyalty_No AND AUTHOR.Last_Name= 'Pratchett' AND MAKES_PURCHASE.Purchase_ID= PURCHASE.Purchase_ID;
 
-Find the total number of books purchased by a single customer (you choose how to designate the customer)
+--Find the total number of books purchased by a single customer (you choose how to designate the customer)
 SELECT SUM(MAKES_PURCHASE.Quantity)
 FROM BOOK, PURCHASE, MAKES_PURCHASE, CUSTOMER
-WHERE BOOK.Item_Number= PURCHASE.Product_Number AND MAKES_PURCHASE.Loyalty_No=CUSTOMER.Loyalty_No AND MAKES_PURCHASE.Transaction_ID= PURCHASE.Transaction_ID AND CUSTOMER.Loyalty_No= 21;
+WHERE BOOK.Product_Number= PURCHASE.Product_Number AND MAKES_PURCHASE.Loyalty_No=CUSTOMER.Loyalty_No AND MAKES_PURCHASE.Purchase_ID= PURCHASE.Purchase_ID AND CUSTOMER.Loyalty_No= 21;
 
-Find the customer who has purchased the most books and the total number of books they have purchased
+--Find the customer who has purchased the most books and the total number of books they have purchased
 SELECT C.First_Name, C.Last_Name, SUM(MP.Quantity) AS Total_Books_Purchased
 FROM BOOK B, PURCHASE P, MAKES_PURCHASE MP, CUSTOMER C
-WHERE B.Item_Number = P.Product_Number 
+WHERE B.Product_Number = P.Product_Number 
 AND MP.Loyalty_No = C.Loyalty_No 
-AND MP.Transaction_ID = P.Transaction_ID 
+AND MP.Purchase_ID = P.Purchase_ID 
 AND C.Loyalty_No IN 
 (
     SELECT MP.Loyalty_No
     FROM MAKES_PURCHASE MP
     GROUP BY MP.Loyalty_No
-    ORDER BY COUNT(MP.Transaction_ID) DESC
+    ORDER BY COUNT(MP.Purchase_ID) DESC
     LIMIT 1
 );
-
-
