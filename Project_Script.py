@@ -1,4 +1,5 @@
 import pandas as pd
+
 # NOTES: 
 # The first row is skipped in the file since it just contains the word Book
 # Since the warehouse is not given, just placed it in a random warehouse
@@ -34,11 +35,58 @@ def generate_unique_code(entity_type):
 def get_author_inserts(data):
     global author_id_map
     inserts = []
-    for author in data['Author(s)'].unique():
-        author_id = generate_unique_code('author')
-        author_id_map[author] = author_id
-        inserts.append(f"INSERT INTO AUTHOR(Author_ID, Author_Name) VALUES ({author_id}, '{update_string(author)}');")
+    for index, row in data.iterrows():
+        authors = row['Author(s)'].split('; ')
+        for author in authors:
+            if author not in author_id_map:
+                names = author.split()
+                if len(names) == 1:
+                    first_name = update_string(names[0])
+                    middle_name = ''
+                    last_name = ''
+                elif len(names) == 2:
+                    first_name = update_string(names[0])
+                    middle_name = ''
+                    last_name = update_string(names[1])
+                else:
+                    first_name = update_string(names[0])
+                    middle_name = update_string(' '.join(names[1:-1]))
+                    last_name = update_string(names[-1])
+                author_id = generate_unique_code('author')
+                author_id_map[author] = author_id
+                inserts.append(f"INSERT INTO AUTHOR(Author_ID, First_Name, Middle_Name, Last_Name) VALUES ({author_id}, '{first_name}', '{middle_name}', '{last_name}');")
     return inserts
+
+# Get insert statements for authors
+def get_author_inserts(data):
+    global author_id_map
+    inserts = []
+    for index, row in data.iterrows():
+        authors = row['Author(s)'].split('; ')
+        for author in authors:
+            if author not in author_id_map:
+                author_id = generate_unique_code('author')
+                author_id_map[author] = author_id
+                inserts.append(get_author_insert_statement(author, author_id))
+    return inserts
+
+# get insert statements for author
+def get_author_insert_statement(author, author_id):
+    names = author.split()
+    if len(names) == 1:
+        first_name = update_string(names[0])
+        middle_name = ''
+        last_name = ''
+    elif len(names) == 2:
+        first_name = update_string(names[0])
+        middle_name = ''
+        last_name = update_string(names[1])
+    else:
+        first_name = update_string(names[0])
+        middle_name = update_string(' '.join(names[1:-1]))
+        last_name = update_string(names[-1])
+    return f"INSERT INTO AUTHOR(Author_ID, First_Name, Middle_Name, Last_Name) VALUES ({author_id}, '{first_name}', '{middle_name}', '{last_name}');"
+
 
 # get insert statements for publishers
 def get_publisher_inserts(data):
