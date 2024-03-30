@@ -1,6 +1,5 @@
 CREATE TABLE WAREHOUSE (
     Warehouse_No INT NOT NULL,
-    Total_Books INT NOT NULL DEFAULT 0,
     Address VARCHAR(100) NOT NULL,
     PRIMARY KEY (Warehouse_No)
 );
@@ -16,17 +15,14 @@ CREATE TABLE STORES_PRODUCT (
 
 CREATE TABLE PRODUCT (
     Product_Number INT NOT NULL,
-    Warehouse_No INT NOT NULL,
     Price DECIMAL(10, 2) NOT NULL DEFAULT 0.00,
     Product_Type VARCHAR(100) NOT NULL,
-    FOREIGN KEY (Warehouse_No) REFERENCES WAREHOUSE(Warehouse_No),
     PRIMARY KEY (Product_Number)
 
 );
 
 CREATE TABLE DRINK (
     Product_Number INT NOT NULL,
-    Warehouse_No INT NOT NULL,
     Purchase_ID INT NOT NULL,
     Price DECIMAL(10, 2) NOT NULL DEFAULT 0.00,
     Product_Type VARCHAR(100) NOT NULL,
@@ -38,7 +34,6 @@ CREATE TABLE DRINK (
 
 CREATE TABLE BOARD_GAME (
     Product_Number INT NOT NULL,
-    Warehouse_No INT NOT NULL,
     Purchase_ID INT NOT NULL,
     Price DECIMAL(10, 2) NOT NULL DEFAULT 0.00,
     Product_Type VARCHAR(100) NOT NULL,
@@ -271,28 +266,29 @@ VALUES
 (19, '474 Boston Post Road, North Windham CT 6256'),
 (20, '650 Main Ave, Norwalk CT 6851');
 
-INSERT INTO WAREHOUSE(Warehouse_No, Total_Books, Address)
+INSERT INTO WAREHOUSE(Warehouse_No, Address)
 VALUES
-(1, 1019, '3100 Hough Rd, Florence AL 35630'),
-(2, 201, '2200 South Mckenzie St, Foley AL 36535'),
-(3, 433, '2001 Glenn Bldv Sw, Fort Payne AL 35968'),
-(4, 1231, '340 East Meighan Blvd, Gadsden AL 35903'),
-(5, 521, '890 Odum Road, Gardendale AL 35071'),
-(6, 52112, '1608 W Magnolia Ave, Geneva AL 36340'),
-(7, 7999, '501 Willow Lane, Greenville AL 36037'),
-(8, 82, '170 Fort Morgan Road, Gulf Shores AL 36542'),
-(9, 3, '11697 US Hwy 431, Guntersville AL 35976'),
-(10, 50000, '42417 Hwy 195, Haleyville AL 35565'),
-(11, 212, '1706 Military Street South, Hamilton AL 35570'),
-(12, 1345, '1201 Hwy 31 NW, Hartselle AL 35640'),
-(13, 52, '209 Lakeshore Parkway, Homewood AL 35209'),
-(14, 1243, '2780 John Hawkins Pkwy, Hoover AL 35244'),
-(15, 0, '5335 Hwy 280 South, Hoover AL 35242'),
-(16, 3523, '1007 Red Farmer Drive, Hueytown AL 35023'),
-(17, 531, '2900 S Mem PkwyDrake Ave, Huntsville AL 35801'),
-(18, 53143, '11610 Memorial Pkwy South, Huntsville AL 35803'),
-(19, 215325, '1501 Skyland Blvd E, Tuscaloosa AL 35405'),
-(20, 69, '4538 Us Hwy 231, Wetumpka AL 36092');
+(1, '3100 Hough Rd, Florence AL 35630'),
+(2, '2200 South Mckenzie St, Foley AL 36535'),
+(3, '2001 Glenn Bldv Sw, Fort Payne AL 35968'),
+(4, '340 East Meighan Blvd, Gadsden AL 35903'),
+(5, '890 Odum Road, Gardendale AL 35071'),
+(6, '1608 W Magnolia Ave, Geneva AL 36340'),
+(7, '501 Willow Lane, Greenville AL 36037'),
+(8, '170 Fort Morgan Road, Gulf Shores AL 36542'),
+(9, '11697 US Hwy 431, Guntersville AL 35976'),
+(10, '42417 Hwy 195, Haleyville AL 35565'),
+(11, '1706 Military Street South, Hamilton AL 35570'),
+(12,  '1201 Hwy 31 NW, Hartselle AL 35640'),
+(13,'209 Lakeshore Parkway, Homewood AL 35209'),
+(14, '2780 John Hawkins Pkwy, Hoover AL 35244'),
+(15, '5335 Hwy 280 South, Hoover AL 35242'),
+(16, '1007 Red Farmer Drive, Hueytown AL 35023'),
+(17,  '2900 S Mem PkwyDrake Ave, Huntsville AL 35801'),
+(18, '11610 Memorial Pkwy South, Huntsville AL 35803'),
+(19, '1501 Skyland Blvd E, Tuscaloosa AL 35405'),
+(20, '4538 Us Hwy 231, Wetumpka AL 36092'),
+(21, '1610 South Lane, Aurora CO 32803');
 
 INSERT INTO PUBLISHER(Publisher_ID, Publisher_NAME)
 VALUES
@@ -317,28 +313,28 @@ VALUES
 (19, 'Goerdell Incompleteness Press'),
 (20, 'Paperback Press');
 
-INSERT INTO PRODUCT(Product_Number, Warehouse_No, Price, Product_Type)
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type)
 VALUES
-(1, 1, 1.00, "Drink"),
-(2, 2, 1.00, "Drink"),
-(3, 3, 1.00, "Drink"),
-(4, 4, 1.00, "Drink"),
-(5, 5, 1.00, "Drink"),
-(6, 6, 1.00, "Drink"),
-(7, 7, 1.00, "Drink"),
-(8, 8, 1.00, "Drink"),
-(9, 9, 1.00, "Drink"),
-(10, 10, 12.00, "Book"),
-(11, 11, 12.00, "Book"),
-(12, 12, 12.29, "Book"),
-(13, 13, 15.72, "Book"),
-(14, 14, 16.92, "Book"),
-(15, 15, 20.34, "Board Game"),
-(16, 16, 22.84, "Board Game"),
-(17, 17, 29.31,  "Board Game"),
-(18, 18, 31.50, "Board Game"),
-(19, 19, 10.10, "Board Game"),
-(20, 20, 9.99, "Board Game");
+(1, 1.00, "Drink"),
+(2, 1.00, "Drink"),
+(3, 1.00, "Drink"),
+(4, 1.00, "Drink"),
+(5, 1.00, "Drink"),
+(6, 1.00, "Drink"),
+(7, 1.00, "Drink"),
+(8, 1.00, "Drink"),
+(9, 1.00, "Drink"),
+(10, 12.00, "Book"),
+(11, 12.00, "Book"),
+(12, 12.29, "Book"),
+(13, 15.72, "Book"),
+(14, 16.92, "Book"),
+(15, 20.34, "Board Game"),
+(16, 22.84, "Board Game"),
+(17, 29.31,  "Board Game"),
+(18, 31.50, "Board Game"),
+(19, 10.10, "Board Game"),
+(20, 9.99, "Board Game");
 
 INSERT INTO DEPARTMENT(Dept_No, Store_ID, Dept_Name, Dept_Address)
 VALUES
@@ -678,40 +674,40 @@ VALUES
 (80, 20); 
 
 
-INSERT INTO PRODUCT(Product_Number, Warehouse_No, Price, Product_Type)
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type)
 VALUES
-(21, 1, 1.53, "Drink"),
-(22, 2, 1.82, "Drink"),
-(23, 3, 1.34, "Drink"),
-(24, 4, 1.30, "Drink"),
-(25, 5, 1.08, "Drink"),
-(26, 6, 1.02, "Drink"),
-(27, 7, 1.13, "Drink"),
-(28, 8, 1.60, "Drink"),
-(29, 9, 1.30, "Drink"),
-(30, 10, 1.50, "Drink"),
-(31, 3, 1.50, 'Drink'),
-(32, 5,  20.00, "Board Game"),
-(33, 5, 20.00, "Board Game"),
-(34, 5, 20.00, "Board Game"),
-(35, 5, 20.00, "Board Game"),
-(36, 5, 20.00, "Board Game"),
-(37, 5, 20.00, "Board Game"),
-(38, 5, 20.00, "Board Game"),
-(39, 5, 20.00, "Board Game"),
-(40, 5, 20.00, "Board Game"),
-(41, 5, 20.00, "Board Game"),
-(42, 5, 20.00, "Board Game"),
-(43, 5, 20.00, "Board Game"),
-(44, 5, 20.00, "Board Game"),
-(45, 5, 20.00, "Board Game"),
-(46, 5, 20.00, "Board Game"),
-(47, 5, 20.00, "Board Game"),
-(48, 5, 20.00, "Board Game"),
-(49, 5, 20.00, "Board Game"),
-(50, 5, 20.00, "Board Game"),
-(51, 5, 20.00, "Board Game"),
-(52, 5, 20.00, "Board Game");
+(21, 1.53, "Drink"),
+(22, 1.82, "Drink"),
+(23, 1.34, "Drink"),
+(24, 1.30, "Drink"),
+(25, 1.08, "Drink"),
+(26, 1.02, "Drink"),
+(27,  1.13, "Drink"),
+(28,  1.60, "Drink"),
+(29, 1.30, "Drink"),
+(30,  1.50, "Drink"),
+(31, 1.50, 'Drink'),
+(32,  20.00, "Board Game"),
+(33, 20.00, "Board Game"),
+(34, 20.00, "Board Game"),
+(35, 20.00, "Board Game"),
+(36, 20.00, "Board Game"),
+(37, 20.00, "Board Game"),
+(38, 20.00, "Board Game"),
+(39, 20.00, "Board Game"),
+(40, 20.00, "Board Game"),
+(41, 20.00, "Board Game"),
+(42, 20.00, "Board Game"),
+(43, 20.00, "Board Game"),
+(44, 20.00, "Board Game"),
+(45, 20.00, "Board Game"),
+(46, 20.00, "Board Game"),
+(47, 20.00, "Board Game"),
+(48, 20.00, "Board Game"),
+(49, 20.00, "Board Game"),
+(50, 20.00, "Board Game"),
+(51, 20.00, "Board Game"),
+(52, 20.00, "Board Game");
 
 INSERT INTO PURCHASE(Purchase_ID, Shopping_Address, Billing_Address, Payment_Method, Date, Product_Number)
 VALUES
@@ -738,54 +734,54 @@ VALUES
 (21, '70 Pleasant Valley Street, Methuen MA 1844', '70 Pleasant Valley Street, Methuen MA 1844', 'CASH', 2022-06-05, 21);
 
 
-INSERT INTO DRINK(Product_Number, Warehouse_No, Purchase_ID, Price, Product_Type, Drink_Type)
+INSERT INTO DRINK(Product_Number, Purchase_ID, Price, Product_Type, Drink_Type)
 VALUES
-(1, 1, 1, 1.00, 'Drink', 'Sprite'),
-(2, 2, 2, 1.00, 'Drink', 'Coke'),
-(3, 3, 3, 1.00, 'Drink', 'Sprite'),
-(4, 4, 4, 1.00, 'Drink' , 'Sprite'),
-(5, 5, 5, 1.00, 'Drink' , 'Sprite'),
-(6, 6, 6, 1.00, 'Drink', 'Ginger Ale'),
-(7, 7, 7, 1.00, 'Drink', 'Diet Coke'),
-(8, 8, 8, 1.00, 'Drink', 'Diet Coke'),
-(9, 9, 9,1.00, 'Drink', 'Mountain Dew'),
-(21, 1, 11, 1.53, 'Drink', 'Pink Lemonade'),
-(22, 2,  12, 1.82, 'Drink', 'Orange Crush'),
-(23, 3, 13, 1.34, 'Drink', 'Two Percent Milk'),
-(24, 4, 14, 1.30, 'Drink', 'Low Fat Milk'),
-(25, 5, 15, 1.08, 'Drink', 'Whole Milk'),
-(26, 6, 16, 1.02, 'Drink', 'Water'),
-(27, 7, 17, 1.13, 'Drink', 'Zero Sugar Sprite'),
-(28, 8, 18, 1.60, 'Drink', 'Sprite Cranberry'),
-(29, 9, 19, 1.30, 'Drink', 'Fanta Orange'),
-(30, 10, 20, 1.50, 'Drink', 'Pepsi'),
-(31, 10, 20, 1.50, 'Drink', 'Pepsi');
+(1, 1, 1.00, 'Drink', 'Sprite'),
+(2, 2, 1.00, 'Drink', 'Coke'),
+(3, 3, 1.00, 'Drink', 'Sprite'),
+(4, 4, 1.00, 'Drink' , 'Sprite'),
+(5, 5, 1.00, 'Drink' , 'Sprite'),
+(6, 6, 1.00, 'Drink', 'Ginger Ale'),
+(7, 7, 1.00, 'Drink', 'Diet Coke'),
+(8, 8, 1.00, 'Drink', 'Diet Coke'),
+(9, 9,1.00, 'Drink', 'Mountain Dew'),
+(21, 11, 1.53, 'Drink', 'Pink Lemonade'),
+(22,  12, 1.82, 'Drink', 'Orange Crush'),
+(23, 13, 1.34, 'Drink', 'Two Percent Milk'),
+(24, 14, 1.30, 'Drink', 'Low Fat Milk'),
+(25, 15, 1.08, 'Drink', 'Whole Milk'),
+(26, 16, 1.02, 'Drink', 'Water'),
+(27, 17, 1.13, 'Drink', 'Zero Sugar Sprite'),
+(28, 18, 1.60, 'Drink', 'Sprite Cranberry'),
+(29, 19, 1.30, 'Drink', 'Fanta Orange'),
+(30, 20, 1.50, 'Drink', 'Pepsi'),
+(31,  20, 1.50, 'Drink', 'Pepsi');
 
 
 
-INSERT INTO BOARD_GAME(Product_Number, Warehouse_No, Purchase_ID, Price, Product_Type, Game_Type)
+INSERT INTO BOARD_GAME(Product_Number, Purchase_ID, Price, Product_Type, Game_Type)
 VALUES
-(32, 5, 11, 20.00, "Board Game", 'Monopoly'),
-(33, 5, 11,20.00, "Board Game", 'Monopoly'),
-(34, 5, 11,20.00, "Board Game", 'Monopoly'),
-(35, 5,11, 20.00, "Board Game", 'Monopoly'),
-(36, 5,11, 20.00, "Board Game", 'Monopoly'),
-(37, 5,11, 20.00, "Board Game", 'Monopoly'),
-(38, 5, 11,20.00, "Board Game", 'Monopoly'),
-(39, 5, 11,20.00, "Board Game", 'Monopoly'),
-(40, 5, 11,20.00, "Board Game", 'Monopoly'),
-(41, 5, 11,20.00, "Board Game", 'Monopoly'),
-(42, 5, 11,20.00, "Board Game", 'Monopoly'),
-(43, 5,11, 20.00, "Board Game", 'Monopoly'),
-(44, 5, 11,20.00, "Board Game", 'Monopoly'),
-(45, 5,11, 20.00, "Board Game", 'Monopoly'),
-(46, 5,11, 20.00, "Board Game", 'Monopoly'),
-(47, 5, 11,20.00, "Board Game", 'Monopoly'),
-(48, 5,11, 20.00, "Board Game", 'Monopoly'),
-(49, 5,11, 20.00, "Board Game", 'Monopoly'),
-(50, 5, 11,20.00, "Board Game", 'Monopoly'),
-(51, 5,11, 20.00, "Board Game", 'Monopoly'),
-(52, 5,11, 20.00, "Board Game", 'Monopoly');
+(32, 11, 20.00, "Board Game", 'Monopoly'),
+(33, 11,20.00, "Board Game", 'Monopoly'),
+(34, 11,20.00, "Board Game", 'Monopoly'),
+(35,11, 20.00, "Board Game", 'Monopoly'),
+(36,11, 20.00, "Board Game", 'Monopoly'),
+(37, 11, 20.00, "Board Game", 'Monopoly'),
+(38,  11,20.00, "Board Game", 'Monopoly'),
+(39,  11,20.00, "Board Game", 'Monopoly'),
+(40,  11,20.00, "Board Game", 'Monopoly'),
+(41,  11,20.00, "Board Game", 'Monopoly'),
+(42,  11,20.00, "Board Game", 'Monopoly'),
+(43, 11, 20.00, "Board Game", 'Monopoly'),
+(44, 11,20.00, "Board Game", 'Monopoly'),
+(45,11, 20.00, "Board Game", 'Monopoly'),
+(46,11, 20.00, "Board Game", 'Monopoly'),
+(47,  11,20.00, "Board Game", 'Monopoly'),
+(48, 11, 20.00, "Board Game", 'Monopoly'),
+(49,11, 20.00, "Board Game", 'Monopoly'),
+(50, 11,20.00, "Board Game", 'Monopoly'),
+(51,11, 20.00, "Board Game", 'Monopoly'),
+(52, 11, 20.00, "Board Game", 'Monopoly');
 
 INSERT INTO STORES_PRODUCT(Warehouse_No, Product_Number, Quantity) 
 VALUES
@@ -1035,114 +1031,114 @@ INSERT INTO PUBLISHER(Publisher_ID, Publisher_Name) VALUES (560, 'Putnam Pub Gro
 INSERT INTO PUBLISHER(Publisher_ID, Publisher_Name) VALUES (561, 'Silhouette');
 INSERT INTO PUBLISHER(Publisher_ID, Publisher_Name) VALUES (562, 'Lark Books');
 INSERT INTO PUBLISHER(Publisher_ID, Publisher_Name) VALUES (563, 'Harper');
-INSERT INTO PRODUCT(Product_Number, Warehouse_No, Price, Product_Type) VALUES ('0782140661', 1, 104.97, 'Computer');
-INSERT INTO PRODUCT(Product_Number, Warehouse_No, Price, Product_Type) VALUES ('0072227885', 1, 34.99, 'Computer');
-INSERT INTO PRODUCT(Product_Number, Warehouse_No, Price, Product_Type) VALUES ('0471200247', 1, 50.00, 'Computer');
-INSERT INTO PRODUCT(Product_Number, Warehouse_No, Price, Product_Type) VALUES ('0072227710', 1, 17.49, 'Computer');
-INSERT INTO PRODUCT(Product_Number, Warehouse_No, Price, Product_Type) VALUES ('1558605525', 1, 49.95, 'Computer');
-INSERT INTO PRODUCT(Product_Number, Warehouse_No, Price, Product_Type) VALUES ('0972263608', 1, 99.00, 'Computer');
-INSERT INTO PRODUCT(Product_Number, Warehouse_No, Price, Product_Type) VALUES ('0201615762', 1, 38.49, 'Computer');
-INSERT INTO PRODUCT(Product_Number, Warehouse_No, Price, Product_Type) VALUES ('0782140114', 1, 69.99, 'Computer');
-INSERT INTO PRODUCT(Product_Number, Warehouse_No, Price, Product_Type) VALUES ('0321125169', 1, 38.49, 'Computer');
-INSERT INTO PRODUCT(Product_Number, Warehouse_No, Price, Product_Type) VALUES ('0805317554', 1, 95.00, 'Computer');
-INSERT INTO PRODUCT(Product_Number, Warehouse_No, Price, Product_Type) VALUES ('1861004486', 1, 41.99, 'Computer');
-INSERT INTO PRODUCT(Product_Number, Warehouse_No, Price, Product_Type) VALUES ('0735712123', 1, 34.99, 'Computer');
-INSERT INTO PRODUCT(Product_Number, Warehouse_No, Price, Product_Type) VALUES ('0425188361', 1, 16.07, 'Literature & Fiction');
-INSERT INTO PRODUCT(Product_Number, Warehouse_No, Price, Product_Type) VALUES ('0142001740', 1, 14.00, 'Literature & Fiction');
-INSERT INTO PRODUCT(Product_Number, Warehouse_No, Price, Product_Type) VALUES ('0596004478', 1, 24.95, 'Computer');
-INSERT INTO PRODUCT(Product_Number, Warehouse_No, Price, Product_Type) VALUES ('0071414339', 1, 18.95, 'Accounting & Finance');
-INSERT INTO PRODUCT(Product_Number, Warehouse_No, Price, Product_Type) VALUES ('0312311354', 1, 13.00, 'Literature & Fiction');
-INSERT INTO PRODUCT(Product_Number, Warehouse_No, Price, Product_Type) VALUES ('0312287941', 1, 25.95, 'Literature & Fiction');
-INSERT INTO PRODUCT(Product_Number, Warehouse_No, Price, Product_Type) VALUES ('0312243022', 1, 3.44, 'Literature & Fiction');
-INSERT INTO PRODUCT(Product_Number, Warehouse_No, Price, Product_Type) VALUES ('0609610570', 1, 27.50, 'Reference');
-INSERT INTO PRODUCT(Product_Number, Warehouse_No, Price, Product_Type) VALUES ('0316602051', 1, 27.95, 'Literature & Fiction');
-INSERT INTO PRODUCT(Product_Number, Warehouse_No, Price, Product_Type) VALUES ('0743222008', 1, 25.00, 'Literature & Fiction');
-INSERT INTO PRODUCT(Product_Number, Warehouse_No, Price, Product_Type) VALUES ('0066214750', 1, 25.95, 'Literature & Fiction');
-INSERT INTO PRODUCT(Product_Number, Warehouse_No, Price, Product_Type) VALUES ('0787960756', 1, 13.20, 'Accounting & Finance');
-INSERT INTO PRODUCT(Product_Number, Warehouse_No, Price, Product_Type) VALUES ('0743206061', 1, 26.00, 'Accounting & Finance');
-INSERT INTO PRODUCT(Product_Number, Warehouse_No, Price, Product_Type) VALUES ('1590520734', 1, 12.99, 'Romance');
-INSERT INTO PRODUCT(Product_Number, Warehouse_No, Price, Product_Type) VALUES ('0060934417', 1, 13.95, 'Romance');
-INSERT INTO PRODUCT(Product_Number, Warehouse_No, Price, Product_Type) VALUES ('0440237556', 1, 6.99, 'Romance');
-INSERT INTO PRODUCT(Product_Number, Warehouse_No, Price, Product_Type) VALUES ('0373272839', 1, 4.75, 'Romance');
-INSERT INTO PRODUCT(Product_Number, Warehouse_No, Price, Product_Type) VALUES ('0670031518', 1, 27.95, 'Science');
-INSERT INTO PRODUCT(Product_Number, Warehouse_No, Price, Product_Type) VALUES ('0738206679', 1, 26.00, 'Science');
-INSERT INTO PRODUCT(Product_Number, Warehouse_No, Price, Product_Type) VALUES ('067976867X', 1, 15.00, 'Science');
-INSERT INTO PRODUCT(Product_Number, Warehouse_No, Price, Product_Type) VALUES ('0679450785', 1, 22.00, 'Science');
-INSERT INTO PRODUCT(Product_Number, Warehouse_No, Price, Product_Type) VALUES ('1579550088', 1, 44.95, 'Science');
-INSERT INTO PRODUCT(Product_Number, Warehouse_No, Price, Product_Type) VALUES ('0684843285', 1, 22.00, 'Science');
-INSERT INTO PRODUCT(Product_Number, Warehouse_No, Price, Product_Type) VALUES ('0471358983', 1, 40.00, 'Home Design');
-INSERT INTO PRODUCT(Product_Number, Warehouse_No, Price, Product_Type) VALUES ('0394739698', 1, 24.95, 'Home Design');
-INSERT INTO PRODUCT(Product_Number, Warehouse_No, Price, Product_Type) VALUES ('1586851322', 1, 39.95, 'Home Design');
-INSERT INTO PRODUCT(Product_Number, Warehouse_No, Price, Product_Type) VALUES ('1586851357', 1, 60.00, 'Home Design');
-INSERT INTO PRODUCT(Product_Number, Warehouse_No, Price, Product_Type) VALUES ('156158648X', 1, 24.95, 'Home Design');
-INSERT INTO PRODUCT(Product_Number, Warehouse_No, Price, Product_Type) VALUES ('0865659982', 1, 50.00, 'Home Design');
-INSERT INTO PRODUCT(Product_Number, Warehouse_No, Price, Product_Type) VALUES ('0517576600', 1, 50.00, 'Home Design');
-INSERT INTO PRODUCT(Product_Number, Warehouse_No, Price, Product_Type) VALUES ('0262024829', 1, 70.00, 'Accounting & Finance');
-INSERT INTO PRODUCT(Product_Number, Warehouse_No, Price, Product_Type) VALUES ('0072294337', 1, 122.50, 'Accounting & Finance');
-INSERT INTO PRODUCT(Product_Number, Warehouse_No, Price, Product_Type) VALUES ('0072315318', 1, 79.20, 'Accounting & Finance');
-INSERT INTO PRODUCT(Product_Number, Warehouse_No, Price, Product_Type) VALUES ('0324107501', 1, 112.95, 'Accounting & Finance');
-INSERT INTO PRODUCT(Product_Number, Warehouse_No, Price, Product_Type) VALUES ('0471363049', 1, 139.20, 'Accounting & Finance');
-INSERT INTO PRODUCT(Product_Number, Warehouse_No, Price, Product_Type) VALUES ('0130323519', 1, 126.67, 'Accounting & Finance');
-INSERT INTO PRODUCT(Product_Number, Warehouse_No, Price, Product_Type) VALUES ('0446527793', 1, 24.95, 'Literature & Fiction');
-INSERT INTO PRODUCT(Product_Number, Warehouse_No, Price, Product_Type) VALUES ('0743244249', 1, 25.00, 'Literature & Fiction');
-INSERT INTO PRODUCT(Product_Number, Warehouse_No, Price, Product_Type) VALUES ('0743467523', 1, 7.99, 'Horror');
-INSERT INTO PRODUCT(Product_Number, Warehouse_No, Price, Product_Type) VALUES ('0375703764', 1, 19.95, 'Horror');
-INSERT INTO PRODUCT(Product_Number, Warehouse_No, Price, Product_Type) VALUES ('0345452089', 1, 6.99, 'Horror');
-INSERT INTO PRODUCT(Product_Number, Warehouse_No, Price, Product_Type) VALUES ('0385504470', 1, 17.47, 'Horror');
-INSERT INTO PRODUCT(Product_Number, Warehouse_No, Price, Product_Type) VALUES ('0312276702', 1, 24.95, 'Horror');
-INSERT INTO PRODUCT(Product_Number, Warehouse_No, Price, Product_Type) VALUES ('0743457358', 1, 7.99, 'Horror');
-INSERT INTO PRODUCT(Product_Number, Warehouse_No, Price, Product_Type) VALUES ('1880418568', 1, 35.00, 'Horror');
-INSERT INTO PRODUCT(Product_Number, Warehouse_No, Price, Product_Type) VALUES ('0743455967', 1, 7.99, 'Horror');
-INSERT INTO PRODUCT(Product_Number, Warehouse_No, Price, Product_Type) VALUES ('0140077022', 1, 14.00, 'Literature & Fiction');
-INSERT INTO PRODUCT(Product_Number, Warehouse_No, Price, Product_Type) VALUES ('0679722955', 1, 11.20, 'Literature & Fiction');
-INSERT INTO PRODUCT(Product_Number, Warehouse_No, Price, Product_Type) VALUES ('0684848155', 1, 16.00, 'Literature & Fiction');
-INSERT INTO PRODUCT(Product_Number, Warehouse_No, Price, Product_Type) VALUES ('0471286168', 1, 39.95, 'Home Design');
-INSERT INTO PRODUCT(Product_Number, Warehouse_No, Price, Product_Type) VALUES ('0471288217', 1, 39.95, 'Home Design');
-INSERT INTO PRODUCT(Product_Number, Warehouse_No, Price, Product_Type) VALUES ('0156006219', 1, 13.00, 'Romance');
-INSERT INTO PRODUCT(Product_Number, Warehouse_No, Price, Product_Type) VALUES ('0060540753', 1, 13.95, 'Romance');
-INSERT INTO PRODUCT(Product_Number, Warehouse_No, Price, Product_Type) VALUES ('0393318486', 1, 17.95, 'Science');
-INSERT INTO PRODUCT(Product_Number, Warehouse_No, Price, Product_Type) VALUES ('0060958332', 1, 10.50, 'Science');
-INSERT INTO PRODUCT(Product_Number, Warehouse_No, Price, Product_Type) VALUES ('0060958405', 1, 15.00, 'Science');
-INSERT INTO PRODUCT(Product_Number, Warehouse_No, Price, Product_Type) VALUES ('0393319407', 1, 16.95, 'Science');
-INSERT INTO PRODUCT(Product_Number, Warehouse_No, Price, Product_Type) VALUES ('067463442X', 1, 18.95, 'Science');
-INSERT INTO PRODUCT(Product_Number, Warehouse_No, Price, Product_Type) VALUES ('0446608955', 1, 6.99, 'Literature & Fiction');
-INSERT INTO PRODUCT(Product_Number, Warehouse_No, Price, Product_Type) VALUES ('0446676098', 1, 12.95, 'Literature & Fiction');
-INSERT INTO PRODUCT(Product_Number, Warehouse_No, Price, Product_Type) VALUES ('0446606812', 1, 7.50, 'Literature & Fiction');
-INSERT INTO PRODUCT(Product_Number, Warehouse_No, Price, Product_Type) VALUES ('0262521415', 1, 35.00, 'Accounting & Finance');
-INSERT INTO PRODUCT(Product_Number, Warehouse_No, Price, Product_Type) VALUES ('0262232197', 1, 74.95, 'Accounting & Finance');
-INSERT INTO PRODUCT(Product_Number, Warehouse_No, Price, Product_Type) VALUES ('0324113641', 1, 107.95, 'Accounting & Finance');
-INSERT INTO PRODUCT(Product_Number, Warehouse_No, Price, Product_Type) VALUES ('0471391123', 1, 50.00, 'Accounting & Finance');
-INSERT INTO PRODUCT(Product_Number, Warehouse_No, Price, Product_Type) VALUES ('0130998516', 1, 83.00, 'Computer');
-INSERT INTO PRODUCT(Product_Number, Warehouse_No, Price, Product_Type) VALUES ('1565924916', 1, 39.95, 'Computer');
-INSERT INTO PRODUCT(Product_Number, Warehouse_No, Price, Product_Type) VALUES ('0735712360', 1, 39.99, 'Computer');
-INSERT INTO PRODUCT(Product_Number, Warehouse_No, Price, Product_Type) VALUES ('0735712379', 1, 39.99, 'Computer');
-INSERT INTO PRODUCT(Product_Number, Warehouse_No, Price, Product_Type) VALUES ('0735713170', 1, 29.99, 'Computer');
-INSERT INTO PRODUCT(Product_Number, Warehouse_No, Price, Product_Type) VALUES ('1558606432', 1, 34.95, 'Computer');
-INSERT INTO PRODUCT(Product_Number, Warehouse_No, Price, Product_Type) VALUES ('0072222743', 1, 59.99, 'Computer');
-INSERT INTO PRODUCT(Product_Number, Warehouse_No, Price, Product_Type) VALUES ('0345409469', 1, 14.95, 'Science');
-INSERT INTO PRODUCT(Product_Number, Warehouse_No, Price, Product_Type) VALUES ('0375508325', 1, 35.00, 'Science');
-INSERT INTO PRODUCT(Product_Number, Warehouse_No, Price, Product_Type) VALUES ('0345336895', 1, 6.99, 'Science');
-INSERT INTO PRODUCT(Product_Number, Warehouse_No, Price, Product_Type) VALUES ('0671004107', 1, 7.99, 'Science');
-INSERT INTO PRODUCT(Product_Number, Warehouse_No, Price, Product_Type) VALUES ('0345376595', 1, 12.95, 'Science');
-INSERT INTO PRODUCT(Product_Number, Warehouse_No, Price, Product_Type) VALUES ('0316666343', 1, 21.95, 'Literature & Fiction');
-INSERT INTO PRODUCT(Product_Number, Warehouse_No, Price, Product_Type) VALUES ('0316096199', 1, 11.95, 'Literature & Fiction');
-INSERT INTO PRODUCT(Product_Number, Warehouse_No, Price, Product_Type) VALUES ('038572179X', 1, 14.00, 'Literature & Fiction');
-INSERT INTO PRODUCT(Product_Number, Warehouse_No, Price, Product_Type) VALUES ('0385494246', 1, 12.00, 'Literature & Fiction');
-INSERT INTO PRODUCT(Product_Number, Warehouse_No, Price, Product_Type) VALUES ('0385494327', 1, 14.00, 'Literature & Fiction');
-INSERT INTO PRODUCT(Product_Number, Warehouse_No, Price, Product_Type) VALUES ('0385494149', 1, 13.00, 'Literature & Fiction');
-INSERT INTO PRODUCT(Product_Number, Warehouse_No, Price, Product_Type) VALUES ('0399149848', 1, 25.95, 'Literature & Fiction');
-INSERT INTO PRODUCT(Product_Number, Warehouse_No, Price, Product_Type) VALUES ('0373218192', 1, 7.50, 'Literature & Fiction');
-INSERT INTO PRODUCT(Product_Number, Warehouse_No, Price, Product_Type) VALUES ('0373218257', 1, 14.95, 'Literature & Fiction');
-INSERT INTO PRODUCT(Product_Number, Warehouse_No, Price, Product_Type) VALUES ('0399149392', 1, 25.95, 'Literature & Fiction');
-INSERT INTO PRODUCT(Product_Number, Warehouse_No, Price, Product_Type) VALUES ('1561584029', 1, 39.95, 'Home Design');
-INSERT INTO PRODUCT(Product_Number, Warehouse_No, Price, Product_Type) VALUES ('1579902944', 1, 19.95, 'Home Design');
-INSERT INTO PRODUCT(Product_Number, Warehouse_No, Price, Product_Type) VALUES ('1561586196', 1, 19.95, 'Home Design');
-INSERT INTO PRODUCT(Product_Number, Warehouse_No, Price, Product_Type) VALUES ('0061092177', 1, 7.99, 'Fantasy');
-INSERT INTO PRODUCT(Product_Number, Warehouse_No, Price, Product_Type) VALUES ('0060502935', 1, 7.99, 'Fantasy');
-INSERT INTO PRODUCT(Product_Number, Warehouse_No, Price, Product_Type) VALUES ('0061020656', 1, 7.99, 'Fantasy');
-INSERT INTO PRODUCT(Product_Number, Warehouse_No, Price, Product_Type) VALUES ('0060855925', 1, 13.99, 'Fantasy');
-INSERT INTO PRODUCT(Product_Number, Warehouse_No, Price, Product_Type) VALUES ('0061020648', 1, 7.99, 'Fantasy');
-INSERT INTO PRODUCT(Product_Number, Warehouse_No, Price, Product_Type) VALUES ('0061161721', 1, 7.99, 'Fantasy');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0782140661', 104.97, 'Computer');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0072227885', 34.99, 'Computer');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0471200247', 50.00, 'Computer');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0072227710', 17.49, 'Computer');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('1558605525', 49.95, 'Computer');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0972263608', 99.00, 'Computer');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0201615762', 38.49, 'Computer');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0782140114', 69.99, 'Computer');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0321125169', 38.49, 'Computer');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0805317554', 95.00, 'Computer');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('1861004486', 41.99, 'Computer');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0735712123', 34.99, 'Computer');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0425188361', 16.07, 'Literature & Fiction');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0142001740', 14.00, 'Literature & Fiction');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0596004478', 24.95, 'Computer');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0071414339', 18.95, 'Accounting & Finance');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0312311354', 13.00, 'Literature & Fiction');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0312287941', 25.95, 'Literature & Fiction');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0312243022', 3.44, 'Literature & Fiction');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0609610570', 27.50, 'Reference');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0316602051', 27.95, 'Literature & Fiction');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0743222008', 25.00, 'Literature & Fiction');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0066214750', 25.95, 'Literature & Fiction');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0787960756', 13.20, 'Accounting & Finance');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0743206061', 26.00, 'Accounting & Finance');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('1590520734', 12.99, 'Romance');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0060934417', 13.95, 'Romance');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0440237556', 6.99, 'Romance');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0373272839', 4.75, 'Romance');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0670031518', 27.95, 'Science');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0738206679', 26.00, 'Science');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('067976867X', 15.00, 'Science');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0679450785', 22.00, 'Science');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('1579550088', 44.95, 'Science');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0684843285', 22.00, 'Science');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0471358983', 40.00, 'Home Design');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0394739698', 24.95, 'Home Design');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('1586851322', 39.95, 'Home Design');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('1586851357', 60.00, 'Home Design');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('156158648X', 24.95, 'Home Design');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0865659982', 50.00, 'Home Design');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0517576600', 50.00, 'Home Design');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0262024829', 70.00, 'Accounting & Finance');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0072294337', 122.50, 'Accounting & Finance');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0072315318', 79.20, 'Accounting & Finance');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0324107501', 112.95, 'Accounting & Finance');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0471363049', 139.20, 'Accounting & Finance');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0130323519', 126.67, 'Accounting & Finance');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0446527793', 24.95, 'Literature & Fiction');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0743244249', 25.00, 'Literature & Fiction');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0743467523', 7.99, 'Horror');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0375703764', 19.95, 'Horror');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0345452089', 6.99, 'Horror');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0385504470', 17.47, 'Horror');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0312276702', 24.95, 'Horror');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0743457358', 7.99, 'Horror');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('1880418568', 35.00, 'Horror');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0743455967', 7.99, 'Horror');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0140077022', 14.00, 'Literature & Fiction');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0679722955', 11.20, 'Literature & Fiction');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0684848155', 16.00, 'Literature & Fiction');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0471286168', 39.95, 'Home Design');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0471288217', 39.95, 'Home Design');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0156006219', 13.00, 'Romance');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0060540753', 13.95, 'Romance');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0393318486', 17.95, 'Science');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0060958332', 10.50, 'Science');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0060958405', 15.00, 'Science');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0393319407', 16.95, 'Science');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('067463442X', 18.95, 'Science');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0446608955', 6.99, 'Literature & Fiction');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0446676098', 12.95, 'Literature & Fiction');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0446606812', 7.50, 'Literature & Fiction');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0262521415', 35.00, 'Accounting & Finance');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0262232197', 74.95, 'Accounting & Finance');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0324113641', 107.95, 'Accounting & Finance');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0471391123', 50.00, 'Accounting & Finance');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0130998516', 83.00, 'Computer');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('1565924916', 39.95, 'Computer');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0735712360', 39.99, 'Computer');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0735712379', 39.99, 'Computer');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0735713170', 29.99, 'Computer');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('1558606432', 34.95, 'Computer');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0072222743', 59.99, 'Computer');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0345409469', 14.95, 'Science');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0375508325', 35.00, 'Science');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0345336895', 6.99, 'Science');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0671004107', 7.99, 'Science');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0345376595', 12.95, 'Science');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0316666343', 21.95, 'Literature & Fiction');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0316096199', 11.95, 'Literature & Fiction');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('038572179X', 14.00, 'Literature & Fiction');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0385494246', 12.00, 'Literature & Fiction');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0385494327', 14.00, 'Literature & Fiction');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0385494149', 13.00, 'Literature & Fiction');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0399149848', 25.95, 'Literature & Fiction');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0373218192', 7.50, 'Literature & Fiction');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0373218257', 14.95, 'Literature & Fiction');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0399149392', 25.95, 'Literature & Fiction');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('1561584029', 39.95, 'Home Design');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('1579902944', 19.95, 'Home Design');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('1561586196', 19.95, 'Home Design');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0061092177', 7.99, 'Fantasy');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0060502935', 7.99, 'Fantasy');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0061020656', 7.99, 'Fantasy');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0060855925', 13.99, 'Fantasy');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0061020648', 7.99, 'Fantasy');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0061161721', 7.99, 'Fantasy');
 INSERT INTO BOOK(ISBN, Publisher_ID, Product_Number, Book_Title, Publisher) VALUES ('0782140661', 502, '0782140661', 'OCP: Oracle9i Certification Kit', 'Sybex');
 INSERT INTO BOOK(ISBN, Publisher_ID, Product_Number, Book_Title, Publisher) VALUES ('0072227885', 503, '0072227885', 'SQL Server 2000 for Experienced DBA''s', 'McGraw-Hill Osborne Media');
 INSERT INTO BOOK(ISBN, Publisher_ID, Product_Number, Book_Title, Publisher) VALUES ('0471200247', 504, '0471200247', 'The Data Warehouse Toolkit: The Complete Guide to Dimensional Modeling', 'John Wiley & Sons');

@@ -60,9 +60,8 @@ def get_publisher_inserts(data):
 
 # get insert statements for products
 def get_product_inserts(data):
-    default_warehouse_no = 1
     unique_books = data.drop_duplicates(subset=['ISBN'])
-    return [f"INSERT INTO PRODUCT(Item_Number, Warehouse_No, Price, Product_Type) VALUES ('{isbn}', {default_warehouse_no}, {price.replace('$', '')}, '{update_string(category)}');" 
+    return [f"INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('{isbn}', {price.replace('$', '')}, '{update_string(category)}');" 
             for isbn, price, category in zip(unique_books['ISBN'], unique_books['Price'], unique_books['Category'])]
 
 # get insert statements for books
@@ -74,8 +73,7 @@ def get_book_inserts(data):
         publisher_id = publisher_id_map[row['Publisher']]
         title = update_string(row['Title'])
         publisher = update_string(row['Publisher'])
-        
-        book_inserts.append(f"INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher) VALUES ('{isbn}', {publisher_id}, '{isbn}', '{title}', '{publisher}');")
+        book_inserts.append(f"INSERT INTO BOOK(ISBN, Publisher_ID, Product_Number, Book_Title, Publisher) VALUES ('{isbn}', {publisher_id}, '{isbn}', '{title}', '{publisher}');")
     return book_inserts
 
 # get insert statements for written by
@@ -94,7 +92,7 @@ def get_stores_product_inserts(data):
     default_warehouse_no = 1
     default_quantity_no=1
     unique_books = data.drop_duplicates(subset=['ISBN'])
-    return [f"INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES ({default_warehouse_no}, '{isbn}', {default_quantity_no});" 
+    return [f"INSERT INTO STORES_PRODUCT(Warehouse_No, Product_Number, Quantity) VALUES ({default_warehouse_no}, '{isbn}', {default_quantity_no});" 
             for isbn in unique_books['ISBN']]
 
 # read the CSV file and skip the first row with book as the only value
