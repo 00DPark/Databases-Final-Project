@@ -35,7 +35,7 @@ def generate_unique_code(entity_type):
 def get_author_inserts(data):
     global author_id_map
     inserts = []
-    for index, row in data.iterrows():
+    for _, row in data.iterrows():
         authors = row['Author(s)'].split('; ')
         for author in authors:
             if author not in author_id_map:

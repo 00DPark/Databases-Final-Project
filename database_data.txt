@@ -526,14 +526,10 @@ VALUES
 (49, 15, 20, '9AM - 5PM', 'Millard', 'Fillmore'),
 (52, 15, 20, '5PM - 10PM', 'James', 'Buchanan'),
 (55, 17, 20, '5PM - 10PM', 'Rutherford', 'Hayes'),
-(58, 18, 12, '9AM - 5PM', 'Benjamin', 'Harrison'),
 (61, 18, 12, '5PM - 10PM', 'Theodore', 'Roosevelt'),
 (64, 18, 12, '5PM - 10PM', 'Warren', 'Harding'),
 (67, 18, 12, '5PM - 10PM', 'Franklin', 'Roosevelt'),
-(70, 19, 2, '9AM - 5PM', 'John', 'Kennedy'),
-(73, 18, 2, '5PM - 10PM', 'Gerald', 'Ford'),
 (76, 18, 2, '5PM - 10PM', 'George', 'Bush');
-
 
 INSERT INTO EMPLOYEE_MANAGER(Employee_ID, Store_ID, Sales_No, Shift, First_Name, Last_Name, Manager_ID, Manager_Type)
 VALUES
@@ -704,27 +700,27 @@ VALUES
 
 INSERT INTO PURCHASE(Purchase_ID, Shipping_Address, Billing_Address, Payment_Method, Date, Product_Number)
 VALUES
-(1, '777 Brockton Avenue, Abington MA 2351' , '777 Brockton Avenue, Abington MA 2351' , 'CREDIT', 2023-06-06,  1),
-(2, '30 Memorial Drive, Avon MA 2322',  '30 Memorial Drive, Avon MA 2322', 'CREDIT', 2023-06-06, 2),
-(3, '250 Hartford Avenue, Bellingham MA 2019', '250 Hartford Avenue, Bellingham MA 2019', 'CREDIT', 2023-01-03, 3),
-(4, '700 Oak Street, Brockton MA 2301', '700 Oak Street, Brockton MA 2301', 'CREDIT', 2024-02-01, 4),
-(5, '66-4 Parkhurst Rd, Chelmsford MA 1824',  '66-4 Parkhurst Rd, Chelmsford MA 1824', 'CREDIT', 2023-02-29,  5),
-(6, '591 Memorial Dr, Chicopee MA 1020',   '591 Memorial Dr, Chicopee MA 1020',  'CREDIT', 2023-06-09,  6),
-(7, '55 Brooksby Village Way, Danvers MA 1923',  '55 Brooksby Village Way, Danvers MA 1923', 'CREDIT', 2024-01-01, 7),
-(8, ' 137 Teaticket Hwy, East Falmouth MA 2536', ' 137 Teaticket Hwy, East Falmouth MA 2536','CREDIT', 2024-01-11,  8),
-(9, '42 Fairhaven Commons Way, Fairhaven MA 2719', '42 Fairhaven Commons Way, Fairhaven MA 2719', 'CREDIT', 2024-01-31,  9),
-(10, '374 William S Canning Blvd, Fall River MA 2721', '374 William S Canning Blvd, Fall River MA 2721', 'DEBIT ', 2024-02-21, 10),
-(11, '121 Worcester Rd, Framingham MA 1701',   '121 Worcester Rd, Framingham MA 1701',  'DEBIT ', 2023-12-24, 11),
-(12, '677 Timpany Blvd, Gardner MA 1440', '677 Timpany Blvd, Gardner MA 1440',  'DEBIT ',  2024-02-01, 12),
-(13, '337 Russell St, Hadley MA 1035',  '337 Russell St, Hadley MA 1035',  'DEBIT ', 2024-01-07,  13),
-(14, '295 Plymouth Street, Halifax MA 2338', '295 Plymouth Street, Halifax MA 2338',  'DEBIT ', 2024-01-08,  14),
-(15, '1775 Washington St, Hanover MA 2339', '1775 Washington St, Hanover MA 2339',  'DEBIT ', 2024-04-01, 15),
-(16, '280 Washington Street, Hudson MA 1749', '5399 W Genesse St, Camillus NY 13031', 'CASH', 2024-04-05, 16),
-(17, '20 Soojian Dr, Leicester MA 1524', '30 Catskill, Catskill NY 12414', 'CASH', 2024-04-05, 17),
-(18, '11 Jungle Road, Leominster MA 1453', '872 Route 13, Cortlandville NY 13045', 'CASH', 2024-04-05, 18),
-(19, '301 Massachusetts Ave, Lunenburg MA 1462', '301 Massachusetts Ave, Lunenburg MA 1462','CASH', 2024-04-01, 19),
-(20, '780 Lynnway, Lynn MA 1905', '301 Massachusetts Ave, Lunenburg MA 1462', 'CASH', 2023-04-05, 20),
-(21, '70 Pleasant Valley Street, Methuen MA 1844', '70 Pleasant Valley Street, Methuen MA 1844', 'CASH', 2022-06-05, 21);
+(1, '777 Brockton Avenue, Abington MA 2351', '777 Brockton Avenue, Abington MA 2351', 'CREDIT', '2023-06-06',  1),
+(2, '30 Memorial Drive, Avon MA 2322', '30 Memorial Drive, Avon MA 2322', 'CREDIT', '2023-06-06', 2),
+(3, '250 Hartford Avenue, Bellingham MA 2019', '250 Hartford Avenue, Bellingham MA 2019', 'CREDIT', '2023-01-03', 3),
+(4, '700 Oak Street, Brockton MA 2301', '700 Oak Street, Brockton MA 2301', 'CREDIT', '2024-02-01', 4),
+(5, '66-4 Parkhurst Rd, Chelmsford MA 1824', '66-4 Parkhurst Rd, Chelmsford MA 1824', 'CREDIT', '2023-02-29',  5),
+(6, '591 Memorial Dr, Chicopee MA 1020', '591 Memorial Dr, Chicopee MA 1020', 'CREDIT', '2023-06-09',  6),
+(7, '55 Brooksby Village Way, Danvers MA 1923', '55 Brooksby Village Way, Danvers MA 1923', 'CREDIT', '2024-01-01', 7),
+(8, '137 Teaticket Hwy, East Falmouth MA 2536', '137 Teaticket Hwy, East Falmouth MA 2536', 'CREDIT', '2024-01-11',  8),
+(9, '42 Fairhaven Commons Way, Fairhaven MA 2719', '42 Fairhaven Commons Way, Fairhaven MA 2719', 'CREDIT', '2024-01-31',  9),
+(10, '374 William S Canning Blvd, Fall River MA 2721', '374 William S Canning Blvd, Fall River MA 2721', 'DEBIT', '2024-02-21', 10),
+(11, '121 Worcester Rd, Framingham MA 1701', '121 Worcester Rd, Framingham MA 1701', 'DEBIT', '2023-12-24', 11),
+(12, '677 Timpany Blvd, Gardner MA 1440', '677 Timpany Blvd, Gardner MA 1440', 'DEBIT', '2024-02-01', 12),
+(13, '337 Russell St, Hadley MA 1035', '337 Russell St, Hadley MA 1035', 'DEBIT', '2024-01-07',  13),
+(14, '295 Plymouth Street, Halifax MA 2338', '295 Plymouth Street, Halifax MA 2338', 'DEBIT', '2024-01-08',  14),
+(15, '1775 Washington St, Hanover MA 2339', '1775 Washington St, Hanover MA 2339', 'DEBIT', '2024-04-01', 15),
+(16, '280 Washington Street, Hudson MA 1749', '5399 W Genesse St, Camillus NY 13031', 'CASH', '2024-04-05', 16),
+(17, '20 Soojian Dr, Leicester MA 1524', '30 Catskill, Catskill NY 12414', 'CASH', '2024-04-05', 17),
+(18, '11 Jungle Road, Leominster MA 1453', '872 Route 13, Cortlandville NY 13045', 'CASH', '2024-04-05', 18),
+(19, '301 Massachusetts Ave, Lunenburg MA 1462', '301 Massachusetts Ave, Lunenburg MA 1462', 'CASH', '2024-04-01', 19),
+(20, '780 Lynnway, Lynn MA 1905', '301 Massachusetts Ave, Lunenburg MA 1462', 'CASH', '2023-04-05', 20),
+(21, '70 Pleasant Valley Street, Methuen MA 1844', '70 Pleasant Valley Street, Methuen MA 1844', 'CASH', '2022-06-05', 21);
 
 
 INSERT INTO DRINK(Product_Number, Drink_Name)
@@ -1516,16 +1512,16 @@ VALUES
 
 INSERT INTO PURCHASE(Purchase_ID, Shipping_Address, Billing_Address, Payment_Method, Date, Product_Number)
 VALUES
-(22, '777 Brockton Avenue, Abington MA 2351' , '777 Brockton Avenue, Abington MA 2351' , 'CREDIT', 2023-06-06,  0782140661),
-(23, '777 Brockton Avenue, Abington MA 2351' , '777 Brockton Avenue, Abington MA 2351' , 'CREDIT', 2023-06-06,  0471200247),
-(24, '777 Brockton Avenue, Abington MA 2351' , '777 Brockton Avenue, Abington MA 2351' , 'CREDIT', 2023-06-06,  0072227710),
-(25, '777 Brockton Avenue, Abington MA 2351' , '777 Brockton Avenue, Abington MA 2351' , 'CREDIT', 2023-06-06, 0735712123),
-(26, '777 Brockton Avenue, Abington MA 2351' , '777 Brockton Avenue, Abington MA 2351' , 'CREDIT', 2023-06-06,  0738206679),
-(27, '777 Brockton Avenue, Abington MA 2351' , '777 Brockton Avenue, Abington MA 2351' , 'CREDIT', 2023-06-06,  0743244249),
-(28, '777 Brockton Avenue, Abington MA 2351' , '777 Brockton Avenue, Abington MA 2351' , 'CREDIT', 2023-06-06,  0061020648),
-(29, '777 Brockton Avenue, Abington MA 2351' , '777 Brockton Avenue, Abington MA 2351' , 'CREDIT', 2023-06-06,  0060855925),
-(30, '777 Brockton Avenue, Abington MA 2351' , '777 Brockton Avenue, Abington MA 2351' , 'CREDIT', 2023-06-06,  0061092177),
-(31, '777 Brockton Avenue, Abington MA 2351' , '777 Brockton Avenue, Abington MA 2351' , 'CREDIT', 2023-06-06,  0061161721);
+(22, '777 Brockton Avenue, Abington MA 2351' , '777 Brockton Avenue, Abington MA 2351' , 'CREDIT', '2023-06-06',  '0782140661'),
+(23, '777 Brockton Avenue, Abington MA 2351' , '777 Brockton Avenue, Abington MA 2351' , 'CREDIT', '2023-06-06',  '0471200247'),
+(24, '777 Brockton Avenue, Abington MA 2351' , '777 Brockton Avenue, Abington MA 2351' , 'CREDIT', '2023-06-06',  '0072227710'),
+(25, '777 Brockton Avenue, Abington MA 2351' , '777 Brockton Avenue, Abington MA 2351' , 'CREDIT', '2023-06-06', '0735712123'),
+(26, '777 Brockton Avenue, Abington MA 2351' , '777 Brockton Avenue, Abington MA 2351' , 'CREDIT', '2023-06-06',  '0738206679'),
+(27, '777 Brockton Avenue, Abington MA 2351' , '777 Brockton Avenue, Abington MA 2351' , 'CREDIT', '2023-06-06',  '0743244249'),
+(28, '777 Brockton Avenue, Abington MA 2351' , '777 Brockton Avenue, Abington MA 2351' , 'CREDIT', '2023-06-06',  '0061020648'),
+(29, '777 Brockton Avenue, Abington MA 2351' , '777 Brockton Avenue, Abington MA 2351' , 'CREDIT', '2023-06-06',  '0060855925'),
+(30, '777 Brockton Avenue, Abington MA 2351' , '777 Brockton Avenue, Abington MA 2351' , 'CREDIT', '2023-06-06',  '0061092177'),
+(31, '777 Brockton Avenue, Abington MA 2351' , '777 Brockton Avenue, Abington MA 2351' , 'CREDIT', '2023-06-06',  '0061161721');
 
 INSERT INTO MAKES_PURCHASE(Quantity, Loyalty_No, Purchase_ID)
 VALUES
@@ -1539,3 +1535,23 @@ VALUES
 (3, 21, 29),
 (4, 21, 30),
 (5, 21, 31);
+
+--Generate views
+CREATE VIEW CUSTOMER_TRANSACTIONS AS
+SELECT C.First_Name, C.Last_Name, C.Loyalty_No, P.Shipping_Address, P.Billing_Address, P.Payment_Method, P.Date, PR.Product_Type, MP.Quantity
+FROM CUSTOMER C, PURCHASE P, PRODUCT PR, MAKES_PURCHASE MP
+WHERE C.Loyalty_No= MP.Loyalty_No AND P.Product_Number= PR.Product_Number AND P.Purchase_ID= MP.Purchase_ID
+ORDER BY MP.Quantity DESC;
+
+CREATE VIEW MANAGED_EMPLOYEE_INFO AS
+SELECT S.Employee_ID As Store_Manager_ID, S.First_Name AS Store_Manager_First_Name, S.Last_Name AS Store_Manager_Last_Name, E.Employee_ID , E.First_Name , E.Last_Name, E.Sales_No AS Sales_Made_By_Employee,     (SELECT COUNT(*) FROM STOCKED_BY WHERE Employee_ID = E.Employee_ID) AS Products_Stocked
+FROM GENERAL_EMPLOYEE E, STORE_MANAGER S
+WHERE E.Store_ID= S.Store_ID 
+ORDER BY S.Store_ID;
+
+CREATE VIEW PRODUCT_WAREHOUSE_STORAGE AS
+SELECT DISTINCT W.Warehouse_No, W.Address, P.Product_Number,  P.Product_Type
+FROM STORES_PRODUCT S, WAREHOUSE W, PRODUCT P
+WHERE S.Product_Number= P.Product_Number AND W.Warehouse_No=S.Warehouse_No  AND P.Product_Number;
+
+
