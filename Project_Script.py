@@ -62,7 +62,7 @@ def get_publisher_inserts(data):
 def get_product_inserts(data):
     unique_books = data.drop_duplicates(subset=['ISBN'])
     return [f"INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('{isbn}', {price.replace('$', '')}, '{update_string(category)}');" 
-            for isbn, price, category in zip(unique_books['ISBN'], unique_books['Price'], unique_books['Category'])]
+            for isbn, price, category in zip(unique_books['ISBN'], unique_books['Price'], unique_books['Category'] + ' Book')]
 
 # get insert statements for books
 def get_book_inserts(data):
@@ -70,10 +70,9 @@ def get_book_inserts(data):
     unique_books = data.drop_duplicates(subset=['ISBN'])
     for _, row in unique_books.iterrows():
         isbn = row['ISBN']
-        publisher_id = publisher_id_map[row['Publisher']]
         title = update_string(row['Title'])
         publisher = update_string(row['Publisher'])
-        book_inserts.append(f"INSERT INTO BOOK(ISBN, Publisher_ID, Product_Number, Book_Title, Publisher) VALUES ('{isbn}', {publisher_id}, '{isbn}', '{title}', '{publisher}');")
+        book_inserts.append(f"INSERT INTO BOOK(ISBN,Product_Number, Book_Title, Publisher) VALUES ('{isbn}',  '{isbn}', '{title}', '{publisher}');")
     return book_inserts
 
 # get insert statements for written by

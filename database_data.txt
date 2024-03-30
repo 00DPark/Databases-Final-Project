@@ -23,29 +23,22 @@ CREATE TABLE PRODUCT (
 
 CREATE TABLE DRINK (
     Product_Number INT NOT NULL,
-    Purchase_ID INT NOT NULL,
-    Price DECIMAL(10, 2) NOT NULL DEFAULT 0.00,
-    Product_Type VARCHAR(100) NOT NULL,
-    Drink_Type VARCHAR(100) NOT NULL,
+    Drink_Name VARCHAR(100) NOT NULL,
     FOREIGN KEY (Product_Number) REFERENCES PRODUCT(Product_Number),
-    PRIMARY KEY (Product_Number)
+    PRIMARY KEY (Drink_Name)
 
 );
 
 CREATE TABLE BOARD_GAME (
     Product_Number INT NOT NULL,
-    Purchase_ID INT NOT NULL,
-    Price DECIMAL(10, 2) NOT NULL DEFAULT 0.00,
-    Product_Type VARCHAR(100) NOT NULL,
-    Game_Type VARCHAR(100) NOT NULL,
+    Game_Name VARCHAR(100) NOT NULL,
     FOREIGN KEY (Product_Number) REFERENCES PRODUCT(Product_Number),
-    PRIMARY KEY (Product_Number)
+    PRIMARY KEY (Game_Name)
 
 );
 
 CREATE TABLE BOOK (
     ISBN INT NOT NULL,
-    Publisher_ID INT NOT NULL,
     Product_Number INT NOT NULL,
     Book_Title VARCHAR(100) NOT NULL,
     Publisher VARCHAR(100) NOT NULL,
@@ -151,7 +144,7 @@ CREATE TABLE BOOK_STORE (
 
 CREATE TABLE PURCHASE (
     Purchase_ID INT NOT NULL,
-    Shopping_Address VARCHAR(100) NOT NULL,
+    Shipping_Address VARCHAR(100) NOT NULL,
     Billing_Address VARCHAR(100) NOT NULL,
     Payment_Method VARCHAR(100) NOT NULL,
     Date DATE NOT NULL,
@@ -324,11 +317,11 @@ VALUES
 (7, 1.00, "Drink"),
 (8, 1.00, "Drink"),
 (9, 1.00, "Drink"),
-(10, 12.00, "Book"),
-(11, 12.00, "Book"),
-(12, 12.29, "Book"),
-(13, 15.72, "Book"),
-(14, 16.92, "Book"),
+(10, 12.00, "Picture Book"),
+(11, 12.00, "Picture Book"),
+(12, 12.29, "Picture Book"),
+(13, 15.72, "Picture Book"),
+(14, 16.92, "Picture Book"),
 (15, 20.34, "Board Game"),
 (16, 22.84, "Board Game"),
 (17, 29.31,  "Board Game"),
@@ -709,7 +702,7 @@ VALUES
 (51, 20.00, "Board Game"),
 (52, 20.00, "Board Game");
 
-INSERT INTO PURCHASE(Purchase_ID, Shopping_Address, Billing_Address, Payment_Method, Date, Product_Number)
+INSERT INTO PURCHASE(Purchase_ID, Shipping_Address, Billing_Address, Payment_Method, Date, Product_Number)
 VALUES
 (1, '777 Brockton Avenue, Abington MA 2351' , '777 Brockton Avenue, Abington MA 2351' , 'CREDIT', 2023-06-06,  1),
 (2, '30 Memorial Drive, Avon MA 2322',  '30 Memorial Drive, Avon MA 2322', 'CREDIT', 2023-06-06, 2),
@@ -734,54 +727,54 @@ VALUES
 (21, '70 Pleasant Valley Street, Methuen MA 1844', '70 Pleasant Valley Street, Methuen MA 1844', 'CASH', 2022-06-05, 21);
 
 
-INSERT INTO DRINK(Product_Number, Purchase_ID, Price, Product_Type, Drink_Type)
+INSERT INTO DRINK(Product_Number, Drink_Name)
 VALUES
-(1, 1, 1.00, 'Drink', 'Sprite'),
-(2, 2, 1.00, 'Drink', 'Coke'),
-(3, 3, 1.00, 'Drink', 'Sprite'),
-(4, 4, 1.00, 'Drink' , 'Sprite'),
-(5, 5, 1.00, 'Drink' , 'Sprite'),
-(6, 6, 1.00, 'Drink', 'Ginger Ale'),
-(7, 7, 1.00, 'Drink', 'Diet Coke'),
-(8, 8, 1.00, 'Drink', 'Diet Coke'),
-(9, 9,1.00, 'Drink', 'Mountain Dew'),
-(21, 11, 1.53, 'Drink', 'Pink Lemonade'),
-(22,  12, 1.82, 'Drink', 'Orange Crush'),
-(23, 13, 1.34, 'Drink', 'Two Percent Milk'),
-(24, 14, 1.30, 'Drink', 'Low Fat Milk'),
-(25, 15, 1.08, 'Drink', 'Whole Milk'),
-(26, 16, 1.02, 'Drink', 'Water'),
-(27, 17, 1.13, 'Drink', 'Zero Sugar Sprite'),
-(28, 18, 1.60, 'Drink', 'Sprite Cranberry'),
-(29, 19, 1.30, 'Drink', 'Fanta Orange'),
-(30, 20, 1.50, 'Drink', 'Pepsi'),
-(31,  20, 1.50, 'Drink', 'Pepsi');
+(1, 'Sprite'),
+(2, 'Coke'),
+(3, 'Sprite Orange'),
+(4,'Sprite Cherry'),
+(5, 'Fanta Cherry'),
+(6, 'Ginger Ale'),
+(7, 'Diet Coke'),
+(8,  'Diet Coke Zero Sugar'),
+(9, 'Mountain Dew'),
+(21, 'Pink Lemonade'),
+(22, 'Orange Crush'),
+(23,'Two Percent Milk'),
+(24, 'Low Fat Milk'),
+(25, 'Whole Milk'),
+(26, 'Water'),
+(27, 'Zero Sugar Sprite'),
+(28, 'Sprite Cranberry'),
+(29, 'Fanta Orange'),
+(30, 'Pepsi Zero'),
+(31,'Pepsi');
 
 
 
-INSERT INTO BOARD_GAME(Product_Number, Purchase_ID, Price, Product_Type, Game_Type)
+INSERT INTO BOARD_GAME(Product_Number,Game_Name)
 VALUES
-(32, 11, 20.00, "Board Game", 'Monopoly'),
-(33, 11,20.00, "Board Game", 'Monopoly'),
-(34, 11,20.00, "Board Game", 'Monopoly'),
-(35,11, 20.00, "Board Game", 'Monopoly'),
-(36,11, 20.00, "Board Game", 'Monopoly'),
-(37, 11, 20.00, "Board Game", 'Monopoly'),
-(38,  11,20.00, "Board Game", 'Monopoly'),
-(39,  11,20.00, "Board Game", 'Monopoly'),
-(40,  11,20.00, "Board Game", 'Monopoly'),
-(41,  11,20.00, "Board Game", 'Monopoly'),
-(42,  11,20.00, "Board Game", 'Monopoly'),
-(43, 11, 20.00, "Board Game", 'Monopoly'),
-(44, 11,20.00, "Board Game", 'Monopoly'),
-(45,11, 20.00, "Board Game", 'Monopoly'),
-(46,11, 20.00, "Board Game", 'Monopoly'),
-(47,  11,20.00, "Board Game", 'Monopoly'),
-(48, 11, 20.00, "Board Game", 'Monopoly'),
-(49,11, 20.00, "Board Game", 'Monopoly'),
-(50, 11,20.00, "Board Game", 'Monopoly'),
-(51,11, 20.00, "Board Game", 'Monopoly'),
-(52, 11, 20.00, "Board Game", 'Monopoly');
+(32, 'Monopoly'),
+(33, 'Chess'),
+(34,  'Checkers'),
+(35, 'Mastermind'),
+(36, 'Matching Game'),
+(37, 'Agon'),
+(38, 'Bul'),
+(39, 'Camelot'),
+(40, 'Battleship'),
+(41, 'Battlelore'),
+(42, 'Blockade'),
+(43, 'Abalone'),
+(44, 'Connect Four'),
+(45, 'Makruk'),
+(46, 'Onyx'),
+(47,'Liubo'),
+(48, 'Quarto'),
+(49,'Anti Monopoly'),
+(50,'Bang!'),
+(51,'Heroscape'),
+(52,'Risk');
 
 INSERT INTO STORES_PRODUCT(Warehouse_No, Product_Number, Quantity) 
 VALUES
@@ -1031,222 +1024,222 @@ INSERT INTO PUBLISHER(Publisher_ID, Publisher_Name) VALUES (560, 'Putnam Pub Gro
 INSERT INTO PUBLISHER(Publisher_ID, Publisher_Name) VALUES (561, 'Silhouette');
 INSERT INTO PUBLISHER(Publisher_ID, Publisher_Name) VALUES (562, 'Lark Books');
 INSERT INTO PUBLISHER(Publisher_ID, Publisher_Name) VALUES (563, 'Harper');
-INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0782140661', 104.97, 'Computer');
-INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0072227885', 34.99, 'Computer');
-INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0471200247', 50.00, 'Computer');
-INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0072227710', 17.49, 'Computer');
-INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('1558605525', 49.95, 'Computer');
-INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0972263608', 99.00, 'Computer');
-INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0201615762', 38.49, 'Computer');
-INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0782140114', 69.99, 'Computer');
-INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0321125169', 38.49, 'Computer');
-INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0805317554', 95.00, 'Computer');
-INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('1861004486', 41.99, 'Computer');
-INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0735712123', 34.99, 'Computer');
-INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0425188361', 16.07, 'Literature & Fiction');
-INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0142001740', 14.00, 'Literature & Fiction');
-INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0596004478', 24.95, 'Computer');
-INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0071414339', 18.95, 'Accounting & Finance');
-INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0312311354', 13.00, 'Literature & Fiction');
-INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0312287941', 25.95, 'Literature & Fiction');
-INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0312243022', 3.44, 'Literature & Fiction');
-INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0609610570', 27.50, 'Reference');
-INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0316602051', 27.95, 'Literature & Fiction');
-INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0743222008', 25.00, 'Literature & Fiction');
-INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0066214750', 25.95, 'Literature & Fiction');
-INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0787960756', 13.20, 'Accounting & Finance');
-INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0743206061', 26.00, 'Accounting & Finance');
-INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('1590520734', 12.99, 'Romance');
-INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0060934417', 13.95, 'Romance');
-INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0440237556', 6.99, 'Romance');
-INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0373272839', 4.75, 'Romance');
-INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0670031518', 27.95, 'Science');
-INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0738206679', 26.00, 'Science');
-INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('067976867X', 15.00, 'Science');
-INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0679450785', 22.00, 'Science');
-INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('1579550088', 44.95, 'Science');
-INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0684843285', 22.00, 'Science');
-INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0471358983', 40.00, 'Home Design');
-INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0394739698', 24.95, 'Home Design');
-INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('1586851322', 39.95, 'Home Design');
-INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('1586851357', 60.00, 'Home Design');
-INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('156158648X', 24.95, 'Home Design');
-INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0865659982', 50.00, 'Home Design');
-INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0517576600', 50.00, 'Home Design');
-INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0262024829', 70.00, 'Accounting & Finance');
-INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0072294337', 122.50, 'Accounting & Finance');
-INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0072315318', 79.20, 'Accounting & Finance');
-INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0324107501', 112.95, 'Accounting & Finance');
-INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0471363049', 139.20, 'Accounting & Finance');
-INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0130323519', 126.67, 'Accounting & Finance');
-INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0446527793', 24.95, 'Literature & Fiction');
-INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0743244249', 25.00, 'Literature & Fiction');
-INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0743467523', 7.99, 'Horror');
-INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0375703764', 19.95, 'Horror');
-INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0345452089', 6.99, 'Horror');
-INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0385504470', 17.47, 'Horror');
-INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0312276702', 24.95, 'Horror');
-INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0743457358', 7.99, 'Horror');
-INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('1880418568', 35.00, 'Horror');
-INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0743455967', 7.99, 'Horror');
-INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0140077022', 14.00, 'Literature & Fiction');
-INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0679722955', 11.20, 'Literature & Fiction');
-INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0684848155', 16.00, 'Literature & Fiction');
-INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0471286168', 39.95, 'Home Design');
-INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0471288217', 39.95, 'Home Design');
-INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0156006219', 13.00, 'Romance');
-INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0060540753', 13.95, 'Romance');
-INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0393318486', 17.95, 'Science');
-INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0060958332', 10.50, 'Science');
-INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0060958405', 15.00, 'Science');
-INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0393319407', 16.95, 'Science');
-INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('067463442X', 18.95, 'Science');
-INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0446608955', 6.99, 'Literature & Fiction');
-INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0446676098', 12.95, 'Literature & Fiction');
-INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0446606812', 7.50, 'Literature & Fiction');
-INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0262521415', 35.00, 'Accounting & Finance');
-INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0262232197', 74.95, 'Accounting & Finance');
-INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0324113641', 107.95, 'Accounting & Finance');
-INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0471391123', 50.00, 'Accounting & Finance');
-INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0130998516', 83.00, 'Computer');
-INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('1565924916', 39.95, 'Computer');
-INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0735712360', 39.99, 'Computer');
-INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0735712379', 39.99, 'Computer');
-INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0735713170', 29.99, 'Computer');
-INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('1558606432', 34.95, 'Computer');
-INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0072222743', 59.99, 'Computer');
-INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0345409469', 14.95, 'Science');
-INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0375508325', 35.00, 'Science');
-INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0345336895', 6.99, 'Science');
-INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0671004107', 7.99, 'Science');
-INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0345376595', 12.95, 'Science');
-INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0316666343', 21.95, 'Literature & Fiction');
-INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0316096199', 11.95, 'Literature & Fiction');
-INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('038572179X', 14.00, 'Literature & Fiction');
-INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0385494246', 12.00, 'Literature & Fiction');
-INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0385494327', 14.00, 'Literature & Fiction');
-INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0385494149', 13.00, 'Literature & Fiction');
-INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0399149848', 25.95, 'Literature & Fiction');
-INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0373218192', 7.50, 'Literature & Fiction');
-INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0373218257', 14.95, 'Literature & Fiction');
-INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0399149392', 25.95, 'Literature & Fiction');
-INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('1561584029', 39.95, 'Home Design');
-INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('1579902944', 19.95, 'Home Design');
-INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('1561586196', 19.95, 'Home Design');
-INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0061092177', 7.99, 'Fantasy');
-INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0060502935', 7.99, 'Fantasy');
-INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0061020656', 7.99, 'Fantasy');
-INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0060855925', 13.99, 'Fantasy');
-INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0061020648', 7.99, 'Fantasy');
-INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0061161721', 7.99, 'Fantasy');
-INSERT INTO BOOK(ISBN, Publisher_ID, Product_Number, Book_Title, Publisher) VALUES ('0782140661', 502, '0782140661', 'OCP: Oracle9i Certification Kit', 'Sybex');
-INSERT INTO BOOK(ISBN, Publisher_ID, Product_Number, Book_Title, Publisher) VALUES ('0072227885', 503, '0072227885', 'SQL Server 2000 for Experienced DBA''s', 'McGraw-Hill Osborne Media');
-INSERT INTO BOOK(ISBN, Publisher_ID, Product_Number, Book_Title, Publisher) VALUES ('0471200247', 504, '0471200247', 'The Data Warehouse Toolkit: The Complete Guide to Dimensional Modeling', 'John Wiley & Sons');
-INSERT INTO BOOK(ISBN, Publisher_ID, Product_Number, Book_Title, Publisher) VALUES ('0072227710', 503, '0072227710', 'How To Do Everything with Your Tablet PC', 'McGraw-Hill Osborne Media');
-INSERT INTO BOOK(ISBN, Publisher_ID, Product_Number, Book_Title, Publisher) VALUES ('1558605525', 505, '1558605525', 'Data Mining: Practical Machine Learning Tools and Techniques with Java Implementations', 'Morgan Kaufmann');
-INSERT INTO BOOK(ISBN, Publisher_ID, Product_Number, Book_Title, Publisher) VALUES ('0972263608', 506, '0972263608', 'Creating Documents with BusinessObjects 5.1', 'Schmidt Ink, Inc.');
-INSERT INTO BOOK(ISBN, Publisher_ID, Product_Number, Book_Title, Publisher) VALUES ('0201615762', 507, '0201615762', 'The Guru''s Guide to Transact-SQL', 'Addison-Wesley Pub Co');
-INSERT INTO BOOK(ISBN, Publisher_ID, Product_Number, Book_Title, Publisher) VALUES ('0782140114', 502, '0782140114', 'Access 2002 Developer''s Handbook Set', 'Sybex');
-INSERT INTO BOOK(ISBN, Publisher_ID, Product_Number, Book_Title, Publisher) VALUES ('0321125169', 508, '0321125169', 'ColdFusion MX Web Application Construction Kit', 'Macromedia Press');
-INSERT INTO BOOK(ISBN, Publisher_ID, Product_Number, Book_Title, Publisher) VALUES ('0805317554', 509, '0805317554', 'Fundamentals of Database Systems ', 'Addison-Wesley Publishing');
-INSERT INTO BOOK(ISBN, Publisher_ID, Product_Number, Book_Title, Publisher) VALUES ('1861004486', 510, '1861004486', 'Professional SQL Server 2000 Programming', 'Wrox Press Inc');
-INSERT INTO BOOK(ISBN, Publisher_ID, Product_Number, Book_Title, Publisher) VALUES ('0735712123', 509, '0735712123', 'MySQL', 'Addison-Wesley Publishing');
-INSERT INTO BOOK(ISBN, Publisher_ID, Product_Number, Book_Title, Publisher) VALUES ('0425188361', 511, '0425188361', 'Cerulean Sins', 'Berkley Pub Group');
-INSERT INTO BOOK(ISBN, Publisher_ID, Product_Number, Book_Title, Publisher) VALUES ('0142001740', 512, '0142001740', 'The Secret Life of Bees', 'Penguin USA ');
-INSERT INTO BOOK(ISBN, Publisher_ID, Product_Number, Book_Title, Publisher) VALUES ('0596004478', 513, '0596004478', 'Google Hacks', 'O''Reilly & Associates');
-INSERT INTO BOOK(ISBN, Publisher_ID, Product_Number, Book_Title, Publisher) VALUES ('0071414339', 514, '0071414339', 'Investing in Fixer-Uppers : A Complete Guide to Buying Low, Fixing Smart, Adding Value, and Selling (or Renting) High', 'McGraw-Hill Trade');
-INSERT INTO BOOK(ISBN, Publisher_ID, Product_Number, Book_Title, Publisher) VALUES ('0312311354', 515, '0312311354', 'The Pianist', 'Picador');
-INSERT INTO BOOK(ISBN, Publisher_ID, Product_Number, Book_Title, Publisher) VALUES ('0312287941', 516, '0312287941', 'The Girl in the Red Coat: A Memoir', 'St. Martin''s Press');
-INSERT INTO BOOK(ISBN, Publisher_ID, Product_Number, Book_Title, Publisher) VALUES ('0312243022', 515, '0312243022', 'The Hours', 'Picador');
-INSERT INTO BOOK(ISBN, Publisher_ID, Product_Number, Book_Title, Publisher) VALUES ('0609610570', 517, '0609610570', 'Execution: The Discipline of Getting Things Done', 'Crown Pub');
-INSERT INTO BOOK(ISBN, Publisher_ID, Product_Number, Book_Title, Publisher) VALUES ('0316602051', 518, '0316602051', 'The Jester', 'Little Brown & Company');
-INSERT INTO BOOK(ISBN, Publisher_ID, Product_Number, Book_Title, Publisher) VALUES ('0743222008', 519, '0743222008', 'The Vanished Man: A Lincoln Rhyme Novel', 'Simon & Schuster');
-INSERT INTO BOOK(ISBN, Publisher_ID, Product_Number, Book_Title, Publisher) VALUES ('0066214750', 520, '0066214750', 'Twelve Times Blessed', 'HarperCollins');
-INSERT INTO BOOK(ISBN, Publisher_ID, Product_Number, Book_Title, Publisher) VALUES ('0787960756', 521, '0787960756', 'The Five Dysfunctions of a Team: A Leadership Fable', 'Jossey-Bass');
-INSERT INTO BOOK(ISBN, Publisher_ID, Product_Number, Book_Title, Publisher) VALUES ('0743206061', 519, '0743206061', 'The Second Time Around', 'Simon & Schuster');
-INSERT INTO BOOK(ISBN, Publisher_ID, Product_Number, Book_Title, Publisher) VALUES ('1590520734', 522, '1590520734', 'The Rescuer: The O''Malley Series', 'Multnomah Publishers Inc.');
-INSERT INTO BOOK(ISBN, Publisher_ID, Product_Number, Book_Title, Publisher) VALUES ('0060934417', 523, '0060934417', 'Bel Canto: A Novel', 'Perennial');
-INSERT INTO BOOK(ISBN, Publisher_ID, Product_Number, Book_Title, Publisher) VALUES ('0440237556', 524, '0440237556', 'The Dark Highlander', 'Dell Pub Co');
-INSERT INTO BOOK(ISBN, Publisher_ID, Product_Number, Book_Title, Publisher) VALUES ('0373272839', 525, '0373272839', 'Letters to Kelly', 'Harlequin');
-INSERT INTO BOOK(ISBN, Publisher_ID, Product_Number, Book_Title, Publisher) VALUES ('0670031518', 526, '0670031518', 'The Blank Slate: The Modern Denial of Human Nature', 'Viking Press');
-INSERT INTO BOOK(ISBN, Publisher_ID, Product_Number, Book_Title, Publisher) VALUES ('0738206679', 527, '0738206679', 'Linked: The New Science of Networks', 'Perseus Publishing');
-INSERT INTO BOOK(ISBN, Publisher_ID, Product_Number, Book_Title, Publisher) VALUES ('067976867X', 528, '067976867X', 'Consilience: The Unity of Knowledge', 'Random House');
-INSERT INTO BOOK(ISBN, Publisher_ID, Product_Number, Book_Title, Publisher) VALUES ('0679450785', 529, '0679450785', 'The Future of Life', 'Knopf');
-INSERT INTO BOOK(ISBN, Publisher_ID, Product_Number, Book_Title, Publisher) VALUES ('1579550088', 530, '1579550088', 'A New Kind of Science', 'Wolfram Media, Inc.');
-INSERT INTO BOOK(ISBN, Publisher_ID, Product_Number, Book_Title, Publisher) VALUES ('0684843285', 531, '0684843285', 'ON FOOD AND COOKING', 'Fireside');
-INSERT INTO BOOK(ISBN, Publisher_ID, Product_Number, Book_Title, Publisher) VALUES ('0471358983', 504, '0471358983', 'Building Construction Illustrated', 'John Wiley & Sons');
-INSERT INTO BOOK(ISBN, Publisher_ID, Product_Number, Book_Title, Publisher) VALUES ('0394739698', 532, '0394739698', 'A Field Guide to American Houses', 'Random House Trade Paperbacks');
-INSERT INTO BOOK(ISBN, Publisher_ID, Product_Number, Book_Title, Publisher) VALUES ('1586851322', 533, '1586851322', 'Prefab', 'Gibbs Smith Publisher');
-INSERT INTO BOOK(ISBN, Publisher_ID, Product_Number, Book_Title, Publisher) VALUES ('1586851357', 533, '1586851357', 'Cabins & Camps', 'Gibbs Smith Publisher');
-INSERT INTO BOOK(ISBN, Publisher_ID, Product_Number, Book_Title, Publisher) VALUES ('156158648X', 534, '156158648X', 'The New City Home: Smart Solutions for Metro Living', 'Taunton Pr');
-INSERT INTO BOOK(ISBN, Publisher_ID, Product_Number, Book_Title, Publisher) VALUES ('0865659982', 535, '0865659982', 'Composers'' Houses', 'Vendome Pr');
-INSERT INTO BOOK(ISBN, Publisher_ID, Product_Number, Book_Title, Publisher) VALUES ('0517576600', 536, '0517576600', 'Color: Natural Palettes for Painted Rooms', 'Clarkson N. Potter');
-INSERT INTO BOOK(ISBN, Publisher_ID, Product_Number, Book_Title, Publisher) VALUES ('0262024829', 537, '0262024829', 'Financial Modeling ', 'MIT Press');
-INSERT INTO BOOK(ISBN, Publisher_ID, Product_Number, Book_Title, Publisher) VALUES ('0072294337', 538, '0072294337', 'Financial Markets & Corporate Strategy', 'McGraw-Hill/Irwin');
-INSERT INTO BOOK(ISBN, Publisher_ID, Product_Number, Book_Title, Publisher) VALUES ('0072315318', 538, '0072315318', 'Analysis for Financial Management', 'McGraw-Hill/Irwin');
-INSERT INTO BOOK(ISBN, Publisher_ID, Product_Number, Book_Title, Publisher) VALUES ('0324107501', 539, '0324107501', 'Advanced Accounting', 'South-Western College Pub');
-INSERT INTO BOOK(ISBN, Publisher_ID, Product_Number, Book_Title, Publisher) VALUES ('0471363049', 504, '0471363049', 'Intermediate Accounting', 'John Wiley & Sons');
-INSERT INTO BOOK(ISBN, Publisher_ID, Product_Number, Book_Title, Publisher) VALUES ('0130323519', 540, '0130323519', 'Financial Reporting and Analysis ', 'Prentice Hall');
-INSERT INTO BOOK(ISBN, Publisher_ID, Product_Number, Book_Title, Publisher) VALUES ('0446527793', 541, '0446527793', 'The Guardian', 'Warner Books');
-INSERT INTO BOOK(ISBN, Publisher_ID, Product_Number, Book_Title, Publisher) VALUES ('0743244249', 542, '0743244249', 'Cosmopolis: A Novel', 'Scribner');
-INSERT INTO BOOK(ISBN, Publisher_ID, Product_Number, Book_Title, Publisher) VALUES ('0743467523', 543, '0743467523', 'Dreamcatcher', 'Pocket Books');
-INSERT INTO BOOK(ISBN, Publisher_ID, Product_Number, Book_Title, Publisher) VALUES ('0375703764', 544, '0375703764', 'House of Leaves', 'Pantheon Books');
-INSERT INTO BOOK(ISBN, Publisher_ID, Product_Number, Book_Title, Publisher) VALUES ('0345452089', 545, '0345452089', 'The Vampire''s Violin', 'Del Rey');
-INSERT INTO BOOK(ISBN, Publisher_ID, Product_Number, Book_Title, Publisher) VALUES ('0385504470', 546, '0385504470', 'Lullaby: A Novel', 'Doubleday');
-INSERT INTO BOOK(ISBN, Publisher_ID, Product_Number, Book_Title, Publisher) VALUES ('0312276702', 516, '0312276702', 'Jinn: A Novel', 'St. Martin''s Press');
-INSERT INTO BOOK(ISBN, Publisher_ID, Product_Number, Book_Title, Publisher) VALUES ('0743457358', 543, '0743457358', 'Everything''s Eventual: 14 Dark Tales', 'Pocket Books');
-INSERT INTO BOOK(ISBN, Publisher_ID, Product_Number, Book_Title, Publisher) VALUES ('1880418568', 547, '1880418568', 'Wolves of the Calla ', 'Donald M. Grant Publisher, Inc.');
-INSERT INTO BOOK(ISBN, Publisher_ID, Product_Number, Book_Title, Publisher) VALUES ('0743455967', 543, '0743455967', 'On Writing', 'Pocket Books');
-INSERT INTO BOOK(ISBN, Publisher_ID, Product_Number, Book_Title, Publisher) VALUES ('0140077022', 512, '0140077022', 'White Noise ', 'Penguin USA ');
-INSERT INTO BOOK(ISBN, Publisher_ID, Product_Number, Book_Title, Publisher) VALUES ('0679722955', 548, '0679722955', 'The Names', 'Vintage Books');
-INSERT INTO BOOK(ISBN, Publisher_ID, Product_Number, Book_Title, Publisher) VALUES ('0684848155', 549, '0684848155', 'UNDERWORLD: A NOVEL', 'Scribner Paperback Fiction');
-INSERT INTO BOOK(ISBN, Publisher_ID, Product_Number, Book_Title, Publisher) VALUES ('0471286168', 504, '0471286168', 'Architecture: Form, Space, and Order', 'John Wiley & Sons');
-INSERT INTO BOOK(ISBN, Publisher_ID, Product_Number, Book_Title, Publisher) VALUES ('0471288217', 504, '0471288217', 'A Visual Dictionary of Architecture', 'John Wiley & Sons');
-INSERT INTO BOOK(ISBN, Publisher_ID, Product_Number, Book_Title, Publisher) VALUES ('0156006219', 550, '0156006219', 'The Magician''s Assistant', 'Harvest Books');
-INSERT INTO BOOK(ISBN, Publisher_ID, Product_Number, Book_Title, Publisher) VALUES ('0060540753', 551, '0060540753', 'Patron Saint of Liars', 'Harperperennial Library');
-INSERT INTO BOOK(ISBN, Publisher_ID, Product_Number, Book_Title, Publisher) VALUES ('0393318486', 552, '0393318486', 'How the Mind Works', 'W.W. Norton & Company');
-INSERT INTO BOOK(ISBN, Publisher_ID, Product_Number, Book_Title, Publisher) VALUES ('0060958332', 523, '0060958332', 'The Language Instinct: How the Mind Creates Language', 'Perennial');
-INSERT INTO BOOK(ISBN, Publisher_ID, Product_Number, Book_Title, Publisher) VALUES ('0060958405', 523, '0060958405', 'Words and Rules: The Ingredients of Language', 'Perennial');
-INSERT INTO BOOK(ISBN, Publisher_ID, Product_Number, Book_Title, Publisher) VALUES ('0393319407', 552, '0393319407', 'The Diversity of Life', 'W.W. Norton & Company');
-INSERT INTO BOOK(ISBN, Publisher_ID, Product_Number, Book_Title, Publisher) VALUES ('067463442X', 553, '067463442X', 'On Human Nature', 'Harvard Univ Pr');
-INSERT INTO BOOK(ISBN, Publisher_ID, Product_Number, Book_Title, Publisher) VALUES ('0446608955', 541, '0446608955', 'A Walk to Remember', 'Warner Books');
-INSERT INTO BOOK(ISBN, Publisher_ID, Product_Number, Book_Title, Publisher) VALUES ('0446676098', 541, '0446676098', 'The Notebook', 'Warner Books');
-INSERT INTO BOOK(ISBN, Publisher_ID, Product_Number, Book_Title, Publisher) VALUES ('0446606812', 541, '0446606812', 'Message in a Bottle', 'Warner Books');
-INSERT INTO BOOK(ISBN, Publisher_ID, Product_Number, Book_Title, Publisher) VALUES ('0262521415', 537, '0262521415', 'Numerical Techniques in Finance', 'MIT Press');
-INSERT INTO BOOK(ISBN, Publisher_ID, Product_Number, Book_Title, Publisher) VALUES ('0262232197', 537, '0262232197', 'Econometric Analysis of Cross Section and Panel Data', 'MIT Press');
-INSERT INTO BOOK(ISBN, Publisher_ID, Product_Number, Book_Title, Publisher) VALUES ('0324113641', 539, '0324113641', 'Introductory Econometrics: A Modern Approach', 'South-Western College Pub');
-INSERT INTO BOOK(ISBN, Publisher_ID, Product_Number, Book_Title, Publisher) VALUES ('0471391123', 504, '0471391123', 'Beyond Coso : Internal Control to Enhance Corporate Governance', 'John Wiley & Sons');
-INSERT INTO BOOK(ISBN, Publisher_ID, Product_Number, Book_Title, Publisher) VALUES ('0130998516', 554, '0130998516', 'Real World FPGA Design with Verilog', 'Prentice Hall PTR');
-INSERT INTO BOOK(ISBN, Publisher_ID, Product_Number, Book_Title, Publisher) VALUES ('1565924916', 513, '1565924916', 'Ldap System Administration', 'O''Reilly & Associates');
-INSERT INTO BOOK(ISBN, Publisher_ID, Product_Number, Book_Title, Publisher) VALUES ('0735712360', 555, '0735712360', 'The Photoshop Book for Digital Photographers', 'New Riders Publishing');
-INSERT INTO BOOK(ISBN, Publisher_ID, Product_Number, Book_Title, Publisher) VALUES ('0735712379', 555, '0735712379', 'Photoshop 7 Down & Dirty Tricks', 'New Riders Publishing');
-INSERT INTO BOOK(ISBN, Publisher_ID, Product_Number, Book_Title, Publisher) VALUES ('0735713170', 555, '0735713170', 'Mac OS X v. 10.2 Jaguar Killer Tips', 'New Riders Publishing');
-INSERT INTO BOOK(ISBN, Publisher_ID, Product_Number, Book_Title, Publisher) VALUES ('1558606432', 505, '1558606432', 'Persuasive Technology: Using Computers to Change What We Think and Do', 'Morgan Kaufmann');
-INSERT INTO BOOK(ISBN, Publisher_ID, Product_Number, Book_Title, Publisher) VALUES ('0072222743', 503, '0072222743', 'A+ Certification All-in-One Exam Guide', 'McGraw-Hill Osborne Media');
-INSERT INTO BOOK(ISBN, Publisher_ID, Product_Number, Book_Title, Publisher) VALUES ('0345409469', 556, '0345409469', 'The Demon-Haunted World: Science As a Candle in the Dark', 'Ballantine Books ');
-INSERT INTO BOOK(ISBN, Publisher_ID, Product_Number, Book_Title, Publisher) VALUES ('0375508325', 528, '0375508325', 'Cosmos', 'Random House');
-INSERT INTO BOOK(ISBN, Publisher_ID, Product_Number, Book_Title, Publisher) VALUES ('0345336895', 557, '0345336895', 'Broca''s Brain: Reflections on the Romance of Science', 'Ballantine Books');
-INSERT INTO BOOK(ISBN, Publisher_ID, Product_Number, Book_Title, Publisher) VALUES ('0671004107', 543, '0671004107', 'Contact', 'Pocket Books');
-INSERT INTO BOOK(ISBN, Publisher_ID, Product_Number, Book_Title, Publisher) VALUES ('0345376595', 556, '0345376595', 'Pale Blue Dot: A Vision of the Human Future in Space', 'Ballantine Books ');
-INSERT INTO BOOK(ISBN, Publisher_ID, Product_Number, Book_Title, Publisher) VALUES ('0316666343', 518, '0316666343', 'The Lovely Bones: A Novel', 'Little Brown & Company');
-INSERT INTO BOOK(ISBN, Publisher_ID, Product_Number, Book_Title, Publisher) VALUES ('0316096199', 558, '0316096199', 'Lucky: A Memoir', 'Back Bay Books');
-INSERT INTO BOOK(ISBN, Publisher_ID, Product_Number, Book_Title, Publisher) VALUES ('038572179X', 559, '038572179X', 'Atonement', 'Anchor Books');
-INSERT INTO BOOK(ISBN, Publisher_ID, Product_Number, Book_Title, Publisher) VALUES ('0385494246', 559, '0385494246', 'Amsterdam', 'Anchor Books');
-INSERT INTO BOOK(ISBN, Publisher_ID, Product_Number, Book_Title, Publisher) VALUES ('0385494327', 559, '0385494327', 'Black Dogs', 'Anchor Books');
-INSERT INTO BOOK(ISBN, Publisher_ID, Product_Number, Book_Title, Publisher) VALUES ('0385494149', 559, '0385494149', 'Enduring Love', 'Anchor Books');
-INSERT INTO BOOK(ISBN, Publisher_ID, Product_Number, Book_Title, Publisher) VALUES ('0399149848', 560, '0399149848', 'Birthright', 'Putnam Pub Group');
-INSERT INTO BOOK(ISBN, Publisher_ID, Product_Number, Book_Title, Publisher) VALUES ('0373218192', 561, '0373218192', 'Engaging The Enemy', 'Silhouette');
-INSERT INTO BOOK(ISBN, Publisher_ID, Product_Number, Book_Title, Publisher) VALUES ('0373218257', 525, '0373218257', 'Love By Design', 'Harlequin');
-INSERT INTO BOOK(ISBN, Publisher_ID, Product_Number, Book_Title, Publisher) VALUES ('0399149392', 560, '0399149392', 'Chesapeake Blue', 'Putnam Pub Group');
-INSERT INTO BOOK(ISBN, Publisher_ID, Product_Number, Book_Title, Publisher) VALUES ('1561584029', 534, '1561584029', 'The Complete Illustrated Guide to Furniture and Cabinet Construction', 'Taunton Pr');
-INSERT INTO BOOK(ISBN, Publisher_ID, Product_Number, Book_Title, Publisher) VALUES ('1579902944', 562, '1579902944', 'Choosing & Using Hand Tools', 'Lark Books');
-INSERT INTO BOOK(ISBN, Publisher_ID, Product_Number, Book_Title, Publisher) VALUES ('1561586196', 534, '1561586196', 'Building a Shed', 'Taunton Pr');
-INSERT INTO BOOK(ISBN, Publisher_ID, Product_Number, Book_Title, Publisher) VALUES ('0061092177', 563, '0061092177', 'Small Gods', 'Harper');
-INSERT INTO BOOK(ISBN, Publisher_ID, Product_Number, Book_Title, Publisher) VALUES ('0060502935', 563, '0060502935', 'Going Postal', 'Harper');
-INSERT INTO BOOK(ISBN, Publisher_ID, Product_Number, Book_Title, Publisher) VALUES ('0061020656', 563, '0061020656', 'Pyramids', 'Harper');
-INSERT INTO BOOK(ISBN, Publisher_ID, Product_Number, Book_Title, Publisher) VALUES ('0060855925', 563, '0060855925', 'The Color of Magic', 'Harper');
-INSERT INTO BOOK(ISBN, Publisher_ID, Product_Number, Book_Title, Publisher) VALUES ('0061020648', 563, '0061020648', 'Guards! Guards!', 'Harper');
-INSERT INTO BOOK(ISBN, Publisher_ID, Product_Number, Book_Title, Publisher) VALUES ('0061161721', 563, '0061161721', 'Unseen Academicals', 'Harper');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0782140661', 104.97, 'Computer Book');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0072227885', 34.99, 'Computer Book');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0471200247', 50.00, 'Computer Book');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0072227710', 17.49, 'Computer Book');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('1558605525', 49.95, 'Computer Book');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0972263608', 99.00, 'Computer Book');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0201615762', 38.49, 'Computer Book');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0782140114', 69.99, 'Computer Book');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0321125169', 38.49, 'Computer Book');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0805317554', 95.00, 'Computer Book');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('1861004486', 41.99, 'Computer Book');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0735712123', 34.99, 'Computer Book');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0425188361', 16.07, 'Literature & Fiction Book');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0142001740', 14.00, 'Literature & Fiction Book');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0596004478', 24.95, 'Computer Book');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0071414339', 18.95, 'Accounting & Finance Book');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0312311354', 13.00, 'Literature & Fiction Book');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0312287941', 25.95, 'Literature & Fiction Book');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0312243022', 3.44, 'Literature & Fiction Book');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0609610570', 27.50, 'Reference Book');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0316602051', 27.95, 'Literature & Fiction Book');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0743222008', 25.00, 'Literature & Fiction Book');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0066214750', 25.95, 'Literature & Fiction Book');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0787960756', 13.20, 'Accounting & Finance Book');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0743206061', 26.00, 'Accounting & Finance Book');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('1590520734', 12.99, 'Romance Book');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0060934417', 13.95, 'Romance Book');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0440237556', 6.99, 'Romance Book');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0373272839', 4.75, 'Romance Book');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0670031518', 27.95, 'Science Book');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0738206679', 26.00, 'Science Book');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('067976867X', 15.00, 'Science Book');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0679450785', 22.00, 'Science Book');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('1579550088', 44.95, 'Science Book');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0684843285', 22.00, 'Science Book');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0471358983', 40.00, 'Home Design Book');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0394739698', 24.95, 'Home Design Book');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('1586851322', 39.95, 'Home Design Book');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('1586851357', 60.00, 'Home Design Book');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('156158648X', 24.95, 'Home Design Book');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0865659982', 50.00, 'Home Design Book');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0517576600', 50.00, 'Home Design Book');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0262024829', 70.00, 'Accounting & Finance Book');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0072294337', 122.50, 'Accounting & Finance Book');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0072315318', 79.20, 'Accounting & Finance Book');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0324107501', 112.95, 'Accounting & Finance Book');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0471363049', 139.20, 'Accounting & Finance Book');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0130323519', 126.67, 'Accounting & Finance Book');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0446527793', 24.95, 'Literature & Fiction Book');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0743244249', 25.00, 'Literature & Fiction Book');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0743467523', 7.99, 'Horror Book');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0375703764', 19.95, 'Horror Book');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0345452089', 6.99, 'Horror Book');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0385504470', 17.47, 'Horror Book');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0312276702', 24.95, 'Horror Book');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0743457358', 7.99, 'Horror Book');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('1880418568', 35.00, 'Horror Book');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0743455967', 7.99, 'Horror Book');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0140077022', 14.00, 'Literature & Fiction Book');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0679722955', 11.20, 'Literature & Fiction Book');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0684848155', 16.00, 'Literature & Fiction Book');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0471286168', 39.95, 'Home Design Book');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0471288217', 39.95, 'Home Design Book');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0156006219', 13.00, 'Romance Book');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0060540753', 13.95, 'Romance Book');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0393318486', 17.95, 'Science Book');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0060958332', 10.50, 'Science Book');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0060958405', 15.00, 'Science Book');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0393319407', 16.95, 'Science Book');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('067463442X', 18.95, 'Science Book');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0446608955', 6.99, 'Literature & Fiction Book');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0446676098', 12.95, 'Literature & Fiction Book');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0446606812', 7.50, 'Literature & Fiction Book');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0262521415', 35.00, 'Accounting & Finance Book');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0262232197', 74.95, 'Accounting & Finance Book');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0324113641', 107.95, 'Accounting & Finance Book');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0471391123', 50.00, 'Accounting & Finance Book');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0130998516', 83.00, 'Computer Book');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('1565924916', 39.95, 'Computer Book');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0735712360', 39.99, 'Computer Book');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0735712379', 39.99, 'Computer Book');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0735713170', 29.99, 'Computer Book');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('1558606432', 34.95, 'Computer Book');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0072222743', 59.99, 'Computer Book');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0345409469', 14.95, 'Science Book');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0375508325', 35.00, 'Science Book');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0345336895', 6.99, 'Science Book');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0671004107', 7.99, 'Science Book');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0345376595', 12.95, 'Science Book');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0316666343', 21.95, 'Literature & Fiction Book');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0316096199', 11.95, 'Literature & Fiction Book');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('038572179X', 14.00, 'Literature & Fiction Book');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0385494246', 12.00, 'Literature & Fiction Book');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0385494327', 14.00, 'Literature & Fiction Book');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0385494149', 13.00, 'Literature & Fiction Book');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0399149848', 25.95, 'Literature & Fiction Book');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0373218192', 7.50, 'Literature & Fiction Book');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0373218257', 14.95, 'Literature & Fiction Book');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0399149392', 25.95, 'Literature & Fiction Book');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('1561584029', 39.95, 'Home Design Book');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('1579902944', 19.95, 'Home Design Book');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('1561586196', 19.95, 'Home Design Book');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0061092177', 7.99, 'Fantasy Book');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0060502935', 7.99, 'Fantasy Book');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0061020656', 7.99, 'Fantasy Book');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0060855925', 13.99, 'Fantasy Book');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0061020648', 7.99, 'Fantasy Book');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('0061161721', 7.99, 'Fantasy Book');
+INSERT INTO BOOK(ISBN,Product_Number, Book_Title, Publisher) VALUES ('0782140661',  '0782140661', 'OCP: Oracle9i Certification Kit', 'Sybex');
+INSERT INTO BOOK(ISBN,Product_Number, Book_Title, Publisher) VALUES ('0072227885',  '0072227885', 'SQL Server 2000 for Experienced DBA''s', 'McGraw-Hill Osborne Media');
+INSERT INTO BOOK(ISBN,Product_Number, Book_Title, Publisher) VALUES ('0471200247',  '0471200247', 'The Data Warehouse Toolkit: The Complete Guide to Dimensional Modeling', 'John Wiley & Sons');
+INSERT INTO BOOK(ISBN,Product_Number, Book_Title, Publisher) VALUES ('0072227710',  '0072227710', 'How To Do Everything with Your Tablet PC', 'McGraw-Hill Osborne Media');
+INSERT INTO BOOK(ISBN,Product_Number, Book_Title, Publisher) VALUES ('1558605525',  '1558605525', 'Data Mining: Practical Machine Learning Tools and Techniques with Java Implementations', 'Morgan Kaufmann');
+INSERT INTO BOOK(ISBN,Product_Number, Book_Title, Publisher) VALUES ('0972263608',  '0972263608', 'Creating Documents with BusinessObjects 5.1', 'Schmidt Ink, Inc.');
+INSERT INTO BOOK(ISBN,Product_Number, Book_Title, Publisher) VALUES ('0201615762',  '0201615762', 'The Guru''s Guide to Transact-SQL', 'Addison-Wesley Pub Co');
+INSERT INTO BOOK(ISBN,Product_Number, Book_Title, Publisher) VALUES ('0782140114',  '0782140114', 'Access 2002 Developer''s Handbook Set', 'Sybex');
+INSERT INTO BOOK(ISBN,Product_Number, Book_Title, Publisher) VALUES ('0321125169',  '0321125169', 'ColdFusion MX Web Application Construction Kit', 'Macromedia Press');
+INSERT INTO BOOK(ISBN,Product_Number, Book_Title, Publisher) VALUES ('0805317554',  '0805317554', 'Fundamentals of Database Systems ', 'Addison-Wesley Publishing');
+INSERT INTO BOOK(ISBN,Product_Number, Book_Title, Publisher) VALUES ('1861004486',  '1861004486', 'Professional SQL Server 2000 Programming', 'Wrox Press Inc');
+INSERT INTO BOOK(ISBN,Product_Number, Book_Title, Publisher) VALUES ('0735712123',  '0735712123', 'MySQL', 'Addison-Wesley Publishing');
+INSERT INTO BOOK(ISBN,Product_Number, Book_Title, Publisher) VALUES ('0425188361',  '0425188361', 'Cerulean Sins', 'Berkley Pub Group');
+INSERT INTO BOOK(ISBN,Product_Number, Book_Title, Publisher) VALUES ('0142001740',  '0142001740', 'The Secret Life of Bees', 'Penguin USA ');
+INSERT INTO BOOK(ISBN,Product_Number, Book_Title, Publisher) VALUES ('0596004478',  '0596004478', 'Google Hacks', 'O''Reilly & Associates');
+INSERT INTO BOOK(ISBN,Product_Number, Book_Title, Publisher) VALUES ('0071414339',  '0071414339', 'Investing in Fixer-Uppers : A Complete Guide to Buying Low, Fixing Smart, Adding Value, and Selling (or Renting) High', 'McGraw-Hill Trade');
+INSERT INTO BOOK(ISBN,Product_Number, Book_Title, Publisher) VALUES ('0312311354',  '0312311354', 'The Pianist', 'Picador');
+INSERT INTO BOOK(ISBN,Product_Number, Book_Title, Publisher) VALUES ('0312287941',  '0312287941', 'The Girl in the Red Coat: A Memoir', 'St. Martin''s Press');
+INSERT INTO BOOK(ISBN,Product_Number, Book_Title, Publisher) VALUES ('0312243022',  '0312243022', 'The Hours', 'Picador');
+INSERT INTO BOOK(ISBN,Product_Number, Book_Title, Publisher) VALUES ('0609610570',  '0609610570', 'Execution: The Discipline of Getting Things Done', 'Crown Pub');
+INSERT INTO BOOK(ISBN,Product_Number, Book_Title, Publisher) VALUES ('0316602051',  '0316602051', 'The Jester', 'Little Brown & Company');
+INSERT INTO BOOK(ISBN,Product_Number, Book_Title, Publisher) VALUES ('0743222008',  '0743222008', 'The Vanished Man: A Lincoln Rhyme Novel', 'Simon & Schuster');
+INSERT INTO BOOK(ISBN,Product_Number, Book_Title, Publisher) VALUES ('0066214750',  '0066214750', 'Twelve Times Blessed', 'HarperCollins');
+INSERT INTO BOOK(ISBN,Product_Number, Book_Title, Publisher) VALUES ('0787960756',  '0787960756', 'The Five Dysfunctions of a Team: A Leadership Fable', 'Jossey-Bass');
+INSERT INTO BOOK(ISBN,Product_Number, Book_Title, Publisher) VALUES ('0743206061',  '0743206061', 'The Second Time Around', 'Simon & Schuster');
+INSERT INTO BOOK(ISBN,Product_Number, Book_Title, Publisher) VALUES ('1590520734',  '1590520734', 'The Rescuer: The O''Malley Series', 'Multnomah Publishers Inc.');
+INSERT INTO BOOK(ISBN,Product_Number, Book_Title, Publisher) VALUES ('0060934417',  '0060934417', 'Bel Canto: A Novel', 'Perennial');
+INSERT INTO BOOK(ISBN,Product_Number, Book_Title, Publisher) VALUES ('0440237556',  '0440237556', 'The Dark Highlander', 'Dell Pub Co');
+INSERT INTO BOOK(ISBN,Product_Number, Book_Title, Publisher) VALUES ('0373272839',  '0373272839', 'Letters to Kelly', 'Harlequin');
+INSERT INTO BOOK(ISBN,Product_Number, Book_Title, Publisher) VALUES ('0670031518',  '0670031518', 'The Blank Slate: The Modern Denial of Human Nature', 'Viking Press');
+INSERT INTO BOOK(ISBN,Product_Number, Book_Title, Publisher) VALUES ('0738206679',  '0738206679', 'Linked: The New Science of Networks', 'Perseus Publishing');
+INSERT INTO BOOK(ISBN,Product_Number, Book_Title, Publisher) VALUES ('067976867X',  '067976867X', 'Consilience: The Unity of Knowledge', 'Random House');
+INSERT INTO BOOK(ISBN,Product_Number, Book_Title, Publisher) VALUES ('0679450785',  '0679450785', 'The Future of Life', 'Knopf');
+INSERT INTO BOOK(ISBN,Product_Number, Book_Title, Publisher) VALUES ('1579550088',  '1579550088', 'A New Kind of Science', 'Wolfram Media, Inc.');
+INSERT INTO BOOK(ISBN,Product_Number, Book_Title, Publisher) VALUES ('0684843285',  '0684843285', 'ON FOOD AND COOKING', 'Fireside');
+INSERT INTO BOOK(ISBN,Product_Number, Book_Title, Publisher) VALUES ('0471358983',  '0471358983', 'Building Construction Illustrated', 'John Wiley & Sons');
+INSERT INTO BOOK(ISBN,Product_Number, Book_Title, Publisher) VALUES ('0394739698',  '0394739698', 'A Field Guide to American Houses', 'Random House Trade Paperbacks');
+INSERT INTO BOOK(ISBN,Product_Number, Book_Title, Publisher) VALUES ('1586851322',  '1586851322', 'Prefab', 'Gibbs Smith Publisher');
+INSERT INTO BOOK(ISBN,Product_Number, Book_Title, Publisher) VALUES ('1586851357',  '1586851357', 'Cabins & Camps', 'Gibbs Smith Publisher');
+INSERT INTO BOOK(ISBN,Product_Number, Book_Title, Publisher) VALUES ('156158648X',  '156158648X', 'The New City Home: Smart Solutions for Metro Living', 'Taunton Pr');
+INSERT INTO BOOK(ISBN,Product_Number, Book_Title, Publisher) VALUES ('0865659982',  '0865659982', 'Composers'' Houses', 'Vendome Pr');
+INSERT INTO BOOK(ISBN,Product_Number, Book_Title, Publisher) VALUES ('0517576600',  '0517576600', 'Color: Natural Palettes for Painted Rooms', 'Clarkson N. Potter');
+INSERT INTO BOOK(ISBN,Product_Number, Book_Title, Publisher) VALUES ('0262024829',  '0262024829', 'Financial Modeling ', 'MIT Press');
+INSERT INTO BOOK(ISBN,Product_Number, Book_Title, Publisher) VALUES ('0072294337',  '0072294337', 'Financial Markets & Corporate Strategy', 'McGraw-Hill/Irwin');
+INSERT INTO BOOK(ISBN,Product_Number, Book_Title, Publisher) VALUES ('0072315318',  '0072315318', 'Analysis for Financial Management', 'McGraw-Hill/Irwin');
+INSERT INTO BOOK(ISBN,Product_Number, Book_Title, Publisher) VALUES ('0324107501',  '0324107501', 'Advanced Accounting', 'South-Western College Pub');
+INSERT INTO BOOK(ISBN,Product_Number, Book_Title, Publisher) VALUES ('0471363049',  '0471363049', 'Intermediate Accounting', 'John Wiley & Sons');
+INSERT INTO BOOK(ISBN,Product_Number, Book_Title, Publisher) VALUES ('0130323519',  '0130323519', 'Financial Reporting and Analysis ', 'Prentice Hall');
+INSERT INTO BOOK(ISBN,Product_Number, Book_Title, Publisher) VALUES ('0446527793',  '0446527793', 'The Guardian', 'Warner Books');
+INSERT INTO BOOK(ISBN,Product_Number, Book_Title, Publisher) VALUES ('0743244249',  '0743244249', 'Cosmopolis: A Novel', 'Scribner');
+INSERT INTO BOOK(ISBN,Product_Number, Book_Title, Publisher) VALUES ('0743467523',  '0743467523', 'Dreamcatcher', 'Pocket Books');
+INSERT INTO BOOK(ISBN,Product_Number, Book_Title, Publisher) VALUES ('0375703764',  '0375703764', 'House of Leaves', 'Pantheon Books');
+INSERT INTO BOOK(ISBN,Product_Number, Book_Title, Publisher) VALUES ('0345452089',  '0345452089', 'The Vampire''s Violin', 'Del Rey');
+INSERT INTO BOOK(ISBN,Product_Number, Book_Title, Publisher) VALUES ('0385504470',  '0385504470', 'Lullaby: A Novel', 'Doubleday');
+INSERT INTO BOOK(ISBN,Product_Number, Book_Title, Publisher) VALUES ('0312276702',  '0312276702', 'Jinn: A Novel', 'St. Martin''s Press');
+INSERT INTO BOOK(ISBN,Product_Number, Book_Title, Publisher) VALUES ('0743457358',  '0743457358', 'Everything''s Eventual: 14 Dark Tales', 'Pocket Books');
+INSERT INTO BOOK(ISBN,Product_Number, Book_Title, Publisher) VALUES ('1880418568',  '1880418568', 'Wolves of the Calla ', 'Donald M. Grant Publisher, Inc.');
+INSERT INTO BOOK(ISBN,Product_Number, Book_Title, Publisher) VALUES ('0743455967',  '0743455967', 'On Writing', 'Pocket Books');
+INSERT INTO BOOK(ISBN,Product_Number, Book_Title, Publisher) VALUES ('0140077022',  '0140077022', 'White Noise ', 'Penguin USA ');
+INSERT INTO BOOK(ISBN,Product_Number, Book_Title, Publisher) VALUES ('0679722955',  '0679722955', 'The Names', 'Vintage Books');
+INSERT INTO BOOK(ISBN,Product_Number, Book_Title, Publisher) VALUES ('0684848155',  '0684848155', 'UNDERWORLD: A NOVEL', 'Scribner Paperback Fiction');
+INSERT INTO BOOK(ISBN,Product_Number, Book_Title, Publisher) VALUES ('0471286168',  '0471286168', 'Architecture: Form, Space, and Order', 'John Wiley & Sons');
+INSERT INTO BOOK(ISBN,Product_Number, Book_Title, Publisher) VALUES ('0471288217',  '0471288217', 'A Visual Dictionary of Architecture', 'John Wiley & Sons');
+INSERT INTO BOOK(ISBN,Product_Number, Book_Title, Publisher) VALUES ('0156006219',  '0156006219', 'The Magician''s Assistant', 'Harvest Books');
+INSERT INTO BOOK(ISBN,Product_Number, Book_Title, Publisher) VALUES ('0060540753',  '0060540753', 'Patron Saint of Liars', 'Harperperennial Library');
+INSERT INTO BOOK(ISBN,Product_Number, Book_Title, Publisher) VALUES ('0393318486',  '0393318486', 'How the Mind Works', 'W.W. Norton & Company');
+INSERT INTO BOOK(ISBN,Product_Number, Book_Title, Publisher) VALUES ('0060958332',  '0060958332', 'The Language Instinct: How the Mind Creates Language', 'Perennial');
+INSERT INTO BOOK(ISBN,Product_Number, Book_Title, Publisher) VALUES ('0060958405',  '0060958405', 'Words and Rules: The Ingredients of Language', 'Perennial');
+INSERT INTO BOOK(ISBN,Product_Number, Book_Title, Publisher) VALUES ('0393319407',  '0393319407', 'The Diversity of Life', 'W.W. Norton & Company');
+INSERT INTO BOOK(ISBN,Product_Number, Book_Title, Publisher) VALUES ('067463442X',  '067463442X', 'On Human Nature', 'Harvard Univ Pr');
+INSERT INTO BOOK(ISBN,Product_Number, Book_Title, Publisher) VALUES ('0446608955',  '0446608955', 'A Walk to Remember', 'Warner Books');
+INSERT INTO BOOK(ISBN,Product_Number, Book_Title, Publisher) VALUES ('0446676098',  '0446676098', 'The Notebook', 'Warner Books');
+INSERT INTO BOOK(ISBN,Product_Number, Book_Title, Publisher) VALUES ('0446606812',  '0446606812', 'Message in a Bottle', 'Warner Books');
+INSERT INTO BOOK(ISBN,Product_Number, Book_Title, Publisher) VALUES ('0262521415',  '0262521415', 'Numerical Techniques in Finance', 'MIT Press');
+INSERT INTO BOOK(ISBN,Product_Number, Book_Title, Publisher) VALUES ('0262232197',  '0262232197', 'Econometric Analysis of Cross Section and Panel Data', 'MIT Press');
+INSERT INTO BOOK(ISBN,Product_Number, Book_Title, Publisher) VALUES ('0324113641',  '0324113641', 'Introductory Econometrics: A Modern Approach', 'South-Western College Pub');
+INSERT INTO BOOK(ISBN,Product_Number, Book_Title, Publisher) VALUES ('0471391123',  '0471391123', 'Beyond Coso : Internal Control to Enhance Corporate Governance', 'John Wiley & Sons');
+INSERT INTO BOOK(ISBN,Product_Number, Book_Title, Publisher) VALUES ('0130998516',  '0130998516', 'Real World FPGA Design with Verilog', 'Prentice Hall PTR');
+INSERT INTO BOOK(ISBN,Product_Number, Book_Title, Publisher) VALUES ('1565924916',  '1565924916', 'Ldap System Administration', 'O''Reilly & Associates');
+INSERT INTO BOOK(ISBN,Product_Number, Book_Title, Publisher) VALUES ('0735712360',  '0735712360', 'The Photoshop Book for Digital Photographers', 'New Riders Publishing');
+INSERT INTO BOOK(ISBN,Product_Number, Book_Title, Publisher) VALUES ('0735712379',  '0735712379', 'Photoshop 7 Down & Dirty Tricks', 'New Riders Publishing');
+INSERT INTO BOOK(ISBN,Product_Number, Book_Title, Publisher) VALUES ('0735713170',  '0735713170', 'Mac OS X v. 10.2 Jaguar Killer Tips', 'New Riders Publishing');
+INSERT INTO BOOK(ISBN,Product_Number, Book_Title, Publisher) VALUES ('1558606432',  '1558606432', 'Persuasive Technology: Using Computers to Change What We Think and Do', 'Morgan Kaufmann');
+INSERT INTO BOOK(ISBN,Product_Number, Book_Title, Publisher) VALUES ('0072222743',  '0072222743', 'A+ Certification All-in-One Exam Guide', 'McGraw-Hill Osborne Media');
+INSERT INTO BOOK(ISBN,Product_Number, Book_Title, Publisher) VALUES ('0345409469',  '0345409469', 'The Demon-Haunted World: Science As a Candle in the Dark', 'Ballantine Books ');
+INSERT INTO BOOK(ISBN,Product_Number, Book_Title, Publisher) VALUES ('0375508325',  '0375508325', 'Cosmos', 'Random House');
+INSERT INTO BOOK(ISBN,Product_Number, Book_Title, Publisher) VALUES ('0345336895',  '0345336895', 'Broca''s Brain: Reflections on the Romance of Science', 'Ballantine Books');
+INSERT INTO BOOK(ISBN,Product_Number, Book_Title, Publisher) VALUES ('0671004107',  '0671004107', 'Contact', 'Pocket Books');
+INSERT INTO BOOK(ISBN,Product_Number, Book_Title, Publisher) VALUES ('0345376595',  '0345376595', 'Pale Blue Dot: A Vision of the Human Future in Space', 'Ballantine Books ');
+INSERT INTO BOOK(ISBN,Product_Number, Book_Title, Publisher) VALUES ('0316666343',  '0316666343', 'The Lovely Bones: A Novel', 'Little Brown & Company');
+INSERT INTO BOOK(ISBN,Product_Number, Book_Title, Publisher) VALUES ('0316096199',  '0316096199', 'Lucky: A Memoir', 'Back Bay Books');
+INSERT INTO BOOK(ISBN,Product_Number, Book_Title, Publisher) VALUES ('038572179X',  '038572179X', 'Atonement', 'Anchor Books');
+INSERT INTO BOOK(ISBN,Product_Number, Book_Title, Publisher) VALUES ('0385494246',  '0385494246', 'Amsterdam', 'Anchor Books');
+INSERT INTO BOOK(ISBN,Product_Number, Book_Title, Publisher) VALUES ('0385494327',  '0385494327', 'Black Dogs', 'Anchor Books');
+INSERT INTO BOOK(ISBN,Product_Number, Book_Title, Publisher) VALUES ('0385494149',  '0385494149', 'Enduring Love', 'Anchor Books');
+INSERT INTO BOOK(ISBN,Product_Number, Book_Title, Publisher) VALUES ('0399149848',  '0399149848', 'Birthright', 'Putnam Pub Group');
+INSERT INTO BOOK(ISBN,Product_Number, Book_Title, Publisher) VALUES ('0373218192',  '0373218192', 'Engaging The Enemy', 'Silhouette');
+INSERT INTO BOOK(ISBN,Product_Number, Book_Title, Publisher) VALUES ('0373218257',  '0373218257', 'Love By Design', 'Harlequin');
+INSERT INTO BOOK(ISBN,Product_Number, Book_Title, Publisher) VALUES ('0399149392',  '0399149392', 'Chesapeake Blue', 'Putnam Pub Group');
+INSERT INTO BOOK(ISBN,Product_Number, Book_Title, Publisher) VALUES ('1561584029',  '1561584029', 'The Complete Illustrated Guide to Furniture and Cabinet Construction', 'Taunton Pr');
+INSERT INTO BOOK(ISBN,Product_Number, Book_Title, Publisher) VALUES ('1579902944',  '1579902944', 'Choosing & Using Hand Tools', 'Lark Books');
+INSERT INTO BOOK(ISBN,Product_Number, Book_Title, Publisher) VALUES ('1561586196',  '1561586196', 'Building a Shed', 'Taunton Pr');
+INSERT INTO BOOK(ISBN,Product_Number, Book_Title, Publisher) VALUES ('0061092177',  '0061092177', 'Small Gods', 'Harper');
+INSERT INTO BOOK(ISBN,Product_Number, Book_Title, Publisher) VALUES ('0060502935',  '0060502935', 'Going Postal', 'Harper');
+INSERT INTO BOOK(ISBN,Product_Number, Book_Title, Publisher) VALUES ('0061020656',  '0061020656', 'Pyramids', 'Harper');
+INSERT INTO BOOK(ISBN,Product_Number, Book_Title, Publisher) VALUES ('0060855925',  '0060855925', 'The Color of Magic', 'Harper');
+INSERT INTO BOOK(ISBN,Product_Number, Book_Title, Publisher) VALUES ('0061020648',  '0061020648', 'Guards! Guards!', 'Harper');
+INSERT INTO BOOK(ISBN,Product_Number, Book_Title, Publisher) VALUES ('0061161721',  '0061161721', 'Unseen Academicals', 'Harper');
 INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (502, '0782140661');
 INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (503, '0782140661');
 INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (504, '0782140661');
@@ -1521,7 +1514,7 @@ VALUES
 (19, 1561586196),
 (20, 517576600);
 
-INSERT INTO PURCHASE(Purchase_ID, Shopping_Address, Billing_Address, Payment_Method, Date, Product_Number)
+INSERT INTO PURCHASE(Purchase_ID, Shipping_Address, Billing_Address, Payment_Method, Date, Product_Number)
 VALUES
 (22, '777 Brockton Avenue, Abington MA 2351' , '777 Brockton Avenue, Abington MA 2351' , 'CREDIT', 2023-06-06,  0782140661),
 (23, '777 Brockton Avenue, Abington MA 2351' , '777 Brockton Avenue, Abington MA 2351' , 'CREDIT', 2023-06-06,  0471200247),
