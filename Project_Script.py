@@ -40,53 +40,13 @@ def get_author_inserts(data):
         for author in authors:
             if author not in author_id_map:
                 names = author.split()
-                if len(names) == 1:
-                    first_name = update_string(names[0])
-                    middle_name = ''
-                    last_name = ''
-                elif len(names) == 2:
-                    first_name = update_string(names[0])
-                    middle_name = ''
-                    last_name = update_string(names[1])
-                else:
-                    first_name = update_string(names[0])
-                    middle_name = update_string(' '.join(names[1:-1]))
-                    last_name = update_string(names[-1])
+                first_name = update_string(names[0])
+                middle_name = update_string(' '.join(names[1:-1])) if len(names) > 2 else ''
+                last_name = update_string(names[-1]) if len(names) > 1 else ''
                 author_id = generate_unique_code('author')
                 author_id_map[author] = author_id
                 inserts.append(f"INSERT INTO AUTHOR(Author_ID, First_Name, Middle_Name, Last_Name) VALUES ({author_id}, '{first_name}', '{middle_name}', '{last_name}');")
     return inserts
-
-# Get insert statements for authors
-def get_author_inserts(data):
-    global author_id_map
-    inserts = []
-    for index, row in data.iterrows():
-        authors = row['Author(s)'].split('; ')
-        for author in authors:
-            if author not in author_id_map:
-                author_id = generate_unique_code('author')
-                author_id_map[author] = author_id
-                inserts.append(get_author_insert_statement(author, author_id))
-    return inserts
-
-# get insert statements for author
-def get_author_insert_statement(author, author_id):
-    names = author.split()
-    if len(names) == 1:
-        first_name = update_string(names[0])
-        middle_name = ''
-        last_name = ''
-    elif len(names) == 2:
-        first_name = update_string(names[0])
-        middle_name = ''
-        last_name = update_string(names[1])
-    else:
-        first_name = update_string(names[0])
-        middle_name = update_string(' '.join(names[1:-1]))
-        last_name = update_string(names[-1])
-    return f"INSERT INTO AUTHOR(Author_ID, First_Name, Middle_Name, Last_Name) VALUES ({author_id}, '{first_name}', '{middle_name}', '{last_name}');"
-
 
 # get insert statements for publishers
 def get_publisher_inserts(data):
@@ -118,7 +78,7 @@ def get_book_inserts(data):
         book_inserts.append(f"INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher) VALUES ('{isbn}', {publisher_id}, '{isbn}', '{title}', '{publisher}');")
     return book_inserts
 
-#get insert statements for written by
+# get insert statements for written by
 def get_written_by_inserts(data):
     written_by_inserts = []
     for _, row in data.iterrows():
@@ -129,6 +89,13 @@ def get_written_by_inserts(data):
             written_by_inserts.append(f"INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES ({author_id}, '{isbn}');")
     return written_by_inserts
 
+# get insert statements for stores_product
+def get_stores_product_inserts(data):
+    default_warehouse_no = 1
+    default_quantity_no=1
+    unique_books = data.drop_duplicates(subset=['ISBN'])
+    return [f"INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES ({default_warehouse_no}, '{isbn}', {default_quantity_no});" 
+            for isbn in unique_books['ISBN']]
 
 # read the CSV file and skip the first row with book as the only value
 input_data = pd.read_csv('data.csv', encoding='latin-1', skiprows=1)
@@ -142,8 +109,9 @@ publisher_table = get_publisher_inserts(updated_data)
 product_table = get_product_inserts(updated_data)
 book_table = get_book_inserts(updated_data)
 written_by_table = get_written_by_inserts(updated_data)
+stores_product_table = get_stores_product_inserts(updated_data)
 
 # output file with sql print statements
 with open('script_insert_output.txt', 'w') as file: 
-    for inserts in [author_table, publisher_table, product_table, book_table, written_by_table]:
+    for inserts in [author_table, publisher_table, product_table, book_table, written_by_table, stores_product_table]:
         file.write('\n'.join(inserts) + '\n')

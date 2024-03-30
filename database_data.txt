@@ -160,9 +160,7 @@ CREATE TABLE PURCHASE (
     Billing_Address VARCHAR(100) NOT NULL,
     Payment_Method VARCHAR(100) NOT NULL,
     Date DATE NOT NULL,
-    Customer_ID INT NOT NULL,
     Product_Number INT NOT NULL,
-    FOREIGN KEY (Customer_ID) REFERENCES CUSTOMER(Loyalty_No),
     FOREIGN KEY (Product_Number) REFERENCES PRODUCT(Item_Number),
     PRIMARY KEY (Transaction_ID)
 );
@@ -175,7 +173,7 @@ CREATE TABLE CUSTOMER (
     PRIMARY KEY (Loyalty_No)
 );
 
-CREATE TABLE MAKES_TRANSACTION (
+CREATE TABLE MAKES_PURCHASE (
     Quantity INT NOT NULL,
     Loyalty_No INT NOT NULL,
     Transaction_ID INT NOT NULL,
@@ -219,7 +217,7 @@ VALUES
 (15, '1775 Washington St, Hanover MA 2339', 'Tim', 'Duncan'),
 (16, '280 Washington Street, Hudson MA 1749', 'Greg', 'Rose'),
 (17, '20 Soojian Dr, Leicester MA 1524', 'Justin', 'Fields'),
-(18, '11 Jungle Road, Leominster MA 1453', 'CJ', 'Stround'),
+(18, '11 Jungle Road, Leominster MA 1453', 'CJ', 'Stroud'),
 (19, '301 Massachusetts Ave, Lunenburg MA 1462', 'Derrick', 'Morris'),
 (20, '780 Lynnway, Lynn MA 1905', 'John', 'John'),
 (21, '70 Pleasant Valley Street, Methuen MA 1844', 'Wanos', 'Bahiru');
@@ -714,29 +712,30 @@ VALUES
 (51, 5, 20.00, "Board Game"),
 (52, 5, 20.00, "Board Game");
 
-INSERT INTO PURCHASE(Transaction_ID, Shopping_Address, Billing_Address, Payment_Method, Date, Customer_ID,  Product_Number)
+INSERT INTO PURCHASE(Transaction_ID, Shopping_Address, Billing_Address, Payment_Method, Date, Product_Number)
 VALUES
-(1, '777 Brockton Avenue, Abington MA 2351' , '777 Brockton Avenue, Abington MA 2351' , 'CREDIT', 2023-06-06, 1, 1),
-(2, '30 Memorial Drive, Avon MA 2322',  '30 Memorial Drive, Avon MA 2322', 'CREDIT', 2023-06-06, 2, 2),
-(3, '250 Hartford Avenue, Bellingham MA 2019', '250 Hartford Avenue, Bellingham MA 2019', 'CREDIT', 2023-01-03, 3, 3),
-(4, '700 Oak Street, Brockton MA 2301', '700 Oak Street, Brockton MA 2301', 'CREDIT', 2024-02-01, 4,4),
-(5, '66-4 Parkhurst Rd, Chelmsford MA 1824',  '66-4 Parkhurst Rd, Chelmsford MA 1824', 'CREDIT', 2023-02-29, 5, 5),
-(6, '591 Memorial Dr, Chicopee MA 1020',   '591 Memorial Dr, Chicopee MA 1020',  'CREDIT', 2023-06-09, 6, 6),
-(7, '55 Brooksby Village Way, Danvers MA 1923',  '55 Brooksby Village Way, Danvers MA 1923', 'CREDIT', 2024-01-01, 7, 7),
-(8, ' 137 Teaticket Hwy, East Falmouth MA 2536', ' 137 Teaticket Hwy, East Falmouth MA 2536','CREDIT', 2024-01-11, 8, 8),
-(9, '42 Fairhaven Commons Way, Fairhaven MA 2719', '42 Fairhaven Commons Way, Fairhaven MA 2719', 'CREDIT', 2024-01-31, 9, 9),
-(10, '374 William S Canning Blvd, Fall River MA 2721', '374 William S Canning Blvd, Fall River MA 2721', 'DEBIT ', 2024-02-21, 10, 10),
-(11, '121 Worcester Rd, Framingham MA 1701',   '121 Worcester Rd, Framingham MA 1701',  'DEBIT ', 2023-12-24, 11, 11),
-(12, '677 Timpany Blvd, Gardner MA 1440', '677 Timpany Blvd, Gardner MA 1440',  'DEBIT ',  2024-02-01, 12, 12),
-(13, '337 Russell St, Hadley MA 1035',  '337 Russell St, Hadley MA 1035',  'DEBIT ', 2024-01-07, 13, 13),
-(14, '295 Plymouth Street, Halifax MA 2338', '295 Plymouth Street, Halifax MA 2338',  'DEBIT ', 2024-01-08, 14, 14),
-(15, '1775 Washington St, Hanover MA 2339', '1775 Washington St, Hanover MA 2339',  'DEBIT ', 2024-04-01, 15, 15),
-(16, '280 Washington Street, Hudson MA 1749', '5399 W Genesse St, Camillus NY 13031', 'CASH', 2024-04-05, 16., 16),
-(17, '20 Soojian Dr, Leicester MA 1524', '30 Catskill, Catskill NY 12414', 'CASH', 2024-04-05, 17, 17),
-(18, '11 Jungle Road, Leominster MA 1453', '872 Route 13, Cortlandville NY 13045', 'CASH', 2024-04-05, 18, 18),
-(19, '301 Massachusetts Ave, Lunenburg MA 1462', '301 Massachusetts Ave, Lunenburg MA 1462','CASH', 2024-04-01, 19, 19),
-(20, '780 Lynnway, Lynn MA 1905', '301 Massachusetts Ave, Lunenburg MA 1462', 'CASH', 2023-04-05, 20, 20),
-(21, '70 Pleasant Valley Street, Methuen MA 1844', '70 Pleasant Valley Street, Methuen MA 1844', 'CASH', 2022-06-05, 21, 21);
+(1, '777 Brockton Avenue, Abington MA 2351' , '777 Brockton Avenue, Abington MA 2351' , 'CREDIT', 2023-06-06,  1),
+(2, '30 Memorial Drive, Avon MA 2322',  '30 Memorial Drive, Avon MA 2322', 'CREDIT', 2023-06-06, 2),
+(3, '250 Hartford Avenue, Bellingham MA 2019', '250 Hartford Avenue, Bellingham MA 2019', 'CREDIT', 2023-01-03, 3),
+(4, '700 Oak Street, Brockton MA 2301', '700 Oak Street, Brockton MA 2301', 'CREDIT', 2024-02-01, 4),
+(5, '66-4 Parkhurst Rd, Chelmsford MA 1824',  '66-4 Parkhurst Rd, Chelmsford MA 1824', 'CREDIT', 2023-02-29,  5),
+(6, '591 Memorial Dr, Chicopee MA 1020',   '591 Memorial Dr, Chicopee MA 1020',  'CREDIT', 2023-06-09,  6),
+(7, '55 Brooksby Village Way, Danvers MA 1923',  '55 Brooksby Village Way, Danvers MA 1923', 'CREDIT', 2024-01-01, 7),
+(8, ' 137 Teaticket Hwy, East Falmouth MA 2536', ' 137 Teaticket Hwy, East Falmouth MA 2536','CREDIT', 2024-01-11,  8),
+(9, '42 Fairhaven Commons Way, Fairhaven MA 2719', '42 Fairhaven Commons Way, Fairhaven MA 2719', 'CREDIT', 2024-01-31,  9),
+(10, '374 William S Canning Blvd, Fall River MA 2721', '374 William S Canning Blvd, Fall River MA 2721', 'DEBIT ', 2024-02-21, 10),
+(11, '121 Worcester Rd, Framingham MA 1701',   '121 Worcester Rd, Framingham MA 1701',  'DEBIT ', 2023-12-24, 11),
+(12, '677 Timpany Blvd, Gardner MA 1440', '677 Timpany Blvd, Gardner MA 1440',  'DEBIT ',  2024-02-01, 12),
+(13, '337 Russell St, Hadley MA 1035',  '337 Russell St, Hadley MA 1035',  'DEBIT ', 2024-01-07,  13),
+(14, '295 Plymouth Street, Halifax MA 2338', '295 Plymouth Street, Halifax MA 2338',  'DEBIT ', 2024-01-08,  14),
+(15, '1775 Washington St, Hanover MA 2339', '1775 Washington St, Hanover MA 2339',  'DEBIT ', 2024-04-01, 15),
+(16, '280 Washington Street, Hudson MA 1749', '5399 W Genesse St, Camillus NY 13031', 'CASH', 2024-04-05, 16),
+(17, '20 Soojian Dr, Leicester MA 1524', '30 Catskill, Catskill NY 12414', 'CASH', 2024-04-05, 17),
+(18, '11 Jungle Road, Leominster MA 1453', '872 Route 13, Cortlandville NY 13045', 'CASH', 2024-04-05, 18),
+(19, '301 Massachusetts Ave, Lunenburg MA 1462', '301 Massachusetts Ave, Lunenburg MA 1462','CASH', 2024-04-01, 19),
+(20, '780 Lynnway, Lynn MA 1905', '301 Massachusetts Ave, Lunenburg MA 1462', 'CASH', 2023-04-05, 20),
+(21, '70 Pleasant Valley Street, Methuen MA 1844', '70 Pleasant Valley Street, Methuen MA 1844', 'CASH', 2022-06-05, 21);
+
 
 INSERT INTO DRINK(Item_Number, Warehouse_No, Transaction_ID, Price, Product_Type, Drink_Type)
 VALUES
@@ -842,7 +841,7 @@ VALUES
 (20,51, 88),
 (20, 52, 48);
 
-INSERT INTO MAKES_TRANSACTION(Quantity, Loyalty_No, Transaction_ID)
+INSERT INTO MAKES_PURCHASE(Quantity, Loyalty_No, Transaction_ID)
 VALUES
 (20, 11, 11),
 (1, 1, 1),
@@ -865,6 +864,7 @@ VALUES
 (3, 20, 20),
 (2, 21, 21);
 
+--imported data from sheet--
 INSERT INTO AUTHOR(Author_ID, First_Name, Middle_Name, Last_Name) VALUES (502, 'Chip', '', 'Dawes');
 INSERT INTO AUTHOR(Author_ID, First_Name, Middle_Name, Last_Name) VALUES (503, 'Biju', '', 'Thomas');
 INSERT INTO AUTHOR(Author_ID, First_Name, Middle_Name, Last_Name) VALUES (504, 'Doug', '', 'Stuns');
@@ -1391,8 +1391,116 @@ INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (608, '0061020656');
 INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (608, '0060855925');
 INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (608, '0061020648');
 INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (608, '0061161721');
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0782140661', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0072227885', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0471200247', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0072227710', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '1558605525', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0972263608', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0201615762', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0782140114', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0321125169', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0805317554', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '1861004486', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0735712123', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0425188361', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0142001740', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0596004478', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0071414339', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0312311354', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0312287941', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0312243022', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0609610570', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0316602051', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0743222008', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0066214750', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0787960756', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0743206061', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '1590520734', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0060934417', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0440237556', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0373272839', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0670031518', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0738206679', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '067976867X', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0679450785', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '1579550088', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0684843285', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0471358983', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0394739698', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '1586851322', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '1586851357', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '156158648X', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0865659982', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0517576600', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0262024829', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0072294337', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0072315318', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0324107501', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0471363049', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0130323519', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0446527793', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0743244249', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0743467523', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0375703764', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0345452089', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0385504470', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0312276702', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0743457358', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '1880418568', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0743455967', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0140077022', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0679722955', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0684848155', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0471286168', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0471288217', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0156006219', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0060540753', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0393318486', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0060958332', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0060958405', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0393319407', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '067463442X', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0446608955', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0446676098', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0446606812', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0262521415', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0262232197', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0324113641', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0471391123', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0130998516', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '1565924916', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0735712360', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0735712379', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0735713170', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '1558606432', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0072222743', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0345409469', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0375508325', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0345336895', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0671004107', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0345376595', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0316666343', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0316096199', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '038572179X', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0385494246', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0385494327', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0385494149', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0399149848', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0373218192', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0373218257', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0399149392', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '1561584029', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '1579902944', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '1561586196', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0061092177', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0060502935', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0061020656', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0060855925', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0061020648', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0061161721', 1);
 
-
+--SQL code that depends on books being added before hand--
 INSERT INTO WRITTEN_BY(Author_ID, ISBN)
 VALUES
 (1, 471363049),
@@ -1415,3 +1523,29 @@ VALUES
 (20, 684848155),
 (19, 1561586196),
 (20, 517576600);
+
+INSERT INTO PURCHASE(Transaction_ID, Shopping_Address, Billing_Address, Payment_Method, Date, Product_Number)
+VALUES
+(22, '777 Brockton Avenue, Abington MA 2351' , '777 Brockton Avenue, Abington MA 2351' , 'CREDIT', 2023-06-06,  0782140661),
+(23, '777 Brockton Avenue, Abington MA 2351' , '777 Brockton Avenue, Abington MA 2351' , 'CREDIT', 2023-06-06,  0471200247),
+(24, '777 Brockton Avenue, Abington MA 2351' , '777 Brockton Avenue, Abington MA 2351' , 'CREDIT', 2023-06-06,  0072227710),
+(25, '777 Brockton Avenue, Abington MA 2351' , '777 Brockton Avenue, Abington MA 2351' , 'CREDIT', 2023-06-06, 0735712123),
+(26, '777 Brockton Avenue, Abington MA 2351' , '777 Brockton Avenue, Abington MA 2351' , 'CREDIT', 2023-06-06,  0738206679),
+(27, '777 Brockton Avenue, Abington MA 2351' , '777 Brockton Avenue, Abington MA 2351' , 'CREDIT', 2023-06-06,  0743244249),
+(28, '777 Brockton Avenue, Abington MA 2351' , '777 Brockton Avenue, Abington MA 2351' , 'CREDIT', 2023-06-06,  0061020648),
+(29, '777 Brockton Avenue, Abington MA 2351' , '777 Brockton Avenue, Abington MA 2351' , 'CREDIT', 2023-06-06,  0060855925),
+(30, '777 Brockton Avenue, Abington MA 2351' , '777 Brockton Avenue, Abington MA 2351' , 'CREDIT', 2023-06-06,  0061092177),
+(31, '777 Brockton Avenue, Abington MA 2351' , '777 Brockton Avenue, Abington MA 2351' , 'CREDIT', 2023-06-06,  0061161721);
+
+INSERT INTO MAKES_PURCHASE(Quantity, Loyalty_No, Transaction_ID)
+VALUES
+(22, 21, 22),
+(23, 21, 23),
+(24, 21, 24),
+(25, 21, 25),
+(26, 21, 26),
+(27, 21, 27),
+(1, 21, 28),
+(3, 21, 29),
+(4, 21, 30),
+(5, 21, 31);
