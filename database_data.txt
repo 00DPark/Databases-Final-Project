@@ -54,10 +54,8 @@ CREATE TABLE BOOK (
     Item_Number INT NOT NULL,
     Book_Title VARCHAR(100) NOT NULL,
     Publisher VARCHAR(100) NOT NULL,
-    Author_ID INT NOT NULL,
     FOREIGN KEY (Item_Number) REFERENCES PRODUCT(Item_Number),
     PRIMARY KEY (ISBN)
-
 );
 
 CREATE TABLE PUBLISHER (
@@ -68,10 +66,11 @@ CREATE TABLE PUBLISHER (
 
 CREATE TABLE AUTHOR (
     Author_ID INT NOT NULL,
-    Author_Name VARCHAR(100) NOT NULL,
+    First_Name VARCHAR(100) NOT NULL,
+    Middle_Name VARCHAR(100),
+    Last_Name VARCHAR(100) NOT NULL,
     PRIMARY KEY (Author_ID)
 );
-
 CREATE TABLE EMPLOYEE (
     Employee_ID INT NOT NULL,
     Store_ID INT NOT NULL,
@@ -161,9 +160,7 @@ CREATE TABLE PURCHASE (
     Billing_Address VARCHAR(100) NOT NULL,
     Payment_Method VARCHAR(100) NOT NULL,
     Date DATE NOT NULL,
-    Customer_ID INT NOT NULL,
     Product_Number INT NOT NULL,
-    FOREIGN KEY (Customer_ID) REFERENCES CUSTOMER(Loyalty_No),
     FOREIGN KEY (Product_Number) REFERENCES PRODUCT(Item_Number),
     PRIMARY KEY (Transaction_ID)
 );
@@ -176,7 +173,7 @@ CREATE TABLE CUSTOMER (
     PRIMARY KEY (Loyalty_No)
 );
 
-CREATE TABLE MAKES_TRANSACTION (
+CREATE TABLE MAKES_PURCHASE (
     Quantity INT NOT NULL,
     Loyalty_No INT NOT NULL,
     Transaction_ID INT NOT NULL,
@@ -220,33 +217,34 @@ VALUES
 (15, '1775 Washington St, Hanover MA 2339', 'Tim', 'Duncan'),
 (16, '280 Washington Street, Hudson MA 1749', 'Greg', 'Rose'),
 (17, '20 Soojian Dr, Leicester MA 1524', 'Justin', 'Fields'),
-(18, '11 Jungle Road, Leominster MA 1453', 'CJ', 'Stround'),
+(18, '11 Jungle Road, Leominster MA 1453', 'CJ', 'Stroud'),
 (19, '301 Massachusetts Ave, Lunenburg MA 1462', 'Derrick', 'Morris'),
 (20, '780 Lynnway, Lynn MA 1905', 'John', 'John'),
 (21, '70 Pleasant Valley Street, Methuen MA 1844', 'Wanos', 'Bahiru');
 
-INSERT INTO AUTHOR(Author_ID, Author_Name)
+INSERT INTO AUTHOR(Author_ID, First_Name, Middle_Name, Last_Name)
 VALUES
-(1, 'Ernest Hemingway'),
-(2, 'Jim Talamo'),
-(3, 'Sarah Walo'),
-(4, 'George Orwell'),
-(5, 'Jane Austen'),
-(6, 'Virginia Woolf'),
-(7, 'Rick Riordan'),
-(8, 'William Shakespeare'),
-(9, 'Oscar Wilde'),
-(10, 'Leo Tolstoy'),
-(11, 'Mark Twain'),
-(12, 'John Steinbeck'),
-(13, 'Charles Dickens'),
-(14, 'Alduous Huxley'),
-(15, 'Henry Redder'),
-(16, 'R.L. Stine'),
-(17, 'Agatha Christie'),
-(18, 'Danielle Steel'),
-(19, 'Stephen King'),
-(20, 'Franz Kafka');
+(1, 'Ernest', '' , 'Hemingway'),
+(2, 'Jim', '', 'Talamo'),
+(3, 'Sarah', '', 'Walo'),
+(4, 'George', '', 'Orwell'),
+(5, 'Jane', '', 'Austen'),
+(6, 'Virginia', '', 'Woolf'),
+(7, 'Rick', '', 'Riordan'),
+(8, 'William', '', 'Shakespeare'),
+(9, 'Oscar', '', 'Wilde'),
+(10, 'Leo', '', 'Tolstoy'),
+(11, 'Mark', '', 'Twain'),
+(12, 'John', '', 'Steinbeck'),
+(13, 'Charles', '', 'Dickens'),
+(14, 'Alduous', '', 'Huxley'),
+(15, 'Henry', '', 'Redder'),
+(16, 'R.L.', '', 'Stine'),
+(17, 'Agatha', '', 'Christie'),
+(18, 'Danielle', '', 'Steel'),
+(19, 'Stephen', '', 'King'),
+(20, 'Franz', '', 'Kafka');
+
 
 INSERT INTO BOOK_STORE(Store_ID, Address)
 VALUES
@@ -714,29 +712,30 @@ VALUES
 (51, 5, 20.00, "Board Game"),
 (52, 5, 20.00, "Board Game");
 
-INSERT INTO PURCHASE(Transaction_ID, Shopping_Address, Billing_Address, Payment_Method, Date, Customer_ID,  Product_Number)
+INSERT INTO PURCHASE(Transaction_ID, Shopping_Address, Billing_Address, Payment_Method, Date, Product_Number)
 VALUES
-(1, '777 Brockton Avenue, Abington MA 2351' , '777 Brockton Avenue, Abington MA 2351' , 'CREDIT', 2023-06-06, 1, 1),
-(2, '30 Memorial Drive, Avon MA 2322',  '30 Memorial Drive, Avon MA 2322', 'CREDIT', 2023-06-06, 2, 2),
-(3, '250 Hartford Avenue, Bellingham MA 2019', '250 Hartford Avenue, Bellingham MA 2019', 'CREDIT', 2023-01-03, 3, 3),
-(4, '700 Oak Street, Brockton MA 2301', '700 Oak Street, Brockton MA 2301', 'CREDIT', 2024-02-01, 4,4),
-(5, '66-4 Parkhurst Rd, Chelmsford MA 1824',  '66-4 Parkhurst Rd, Chelmsford MA 1824', 'CREDIT', 2023-02-29, 5, 5),
-(6, '591 Memorial Dr, Chicopee MA 1020',   '591 Memorial Dr, Chicopee MA 1020',  'CREDIT', 2023-06-09, 6, 6),
-(7, '55 Brooksby Village Way, Danvers MA 1923',  '55 Brooksby Village Way, Danvers MA 1923', 'CREDIT', 2024-01-01, 7, 7),
-(8, ' 137 Teaticket Hwy, East Falmouth MA 2536', ' 137 Teaticket Hwy, East Falmouth MA 2536','CREDIT', 2024-01-11, 8, 8),
-(9, '42 Fairhaven Commons Way, Fairhaven MA 2719', '42 Fairhaven Commons Way, Fairhaven MA 2719', 'CREDIT', 2024-01-31, 9, 9),
-(10, '374 William S Canning Blvd, Fall River MA 2721', '374 William S Canning Blvd, Fall River MA 2721', 'DEBIT ', 2024-02-21, 10, 10),
-(11, '121 Worcester Rd, Framingham MA 1701',   '121 Worcester Rd, Framingham MA 1701',  'DEBIT ', 2023-12-24, 11, 11),
-(12, '677 Timpany Blvd, Gardner MA 1440', '677 Timpany Blvd, Gardner MA 1440',  'DEBIT ',  2024-02-01, 12, 12),
-(13, '337 Russell St, Hadley MA 1035',  '337 Russell St, Hadley MA 1035',  'DEBIT ', 2024-01-07, 13, 13),
-(14, '295 Plymouth Street, Halifax MA 2338', '295 Plymouth Street, Halifax MA 2338',  'DEBIT ', 2024-01-08, 14, 14),
-(15, '1775 Washington St, Hanover MA 2339', '1775 Washington St, Hanover MA 2339',  'DEBIT ', 2024-04-01, 15, 15),
-(16, '280 Washington Street, Hudson MA 1749', '5399 W Genesse St, Camillus NY 13031', 'CASH', 2024-04-05, 16., 16),
-(17, '20 Soojian Dr, Leicester MA 1524', '30 Catskill, Catskill NY 12414', 'CASH', 2024-04-05, 17, 17),
-(18, '11 Jungle Road, Leominster MA 1453', '872 Route 13, Cortlandville NY 13045', 'CASH', 2024-04-05, 18, 18),
-(19, '301 Massachusetts Ave, Lunenburg MA 1462', '301 Massachusetts Ave, Lunenburg MA 1462','CASH', 2024-04-01, 19, 19),
-(20, '780 Lynnway, Lynn MA 1905', '301 Massachusetts Ave, Lunenburg MA 1462', 'CASH', 2023-04-05, 20, 20),
-(21, '70 Pleasant Valley Street, Methuen MA 1844', '70 Pleasant Valley Street, Methuen MA 1844', 'CASH', 2022-06-05, 21, 21);
+(1, '777 Brockton Avenue, Abington MA 2351' , '777 Brockton Avenue, Abington MA 2351' , 'CREDIT', 2023-06-06,  1),
+(2, '30 Memorial Drive, Avon MA 2322',  '30 Memorial Drive, Avon MA 2322', 'CREDIT', 2023-06-06, 2),
+(3, '250 Hartford Avenue, Bellingham MA 2019', '250 Hartford Avenue, Bellingham MA 2019', 'CREDIT', 2023-01-03, 3),
+(4, '700 Oak Street, Brockton MA 2301', '700 Oak Street, Brockton MA 2301', 'CREDIT', 2024-02-01, 4),
+(5, '66-4 Parkhurst Rd, Chelmsford MA 1824',  '66-4 Parkhurst Rd, Chelmsford MA 1824', 'CREDIT', 2023-02-29,  5),
+(6, '591 Memorial Dr, Chicopee MA 1020',   '591 Memorial Dr, Chicopee MA 1020',  'CREDIT', 2023-06-09,  6),
+(7, '55 Brooksby Village Way, Danvers MA 1923',  '55 Brooksby Village Way, Danvers MA 1923', 'CREDIT', 2024-01-01, 7),
+(8, ' 137 Teaticket Hwy, East Falmouth MA 2536', ' 137 Teaticket Hwy, East Falmouth MA 2536','CREDIT', 2024-01-11,  8),
+(9, '42 Fairhaven Commons Way, Fairhaven MA 2719', '42 Fairhaven Commons Way, Fairhaven MA 2719', 'CREDIT', 2024-01-31,  9),
+(10, '374 William S Canning Blvd, Fall River MA 2721', '374 William S Canning Blvd, Fall River MA 2721', 'DEBIT ', 2024-02-21, 10),
+(11, '121 Worcester Rd, Framingham MA 1701',   '121 Worcester Rd, Framingham MA 1701',  'DEBIT ', 2023-12-24, 11),
+(12, '677 Timpany Blvd, Gardner MA 1440', '677 Timpany Blvd, Gardner MA 1440',  'DEBIT ',  2024-02-01, 12),
+(13, '337 Russell St, Hadley MA 1035',  '337 Russell St, Hadley MA 1035',  'DEBIT ', 2024-01-07,  13),
+(14, '295 Plymouth Street, Halifax MA 2338', '295 Plymouth Street, Halifax MA 2338',  'DEBIT ', 2024-01-08,  14),
+(15, '1775 Washington St, Hanover MA 2339', '1775 Washington St, Hanover MA 2339',  'DEBIT ', 2024-04-01, 15),
+(16, '280 Washington Street, Hudson MA 1749', '5399 W Genesse St, Camillus NY 13031', 'CASH', 2024-04-05, 16),
+(17, '20 Soojian Dr, Leicester MA 1524', '30 Catskill, Catskill NY 12414', 'CASH', 2024-04-05, 17),
+(18, '11 Jungle Road, Leominster MA 1453', '872 Route 13, Cortlandville NY 13045', 'CASH', 2024-04-05, 18),
+(19, '301 Massachusetts Ave, Lunenburg MA 1462', '301 Massachusetts Ave, Lunenburg MA 1462','CASH', 2024-04-01, 19),
+(20, '780 Lynnway, Lynn MA 1905', '301 Massachusetts Ave, Lunenburg MA 1462', 'CASH', 2023-04-05, 20),
+(21, '70 Pleasant Valley Street, Methuen MA 1844', '70 Pleasant Valley Street, Methuen MA 1844', 'CASH', 2022-06-05, 21);
+
 
 INSERT INTO DRINK(Item_Number, Warehouse_No, Transaction_ID, Price, Product_Type, Drink_Type)
 VALUES
@@ -842,7 +841,7 @@ VALUES
 (20,51, 88),
 (20, 52, 48);
 
-INSERT INTO MAKES_TRANSACTION(Quantity, Loyalty_No, Transaction_ID)
+INSERT INTO MAKES_PURCHASE(Quantity, Loyalty_No, Transaction_ID)
 VALUES
 (20, 11, 11),
 (1, 1, 1),
@@ -865,175 +864,176 @@ VALUES
 (3, 20, 20),
 (2, 21, 21);
 
-INSERT INTO AUTHOR(Author_ID, Author_Name) VALUES (7809117548011044393, 'Chip Dawes');
-INSERT INTO AUTHOR(Author_ID, Author_Name) VALUES (1425479443336998588, 'Biju Thomas');
-INSERT INTO AUTHOR(Author_ID, Author_Name) VALUES (2767676422072093430, 'Doug Stuns');
-INSERT INTO AUTHOR(Author_ID, Author_Name) VALUES (1317732509290100555, 'Matthew Weishan');
-INSERT INTO AUTHOR(Author_ID, Author_Name) VALUES (175482180832597152, 'Joseph C. Johnson');
-INSERT INTO AUTHOR(Author_ID, Author_Name) VALUES (6418509976957298883, 'Brian Knight');
-INSERT INTO AUTHOR(Author_ID, Author_Name) VALUES (3028187470276993821, 'Ralph Kimball');
-INSERT INTO AUTHOR(Author_ID, Author_Name) VALUES (4179134704011670034, 'Margy Ross');
-INSERT INTO AUTHOR(Author_ID, Author_Name) VALUES (1790266861779259689, 'Bill Mann');
-INSERT INTO AUTHOR(Author_ID, Author_Name) VALUES (481600398737748959, 'Ian H. Witten');
-INSERT INTO AUTHOR(Author_ID, Author_Name) VALUES (6063870694818320073, 'Eibe Frank');
-INSERT INTO AUTHOR(Author_ID, Author_Name) VALUES (6344016914221368526, 'Robert D. Schmidt');
-INSERT INTO AUTHOR(Author_ID, Author_Name) VALUES (3016683240211656070, 'Ken Henderson');
-INSERT INTO AUTHOR(Author_ID, Author_Name) VALUES (541525957255780073, 'Paul Litwin');
-INSERT INTO AUTHOR(Author_ID, Author_Name) VALUES (52453081728617897, 'Ken Getz');
-INSERT INTO AUTHOR(Author_ID, Author_Name) VALUES (459412855422210182, 'Mike Gunderloy');
-INSERT INTO AUTHOR(Author_ID, Author_Name) VALUES (5728475451573299630, 'Ben Forta');
-INSERT INTO AUTHOR(Author_ID, Author_Name) VALUES (6802117737158376432, 'Nate Weiss');
-INSERT INTO AUTHOR(Author_ID, Author_Name) VALUES (5931054603954465228, 'Leon Chalnick');
-INSERT INTO AUTHOR(Author_ID, Author_Name) VALUES (2117960258763214046, 'Angela C. Buraglia');
-INSERT INTO AUTHOR(Author_ID, Author_Name) VALUES (9005102479952707280, 'Ramez A. Elmasri');
-INSERT INTO AUTHOR(Author_ID, Author_Name) VALUES (4429392553375803339, 'Shamkant B. Navathe');
-INSERT INTO AUTHOR(Author_ID, Author_Name) VALUES (7770146091136650400, 'Rob Vieira');
-INSERT INTO AUTHOR(Author_ID, Author_Name) VALUES (4247542035011766206, 'Paul DuBois');
-INSERT INTO AUTHOR(Author_ID, Author_Name) VALUES (9135414673396282931, 'Laurell K. Hamilton ');
-INSERT INTO AUTHOR(Author_ID, Author_Name) VALUES (843554622783102735, 'Sue Monk Kidd');
-INSERT INTO AUTHOR(Author_ID, Author_Name) VALUES (3545147383421199169, 'Tara Calishain');
-INSERT INTO AUTHOR(Author_ID, Author_Name) VALUES (6106025796236357963, 'Rael Dornfest');
-INSERT INTO AUTHOR(Author_ID, Author_Name) VALUES (1448071877048005818, 'Jay P. Decima ');
-INSERT INTO AUTHOR(Author_ID, Author_Name) VALUES (9115574205260347371, 'Wladyslaw Szpilman');
-INSERT INTO AUTHOR(Author_ID, Author_Name) VALUES (6307499038155412799, 'Roma Ligocka');
-INSERT INTO AUTHOR(Author_ID, Author_Name) VALUES (3522114759282005315, 'Michael Cunningham');
-INSERT INTO AUTHOR(Author_ID, Author_Name) VALUES (1156817337883195379, 'Larry Bossidy');
-INSERT INTO AUTHOR(Author_ID, Author_Name) VALUES (6293999261943880574, 'Ram Charan');
-INSERT INTO AUTHOR(Author_ID, Author_Name) VALUES (4008522090365699912, 'Charles Burck');
-INSERT INTO AUTHOR(Author_ID, Author_Name) VALUES (9028212213919466153, 'James Patterson');
-INSERT INTO AUTHOR(Author_ID, Author_Name) VALUES (675037947218924564, 'Andrew Gross');
-INSERT INTO AUTHOR(Author_ID, Author_Name) VALUES (991531245199149801, 'Jeffery Deaver');
-INSERT INTO AUTHOR(Author_ID, Author_Name) VALUES (8922245579917320078, 'Jacquelyn Mitchard');
-INSERT INTO AUTHOR(Author_ID, Author_Name) VALUES (7949525211048331121, 'Patrick Lencioni');
-INSERT INTO AUTHOR(Author_ID, Author_Name) VALUES (7154542966061927025, 'Mary Higgins Clark');
-INSERT INTO AUTHOR(Author_ID, Author_Name) VALUES (7271315786439686433, 'Dee Henderson');
-INSERT INTO AUTHOR(Author_ID, Author_Name) VALUES (7624926763257115991, 'Ann Patchett');
-INSERT INTO AUTHOR(Author_ID, Author_Name) VALUES (5999604409637612265, 'Karen Marie Moning');
-INSERT INTO AUTHOR(Author_ID, Author_Name) VALUES (1864143743062691269, 'Suzanne Brockmann');
-INSERT INTO AUTHOR(Author_ID, Author_Name) VALUES (2473026222911872513, 'Steven Pinker');
-INSERT INTO AUTHOR(Author_ID, Author_Name) VALUES (6805684964375831278, 'Albert-L szl¢ Barab si ');
-INSERT INTO AUTHOR(Author_ID, Author_Name) VALUES (5143143208527309294, 'Edward Osborne Wilson ');
-INSERT INTO AUTHOR(Author_ID, Author_Name) VALUES (6051380752938527940, 'Stephen Wolfram ');
-INSERT INTO AUTHOR(Author_ID, Author_Name) VALUES (4369962904698537724, 'Harold McGee');
-INSERT INTO AUTHOR(Author_ID, Author_Name) VALUES (1332691716499155107, 'Francis D. K. Ching');
-INSERT INTO AUTHOR(Author_ID, Author_Name) VALUES (3184488336175085731, 'Cassandra Adams');
-INSERT INTO AUTHOR(Author_ID, Author_Name) VALUES (2844996933866294203, 'Virginia McAlester');
-INSERT INTO AUTHOR(Author_ID, Author_Name) VALUES (8253774172059066385, 'Lee McAlester');
-INSERT INTO AUTHOR(Author_ID, Author_Name) VALUES (1123136327303152027, 'Bryan Burkhart');
-INSERT INTO AUTHOR(Author_ID, Author_Name) VALUES (2722802040884260906, 'Allison Arieff');
-INSERT INTO AUTHOR(Author_ID, Author_Name) VALUES (6637053374264191036, 'Ralph R. Kylloe ');
-INSERT INTO AUTHOR(Author_ID, Author_Name) VALUES (8201010642933494708, 'Leslie Plummer Clagett ');
-INSERT INTO AUTHOR(Author_ID, Author_Name) VALUES (2114270282361981535, 'Gerard Gefen');
-INSERT INTO AUTHOR(Author_ID, Author_Name) VALUES (2067990397985482651, 'Christine Bastin');
-INSERT INTO AUTHOR(Author_ID, Author_Name) VALUES (5075988422425140693, 'Jacques Evrard');
-INSERT INTO AUTHOR(Author_ID, Author_Name) VALUES (2004024386511957818, 'Donald Kaufman');
-INSERT INTO AUTHOR(Author_ID, Author_Name) VALUES (5342128505042265224, 'Taffy Dahl');
-INSERT INTO AUTHOR(Author_ID, Author_Name) VALUES (1228703402149952421, 'Laurel Graeber');
-INSERT INTO AUTHOR(Author_ID, Author_Name) VALUES (3376634475719554436, 'Tina Freeman ');
-INSERT INTO AUTHOR(Author_ID, Author_Name) VALUES (2130189069101082168, 'Simon Benninga, Benjamin Czaczkes ');
-INSERT INTO AUTHOR(Author_ID, Author_Name) VALUES (559368352894910706, 'Mark Grinblatt');
-INSERT INTO AUTHOR(Author_ID, Author_Name) VALUES (2514449446523724545, 'Sheridan Titman');
-INSERT INTO AUTHOR(Author_ID, Author_Name) VALUES (5017915272789575100, 'Robert C. Higgins ');
-INSERT INTO AUTHOR(Author_ID, Author_Name) VALUES (6751015796298052296, 'Paul Marcus Fischer');
-INSERT INTO AUTHOR(Author_ID, Author_Name) VALUES (4021369396357895450, 'William James Taylor');
-INSERT INTO AUTHOR(Author_ID, Author_Name) VALUES (8355822408851463632, 'Rita Hartung Cheng');
-INSERT INTO AUTHOR(Author_ID, Author_Name) VALUES (8091272497190878816, 'Donald E. Kieso');
-INSERT INTO AUTHOR(Author_ID, Author_Name) VALUES (6786513813728631089, 'Jerry J. Weygandt');
-INSERT INTO AUTHOR(Author_ID, Author_Name) VALUES (320327264078136204, 'Terry D. Warfield');
-INSERT INTO AUTHOR(Author_ID, Author_Name) VALUES (3315686160801876280, 'Lawrence Revsine');
-INSERT INTO AUTHOR(Author_ID, Author_Name) VALUES (7980137385468838895, 'Daniel W. Collins');
-INSERT INTO AUTHOR(Author_ID, Author_Name) VALUES (7440704221297390240, 'W. Bruce Johnson');
-INSERT INTO AUTHOR(Author_ID, Author_Name) VALUES (979551534772280780, 'Nicholas Sparks ');
-INSERT INTO AUTHOR(Author_ID, Author_Name) VALUES (5873451606894652180, 'Mary Higgins Clark ');
-INSERT INTO AUTHOR(Author_ID, Author_Name) VALUES (5898992078511391763, 'Don DeLillo');
-INSERT INTO AUTHOR(Author_ID, Author_Name) VALUES (6455874547099594001, 'Stephen King');
-INSERT INTO AUTHOR(Author_ID, Author_Name) VALUES (1362570212152576951, 'Mark Z. Danielewski ');
-INSERT INTO AUTHOR(Author_ID, Author_Name) VALUES (2612996635291617359, 'Michael Romkey ');
-INSERT INTO AUTHOR(Author_ID, Author_Name) VALUES (4820351295686692778, 'Chuck Palahniuk ');
-INSERT INTO AUTHOR(Author_ID, Author_Name) VALUES (4855391305394010525, 'Matthew Delaney');
-INSERT INTO AUTHOR(Author_ID, Author_Name) VALUES (843244232775349966, 'Bernie Wrightson');
-INSERT INTO AUTHOR(Author_ID, Author_Name) VALUES (3915540100982242398, 'Stephen King ');
-INSERT INTO AUTHOR(Author_ID, Author_Name) VALUES (5082689624132373362, 'Don DeLillo ');
-INSERT INTO AUTHOR(Author_ID, Author_Name) VALUES (983809475255428482, 'Ann Patchett ');
-INSERT INTO AUTHOR(Author_ID, Author_Name) VALUES (8870466114946934217, 'Steven Pinker ');
-INSERT INTO AUTHOR(Author_ID, Author_Name) VALUES (7274971144285410605, 'Simon Benninga ');
-INSERT INTO AUTHOR(Author_ID, Author_Name) VALUES (431409682068239550, 'Jeffrey M. Wooldridge ');
-INSERT INTO AUTHOR(Author_ID, Author_Name) VALUES (9217760501269566094, 'Steven J. Root ');
-INSERT INTO AUTHOR(Author_ID, Author_Name) VALUES (1118332940678614203, 'Ken Coffman ');
-INSERT INTO AUTHOR(Author_ID, Author_Name) VALUES (3245017454691568657, 'Gerald Carter ');
-INSERT INTO AUTHOR(Author_ID, Author_Name) VALUES (718250962893051633, 'Scott Kelby ');
-INSERT INTO AUTHOR(Author_ID, Author_Name) VALUES (6406478071336905609, 'B. J. Fogg ');
-INSERT INTO AUTHOR(Author_ID, Author_Name) VALUES (7527873790557694390, 'Michael Meyers ');
-INSERT INTO AUTHOR(Author_ID, Author_Name) VALUES (5386918496231973031, 'Carl Sagan ');
-INSERT INTO AUTHOR(Author_ID, Author_Name) VALUES (990086232781619459, 'Alice Sebold ');
-INSERT INTO AUTHOR(Author_ID, Author_Name) VALUES (996155540265985206, 'Alice Sebold');
-INSERT INTO AUTHOR(Author_ID, Author_Name) VALUES (5749148694012848960, 'Ian McEwan ');
-INSERT INTO AUTHOR(Author_ID, Author_Name) VALUES (6416050464471426210, 'Nora Roberts ');
-INSERT INTO AUTHOR(Author_ID, Author_Name) VALUES (4616345802856469098, 'Andy Rae ');
-INSERT INTO AUTHOR(Author_ID, Author_Name) VALUES (1033471943241815797, 'Joseph Truini ');
-INSERT INTO AUTHOR(Author_ID, Author_Name) VALUES (5652498499933847128, 'Terry Pratchett');
-INSERT INTO PUBLISHER(Publisher_ID, Publisher_Name) VALUES (6355047252195268992, 'Sybex');
-INSERT INTO PUBLISHER(Publisher_ID, Publisher_Name) VALUES (7059613620976317977, 'McGraw-Hill Osborne Media');
-INSERT INTO PUBLISHER(Publisher_ID, Publisher_Name) VALUES (2609627358580823498, 'John Wiley & Sons');
-INSERT INTO PUBLISHER(Publisher_ID, Publisher_Name) VALUES (5643367884824530898, 'Morgan Kaufmann');
-INSERT INTO PUBLISHER(Publisher_ID, Publisher_Name) VALUES (4796282540201795597, 'Schmidt Ink, Inc.');
-INSERT INTO PUBLISHER(Publisher_ID, Publisher_Name) VALUES (171987041240991545, 'Addison-Wesley Pub Co');
-INSERT INTO PUBLISHER(Publisher_ID, Publisher_Name) VALUES (662536863768032435, 'Macromedia Press');
-INSERT INTO PUBLISHER(Publisher_ID, Publisher_Name) VALUES (6998817003215311102, 'Addison-Wesley Publishing');
-INSERT INTO PUBLISHER(Publisher_ID, Publisher_Name) VALUES (3411795340668371775, 'Wrox Press Inc');
-INSERT INTO PUBLISHER(Publisher_ID, Publisher_Name) VALUES (4396843747763423035, 'Berkley Pub Group');
-INSERT INTO PUBLISHER(Publisher_ID, Publisher_Name) VALUES (8217272119788226075, 'Penguin USA ');
-INSERT INTO PUBLISHER(Publisher_ID, Publisher_Name) VALUES (8951200706417644764, 'O''Reilly & Associates');
-INSERT INTO PUBLISHER(Publisher_ID, Publisher_Name) VALUES (6364931267445401650, 'McGraw-Hill Trade');
-INSERT INTO PUBLISHER(Publisher_ID, Publisher_Name) VALUES (7225947741816441005, 'Picador');
-INSERT INTO PUBLISHER(Publisher_ID, Publisher_Name) VALUES (760718589073547346, 'St. Martin''s Press');
-INSERT INTO PUBLISHER(Publisher_ID, Publisher_Name) VALUES (1807581078471719722, 'Crown Pub');
-INSERT INTO PUBLISHER(Publisher_ID, Publisher_Name) VALUES (6357165283862126640, 'Little Brown & Company');
-INSERT INTO PUBLISHER(Publisher_ID, Publisher_Name) VALUES (6253675790260708746, 'Simon & Schuster');
-INSERT INTO PUBLISHER(Publisher_ID, Publisher_Name) VALUES (3557654085457230250, 'HarperCollins');
-INSERT INTO PUBLISHER(Publisher_ID, Publisher_Name) VALUES (3384817879675090050, 'Jossey-Bass');
-INSERT INTO PUBLISHER(Publisher_ID, Publisher_Name) VALUES (7035099084273230353, 'Multnomah Publishers Inc.');
-INSERT INTO PUBLISHER(Publisher_ID, Publisher_Name) VALUES (879223441983590207, 'Perennial');
-INSERT INTO PUBLISHER(Publisher_ID, Publisher_Name) VALUES (3777204664149487569, 'Dell Pub Co');
-INSERT INTO PUBLISHER(Publisher_ID, Publisher_Name) VALUES (1351499784624204223, 'Harlequin');
-INSERT INTO PUBLISHER(Publisher_ID, Publisher_Name) VALUES (3109399297562314494, 'Viking Press');
-INSERT INTO PUBLISHER(Publisher_ID, Publisher_Name) VALUES (2051990700899886976, 'Perseus Publishing');
-INSERT INTO PUBLISHER(Publisher_ID, Publisher_Name) VALUES (2289924385984378195, 'Random House');
-INSERT INTO PUBLISHER(Publisher_ID, Publisher_Name) VALUES (7398888942745156232, 'Knopf');
-INSERT INTO PUBLISHER(Publisher_ID, Publisher_Name) VALUES (8759591962610636351, 'Wolfram Media, Inc.');
-INSERT INTO PUBLISHER(Publisher_ID, Publisher_Name) VALUES (5007029921233459988, 'Fireside');
-INSERT INTO PUBLISHER(Publisher_ID, Publisher_Name) VALUES (3451835483050797022, 'Random House Trade Paperbacks');
-INSERT INTO PUBLISHER(Publisher_ID, Publisher_Name) VALUES (8874382239276678658, 'Gibbs Smith Publisher');
-INSERT INTO PUBLISHER(Publisher_ID, Publisher_Name) VALUES (493430826131003924, 'Taunton Pr');
-INSERT INTO PUBLISHER(Publisher_ID, Publisher_Name) VALUES (1307007477582590477, 'Vendome Pr');
-INSERT INTO PUBLISHER(Publisher_ID, Publisher_Name) VALUES (7555928695508355316, 'Clarkson N. Potter');
-INSERT INTO PUBLISHER(Publisher_ID, Publisher_Name) VALUES (1270370134534519105, 'MIT Press');
-INSERT INTO PUBLISHER(Publisher_ID, Publisher_Name) VALUES (7216776642615058669, 'McGraw-Hill/Irwin');
-INSERT INTO PUBLISHER(Publisher_ID, Publisher_Name) VALUES (1515871535796576351, 'South-Western College Pub');
-INSERT INTO PUBLISHER(Publisher_ID, Publisher_Name) VALUES (4274947051371758073, 'Prentice Hall');
-INSERT INTO PUBLISHER(Publisher_ID, Publisher_Name) VALUES (5464437955954808673, 'Warner Books');
-INSERT INTO PUBLISHER(Publisher_ID, Publisher_Name) VALUES (193669624405061062, 'Scribner');
-INSERT INTO PUBLISHER(Publisher_ID, Publisher_Name) VALUES (7542971598406282020, 'Pocket Books');
-INSERT INTO PUBLISHER(Publisher_ID, Publisher_Name) VALUES (4687230976750022907, 'Pantheon Books');
-INSERT INTO PUBLISHER(Publisher_ID, Publisher_Name) VALUES (623981748118890351, 'Del Rey');
-INSERT INTO PUBLISHER(Publisher_ID, Publisher_Name) VALUES (8062163139228164822, 'Doubleday');
-INSERT INTO PUBLISHER(Publisher_ID, Publisher_Name) VALUES (8609874166970744047, 'Donald M. Grant Publisher, Inc.');
-INSERT INTO PUBLISHER(Publisher_ID, Publisher_Name) VALUES (5559927955612428609, 'Vintage Books');
-INSERT INTO PUBLISHER(Publisher_ID, Publisher_Name) VALUES (4940862268633144344, 'Scribner Paperback Fiction');
-INSERT INTO PUBLISHER(Publisher_ID, Publisher_Name) VALUES (7475742398236535221, 'Harvest Books');
-INSERT INTO PUBLISHER(Publisher_ID, Publisher_Name) VALUES (7912976822323989428, 'Harperperennial Library');
-INSERT INTO PUBLISHER(Publisher_ID, Publisher_Name) VALUES (8376643307400910370, 'W.W. Norton & Company');
-INSERT INTO PUBLISHER(Publisher_ID, Publisher_Name) VALUES (8896463560712417215, 'Harvard Univ Pr');
-INSERT INTO PUBLISHER(Publisher_ID, Publisher_Name) VALUES (6633222037877344485, 'Prentice Hall PTR');
-INSERT INTO PUBLISHER(Publisher_ID, Publisher_Name) VALUES (8348947531138565022, 'New Riders Publishing');
-INSERT INTO PUBLISHER(Publisher_ID, Publisher_Name) VALUES (1900926824631937155, 'Ballantine Books ');
-INSERT INTO PUBLISHER(Publisher_ID, Publisher_Name) VALUES (1164802334194845259, 'Ballantine Books');
-INSERT INTO PUBLISHER(Publisher_ID, Publisher_Name) VALUES (1434714067838102826, 'Back Bay Books');
-INSERT INTO PUBLISHER(Publisher_ID, Publisher_Name) VALUES (2314721189558666903, 'Anchor Books');
-INSERT INTO PUBLISHER(Publisher_ID, Publisher_Name) VALUES (5202850637235335005, 'Putnam Pub Group');
-INSERT INTO PUBLISHER(Publisher_ID, Publisher_Name) VALUES (509252194705406825, 'Silhouette');
-INSERT INTO PUBLISHER(Publisher_ID, Publisher_Name) VALUES (7291700161482813076, 'Lark Books');
-INSERT INTO PUBLISHER(Publisher_ID, Publisher_Name) VALUES (166919206271381329, 'Harper');
+--imported data from sheet--
+INSERT INTO AUTHOR(Author_ID, First_Name, Middle_Name, Last_Name) VALUES (502, 'Chip', '', 'Dawes');
+INSERT INTO AUTHOR(Author_ID, First_Name, Middle_Name, Last_Name) VALUES (503, 'Biju', '', 'Thomas');
+INSERT INTO AUTHOR(Author_ID, First_Name, Middle_Name, Last_Name) VALUES (504, 'Doug', '', 'Stuns');
+INSERT INTO AUTHOR(Author_ID, First_Name, Middle_Name, Last_Name) VALUES (505, 'Matthew', '', 'Weishan');
+INSERT INTO AUTHOR(Author_ID, First_Name, Middle_Name, Last_Name) VALUES (506, 'Joseph', 'C.', 'Johnson');
+INSERT INTO AUTHOR(Author_ID, First_Name, Middle_Name, Last_Name) VALUES (507, 'Brian', '', 'Knight');
+INSERT INTO AUTHOR(Author_ID, First_Name, Middle_Name, Last_Name) VALUES (508, 'Ralph', '', 'Kimball');
+INSERT INTO AUTHOR(Author_ID, First_Name, Middle_Name, Last_Name) VALUES (509, 'Margy', '', 'Ross');
+INSERT INTO AUTHOR(Author_ID, First_Name, Middle_Name, Last_Name) VALUES (510, 'Bill', '', 'Mann');
+INSERT INTO AUTHOR(Author_ID, First_Name, Middle_Name, Last_Name) VALUES (511, 'Ian', 'H.', 'Witten');
+INSERT INTO AUTHOR(Author_ID, First_Name, Middle_Name, Last_Name) VALUES (512, 'Eibe', '', 'Frank');
+INSERT INTO AUTHOR(Author_ID, First_Name, Middle_Name, Last_Name) VALUES (513, 'Robert', 'D.', 'Schmidt');
+INSERT INTO AUTHOR(Author_ID, First_Name, Middle_Name, Last_Name) VALUES (514, 'Ken', '', 'Henderson');
+INSERT INTO AUTHOR(Author_ID, First_Name, Middle_Name, Last_Name) VALUES (515, 'Paul', '', 'Litwin');
+INSERT INTO AUTHOR(Author_ID, First_Name, Middle_Name, Last_Name) VALUES (516, 'Ken', '', 'Getz');
+INSERT INTO AUTHOR(Author_ID, First_Name, Middle_Name, Last_Name) VALUES (517, 'Mike', '', 'Gunderloy');
+INSERT INTO AUTHOR(Author_ID, First_Name, Middle_Name, Last_Name) VALUES (518, 'Ben', '', 'Forta');
+INSERT INTO AUTHOR(Author_ID, First_Name, Middle_Name, Last_Name) VALUES (519, 'Nate', '', 'Weiss');
+INSERT INTO AUTHOR(Author_ID, First_Name, Middle_Name, Last_Name) VALUES (520, 'Leon', '', 'Chalnick');
+INSERT INTO AUTHOR(Author_ID, First_Name, Middle_Name, Last_Name) VALUES (521, 'Angela', 'C.', 'Buraglia');
+INSERT INTO AUTHOR(Author_ID, First_Name, Middle_Name, Last_Name) VALUES (522, 'Ramez', 'A.', 'Elmasri');
+INSERT INTO AUTHOR(Author_ID, First_Name, Middle_Name, Last_Name) VALUES (523, 'Shamkant', 'B.', 'Navathe');
+INSERT INTO AUTHOR(Author_ID, First_Name, Middle_Name, Last_Name) VALUES (524, 'Rob', '', 'Vieira');
+INSERT INTO AUTHOR(Author_ID, First_Name, Middle_Name, Last_Name) VALUES (525, 'Paul', '', 'DuBois');
+INSERT INTO AUTHOR(Author_ID, First_Name, Middle_Name, Last_Name) VALUES (526, 'Laurell', 'K.', 'Hamilton');
+INSERT INTO AUTHOR(Author_ID, First_Name, Middle_Name, Last_Name) VALUES (527, 'Sue', 'Monk', 'Kidd');
+INSERT INTO AUTHOR(Author_ID, First_Name, Middle_Name, Last_Name) VALUES (528, 'Tara', '', 'Calishain');
+INSERT INTO AUTHOR(Author_ID, First_Name, Middle_Name, Last_Name) VALUES (529, 'Rael', '', 'Dornfest');
+INSERT INTO AUTHOR(Author_ID, First_Name, Middle_Name, Last_Name) VALUES (530, 'Jay', 'P.', 'Decima');
+INSERT INTO AUTHOR(Author_ID, First_Name, Middle_Name, Last_Name) VALUES (531, 'Wladyslaw', '', 'Szpilman');
+INSERT INTO AUTHOR(Author_ID, First_Name, Middle_Name, Last_Name) VALUES (532, 'Roma', '', 'Ligocka');
+INSERT INTO AUTHOR(Author_ID, First_Name, Middle_Name, Last_Name) VALUES (533, 'Michael', '', 'Cunningham');
+INSERT INTO AUTHOR(Author_ID, First_Name, Middle_Name, Last_Name) VALUES (534, 'Larry', '', 'Bossidy');
+INSERT INTO AUTHOR(Author_ID, First_Name, Middle_Name, Last_Name) VALUES (535, 'Ram', '', 'Charan');
+INSERT INTO AUTHOR(Author_ID, First_Name, Middle_Name, Last_Name) VALUES (536, 'Charles', '', 'Burck');
+INSERT INTO AUTHOR(Author_ID, First_Name, Middle_Name, Last_Name) VALUES (537, 'James', '', 'Patterson');
+INSERT INTO AUTHOR(Author_ID, First_Name, Middle_Name, Last_Name) VALUES (538, 'Andrew', '', 'Gross');
+INSERT INTO AUTHOR(Author_ID, First_Name, Middle_Name, Last_Name) VALUES (539, 'Jeffery', '', 'Deaver');
+INSERT INTO AUTHOR(Author_ID, First_Name, Middle_Name, Last_Name) VALUES (540, 'Jacquelyn', '', 'Mitchard');
+INSERT INTO AUTHOR(Author_ID, First_Name, Middle_Name, Last_Name) VALUES (541, 'Patrick', '', 'Lencioni');
+INSERT INTO AUTHOR(Author_ID, First_Name, Middle_Name, Last_Name) VALUES (542, 'Mary', 'Higgins', 'Clark');
+INSERT INTO AUTHOR(Author_ID, First_Name, Middle_Name, Last_Name) VALUES (543, 'Dee', '', 'Henderson');
+INSERT INTO AUTHOR(Author_ID, First_Name, Middle_Name, Last_Name) VALUES (544, 'Ann', '', 'Patchett');
+INSERT INTO AUTHOR(Author_ID, First_Name, Middle_Name, Last_Name) VALUES (545, 'Karen', 'Marie', 'Moning');
+INSERT INTO AUTHOR(Author_ID, First_Name, Middle_Name, Last_Name) VALUES (546, 'Suzanne', '', 'Brockmann');
+INSERT INTO AUTHOR(Author_ID, First_Name, Middle_Name, Last_Name) VALUES (547, 'Steven', '', 'Pinker');
+INSERT INTO AUTHOR(Author_ID, First_Name, Middle_Name, Last_Name) VALUES (548, 'Albert-L', 'szl¢ Barab', 'si');
+INSERT INTO AUTHOR(Author_ID, First_Name, Middle_Name, Last_Name) VALUES (549, 'Edward', 'Osborne', 'Wilson');
+INSERT INTO AUTHOR(Author_ID, First_Name, Middle_Name, Last_Name) VALUES (550, 'Stephen', '', 'Wolfram');
+INSERT INTO AUTHOR(Author_ID, First_Name, Middle_Name, Last_Name) VALUES (551, 'Harold', '', 'McGee');
+INSERT INTO AUTHOR(Author_ID, First_Name, Middle_Name, Last_Name) VALUES (552, 'Francis', 'D. K.', 'Ching');
+INSERT INTO AUTHOR(Author_ID, First_Name, Middle_Name, Last_Name) VALUES (553, 'Cassandra', '', 'Adams');
+INSERT INTO AUTHOR(Author_ID, First_Name, Middle_Name, Last_Name) VALUES (554, 'Virginia', '', 'McAlester');
+INSERT INTO AUTHOR(Author_ID, First_Name, Middle_Name, Last_Name) VALUES (555, 'Lee', '', 'McAlester');
+INSERT INTO AUTHOR(Author_ID, First_Name, Middle_Name, Last_Name) VALUES (556, 'Bryan', '', 'Burkhart');
+INSERT INTO AUTHOR(Author_ID, First_Name, Middle_Name, Last_Name) VALUES (557, 'Allison', '', 'Arieff');
+INSERT INTO AUTHOR(Author_ID, First_Name, Middle_Name, Last_Name) VALUES (558, 'Ralph', 'R.', 'Kylloe');
+INSERT INTO AUTHOR(Author_ID, First_Name, Middle_Name, Last_Name) VALUES (559, 'Leslie', 'Plummer', 'Clagett');
+INSERT INTO AUTHOR(Author_ID, First_Name, Middle_Name, Last_Name) VALUES (560, 'Gerard', '', 'Gefen');
+INSERT INTO AUTHOR(Author_ID, First_Name, Middle_Name, Last_Name) VALUES (561, 'Christine', '', 'Bastin');
+INSERT INTO AUTHOR(Author_ID, First_Name, Middle_Name, Last_Name) VALUES (562, 'Jacques', '', 'Evrard');
+INSERT INTO AUTHOR(Author_ID, First_Name, Middle_Name, Last_Name) VALUES (563, 'Donald', '', 'Kaufman');
+INSERT INTO AUTHOR(Author_ID, First_Name, Middle_Name, Last_Name) VALUES (564, 'Taffy', '', 'Dahl');
+INSERT INTO AUTHOR(Author_ID, First_Name, Middle_Name, Last_Name) VALUES (565, 'Laurel', '', 'Graeber');
+INSERT INTO AUTHOR(Author_ID, First_Name, Middle_Name, Last_Name) VALUES (566, 'Tina', '', 'Freeman');
+INSERT INTO AUTHOR(Author_ID, First_Name, Middle_Name, Last_Name) VALUES (567, 'Simon', 'Benninga, Benjamin', 'Czaczkes');
+INSERT INTO AUTHOR(Author_ID, First_Name, Middle_Name, Last_Name) VALUES (568, 'Mark', '', 'Grinblatt');
+INSERT INTO AUTHOR(Author_ID, First_Name, Middle_Name, Last_Name) VALUES (569, 'Sheridan', '', 'Titman');
+INSERT INTO AUTHOR(Author_ID, First_Name, Middle_Name, Last_Name) VALUES (570, 'Robert', 'C.', 'Higgins');
+INSERT INTO AUTHOR(Author_ID, First_Name, Middle_Name, Last_Name) VALUES (571, 'Paul', 'Marcus', 'Fischer');
+INSERT INTO AUTHOR(Author_ID, First_Name, Middle_Name, Last_Name) VALUES (572, 'William', 'James', 'Taylor');
+INSERT INTO AUTHOR(Author_ID, First_Name, Middle_Name, Last_Name) VALUES (573, 'Rita', 'Hartung', 'Cheng');
+INSERT INTO AUTHOR(Author_ID, First_Name, Middle_Name, Last_Name) VALUES (574, 'Donald', 'E.', 'Kieso');
+INSERT INTO AUTHOR(Author_ID, First_Name, Middle_Name, Last_Name) VALUES (575, 'Jerry', 'J.', 'Weygandt');
+INSERT INTO AUTHOR(Author_ID, First_Name, Middle_Name, Last_Name) VALUES (576, 'Terry', 'D.', 'Warfield');
+INSERT INTO AUTHOR(Author_ID, First_Name, Middle_Name, Last_Name) VALUES (577, 'Lawrence', '', 'Revsine');
+INSERT INTO AUTHOR(Author_ID, First_Name, Middle_Name, Last_Name) VALUES (578, 'Daniel', 'W.', 'Collins');
+INSERT INTO AUTHOR(Author_ID, First_Name, Middle_Name, Last_Name) VALUES (579, 'W.', 'Bruce', 'Johnson');
+INSERT INTO AUTHOR(Author_ID, First_Name, Middle_Name, Last_Name) VALUES (580, 'Nicholas', '', 'Sparks');
+INSERT INTO AUTHOR(Author_ID, First_Name, Middle_Name, Last_Name) VALUES (581, 'Mary', 'Higgins', 'Clark');
+INSERT INTO AUTHOR(Author_ID, First_Name, Middle_Name, Last_Name) VALUES (582, 'Don', '', 'DeLillo');
+INSERT INTO AUTHOR(Author_ID, First_Name, Middle_Name, Last_Name) VALUES (583, 'Stephen', '', 'King');
+INSERT INTO AUTHOR(Author_ID, First_Name, Middle_Name, Last_Name) VALUES (584, 'Mark', 'Z.', 'Danielewski');
+INSERT INTO AUTHOR(Author_ID, First_Name, Middle_Name, Last_Name) VALUES (585, 'Michael', '', 'Romkey');
+INSERT INTO AUTHOR(Author_ID, First_Name, Middle_Name, Last_Name) VALUES (586, 'Chuck', '', 'Palahniuk');
+INSERT INTO AUTHOR(Author_ID, First_Name, Middle_Name, Last_Name) VALUES (587, 'Matthew', '', 'Delaney');
+INSERT INTO AUTHOR(Author_ID, First_Name, Middle_Name, Last_Name) VALUES (588, 'Bernie', '', 'Wrightson');
+INSERT INTO AUTHOR(Author_ID, First_Name, Middle_Name, Last_Name) VALUES (589, 'Stephen', '', 'King');
+INSERT INTO AUTHOR(Author_ID, First_Name, Middle_Name, Last_Name) VALUES (590, 'Don', '', 'DeLillo');
+INSERT INTO AUTHOR(Author_ID, First_Name, Middle_Name, Last_Name) VALUES (591, 'Ann', '', 'Patchett');
+INSERT INTO AUTHOR(Author_ID, First_Name, Middle_Name, Last_Name) VALUES (592, 'Steven', '', 'Pinker');
+INSERT INTO AUTHOR(Author_ID, First_Name, Middle_Name, Last_Name) VALUES (593, 'Simon', '', 'Benninga');
+INSERT INTO AUTHOR(Author_ID, First_Name, Middle_Name, Last_Name) VALUES (594, 'Jeffrey', 'M.', 'Wooldridge');
+INSERT INTO AUTHOR(Author_ID, First_Name, Middle_Name, Last_Name) VALUES (595, 'Steven', 'J.', 'Root');
+INSERT INTO AUTHOR(Author_ID, First_Name, Middle_Name, Last_Name) VALUES (596, 'Ken', '', 'Coffman');
+INSERT INTO AUTHOR(Author_ID, First_Name, Middle_Name, Last_Name) VALUES (597, 'Gerald', '', 'Carter');
+INSERT INTO AUTHOR(Author_ID, First_Name, Middle_Name, Last_Name) VALUES (598, 'Scott', '', 'Kelby');
+INSERT INTO AUTHOR(Author_ID, First_Name, Middle_Name, Last_Name) VALUES (599, 'B.', 'J.', 'Fogg');
+INSERT INTO AUTHOR(Author_ID, First_Name, Middle_Name, Last_Name) VALUES (600, 'Michael', '', 'Meyers');
+INSERT INTO AUTHOR(Author_ID, First_Name, Middle_Name, Last_Name) VALUES (601, 'Carl', '', 'Sagan');
+INSERT INTO AUTHOR(Author_ID, First_Name, Middle_Name, Last_Name) VALUES (602, 'Alice', '', 'Sebold');
+INSERT INTO AUTHOR(Author_ID, First_Name, Middle_Name, Last_Name) VALUES (603, 'Alice', '', 'Sebold');
+INSERT INTO AUTHOR(Author_ID, First_Name, Middle_Name, Last_Name) VALUES (604, 'Ian', '', 'McEwan');
+INSERT INTO AUTHOR(Author_ID, First_Name, Middle_Name, Last_Name) VALUES (605, 'Nora', '', 'Roberts');
+INSERT INTO AUTHOR(Author_ID, First_Name, Middle_Name, Last_Name) VALUES (606, 'Andy', '', 'Rae');
+INSERT INTO AUTHOR(Author_ID, First_Name, Middle_Name, Last_Name) VALUES (607, 'Joseph', '', 'Truini');
+INSERT INTO AUTHOR(Author_ID, First_Name, Middle_Name, Last_Name) VALUES (608, 'Terry', '', 'Pratchett');
+INSERT INTO PUBLISHER(Publisher_ID, Publisher_Name) VALUES (502, 'Sybex');
+INSERT INTO PUBLISHER(Publisher_ID, Publisher_Name) VALUES (503, 'McGraw-Hill Osborne Media');
+INSERT INTO PUBLISHER(Publisher_ID, Publisher_Name) VALUES (504, 'John Wiley & Sons');
+INSERT INTO PUBLISHER(Publisher_ID, Publisher_Name) VALUES (505, 'Morgan Kaufmann');
+INSERT INTO PUBLISHER(Publisher_ID, Publisher_Name) VALUES (506, 'Schmidt Ink, Inc.');
+INSERT INTO PUBLISHER(Publisher_ID, Publisher_Name) VALUES (507, 'Addison-Wesley Pub Co');
+INSERT INTO PUBLISHER(Publisher_ID, Publisher_Name) VALUES (508, 'Macromedia Press');
+INSERT INTO PUBLISHER(Publisher_ID, Publisher_Name) VALUES (509, 'Addison-Wesley Publishing');
+INSERT INTO PUBLISHER(Publisher_ID, Publisher_Name) VALUES (510, 'Wrox Press Inc');
+INSERT INTO PUBLISHER(Publisher_ID, Publisher_Name) VALUES (511, 'Berkley Pub Group');
+INSERT INTO PUBLISHER(Publisher_ID, Publisher_Name) VALUES (512, 'Penguin USA ');
+INSERT INTO PUBLISHER(Publisher_ID, Publisher_Name) VALUES (513, 'O''Reilly & Associates');
+INSERT INTO PUBLISHER(Publisher_ID, Publisher_Name) VALUES (514, 'McGraw-Hill Trade');
+INSERT INTO PUBLISHER(Publisher_ID, Publisher_Name) VALUES (515, 'Picador');
+INSERT INTO PUBLISHER(Publisher_ID, Publisher_Name) VALUES (516, 'St. Martin''s Press');
+INSERT INTO PUBLISHER(Publisher_ID, Publisher_Name) VALUES (517, 'Crown Pub');
+INSERT INTO PUBLISHER(Publisher_ID, Publisher_Name) VALUES (518, 'Little Brown & Company');
+INSERT INTO PUBLISHER(Publisher_ID, Publisher_Name) VALUES (519, 'Simon & Schuster');
+INSERT INTO PUBLISHER(Publisher_ID, Publisher_Name) VALUES (520, 'HarperCollins');
+INSERT INTO PUBLISHER(Publisher_ID, Publisher_Name) VALUES (521, 'Jossey-Bass');
+INSERT INTO PUBLISHER(Publisher_ID, Publisher_Name) VALUES (522, 'Multnomah Publishers Inc.');
+INSERT INTO PUBLISHER(Publisher_ID, Publisher_Name) VALUES (523, 'Perennial');
+INSERT INTO PUBLISHER(Publisher_ID, Publisher_Name) VALUES (524, 'Dell Pub Co');
+INSERT INTO PUBLISHER(Publisher_ID, Publisher_Name) VALUES (525, 'Harlequin');
+INSERT INTO PUBLISHER(Publisher_ID, Publisher_Name) VALUES (526, 'Viking Press');
+INSERT INTO PUBLISHER(Publisher_ID, Publisher_Name) VALUES (527, 'Perseus Publishing');
+INSERT INTO PUBLISHER(Publisher_ID, Publisher_Name) VALUES (528, 'Random House');
+INSERT INTO PUBLISHER(Publisher_ID, Publisher_Name) VALUES (529, 'Knopf');
+INSERT INTO PUBLISHER(Publisher_ID, Publisher_Name) VALUES (530, 'Wolfram Media, Inc.');
+INSERT INTO PUBLISHER(Publisher_ID, Publisher_Name) VALUES (531, 'Fireside');
+INSERT INTO PUBLISHER(Publisher_ID, Publisher_Name) VALUES (532, 'Random House Trade Paperbacks');
+INSERT INTO PUBLISHER(Publisher_ID, Publisher_Name) VALUES (533, 'Gibbs Smith Publisher');
+INSERT INTO PUBLISHER(Publisher_ID, Publisher_Name) VALUES (534, 'Taunton Pr');
+INSERT INTO PUBLISHER(Publisher_ID, Publisher_Name) VALUES (535, 'Vendome Pr');
+INSERT INTO PUBLISHER(Publisher_ID, Publisher_Name) VALUES (536, 'Clarkson N. Potter');
+INSERT INTO PUBLISHER(Publisher_ID, Publisher_Name) VALUES (537, 'MIT Press');
+INSERT INTO PUBLISHER(Publisher_ID, Publisher_Name) VALUES (538, 'McGraw-Hill/Irwin');
+INSERT INTO PUBLISHER(Publisher_ID, Publisher_Name) VALUES (539, 'South-Western College Pub');
+INSERT INTO PUBLISHER(Publisher_ID, Publisher_Name) VALUES (540, 'Prentice Hall');
+INSERT INTO PUBLISHER(Publisher_ID, Publisher_Name) VALUES (541, 'Warner Books');
+INSERT INTO PUBLISHER(Publisher_ID, Publisher_Name) VALUES (542, 'Scribner');
+INSERT INTO PUBLISHER(Publisher_ID, Publisher_Name) VALUES (543, 'Pocket Books');
+INSERT INTO PUBLISHER(Publisher_ID, Publisher_Name) VALUES (544, 'Pantheon Books');
+INSERT INTO PUBLISHER(Publisher_ID, Publisher_Name) VALUES (545, 'Del Rey');
+INSERT INTO PUBLISHER(Publisher_ID, Publisher_Name) VALUES (546, 'Doubleday');
+INSERT INTO PUBLISHER(Publisher_ID, Publisher_Name) VALUES (547, 'Donald M. Grant Publisher, Inc.');
+INSERT INTO PUBLISHER(Publisher_ID, Publisher_Name) VALUES (548, 'Vintage Books');
+INSERT INTO PUBLISHER(Publisher_ID, Publisher_Name) VALUES (549, 'Scribner Paperback Fiction');
+INSERT INTO PUBLISHER(Publisher_ID, Publisher_Name) VALUES (550, 'Harvest Books');
+INSERT INTO PUBLISHER(Publisher_ID, Publisher_Name) VALUES (551, 'Harperperennial Library');
+INSERT INTO PUBLISHER(Publisher_ID, Publisher_Name) VALUES (552, 'W.W. Norton & Company');
+INSERT INTO PUBLISHER(Publisher_ID, Publisher_Name) VALUES (553, 'Harvard Univ Pr');
+INSERT INTO PUBLISHER(Publisher_ID, Publisher_Name) VALUES (554, 'Prentice Hall PTR');
+INSERT INTO PUBLISHER(Publisher_ID, Publisher_Name) VALUES (555, 'New Riders Publishing');
+INSERT INTO PUBLISHER(Publisher_ID, Publisher_Name) VALUES (556, 'Ballantine Books ');
+INSERT INTO PUBLISHER(Publisher_ID, Publisher_Name) VALUES (557, 'Ballantine Books');
+INSERT INTO PUBLISHER(Publisher_ID, Publisher_Name) VALUES (558, 'Back Bay Books');
+INSERT INTO PUBLISHER(Publisher_ID, Publisher_Name) VALUES (559, 'Anchor Books');
+INSERT INTO PUBLISHER(Publisher_ID, Publisher_Name) VALUES (560, 'Putnam Pub Group');
+INSERT INTO PUBLISHER(Publisher_ID, Publisher_Name) VALUES (561, 'Silhouette');
+INSERT INTO PUBLISHER(Publisher_ID, Publisher_Name) VALUES (562, 'Lark Books');
+INSERT INTO PUBLISHER(Publisher_ID, Publisher_Name) VALUES (563, 'Harper');
 INSERT INTO PRODUCT(Item_Number, Warehouse_No, Price, Product_Type) VALUES ('0782140661', 1, 104.97, 'Computer');
 INSERT INTO PRODUCT(Item_Number, Warehouse_No, Price, Product_Type) VALUES ('0072227885', 1, 34.99, 'Computer');
 INSERT INTO PRODUCT(Item_Number, Warehouse_No, Price, Product_Type) VALUES ('0471200247', 1, 50.00, 'Computer');
@@ -1142,115 +1142,365 @@ INSERT INTO PRODUCT(Item_Number, Warehouse_No, Price, Product_Type) VALUES ('006
 INSERT INTO PRODUCT(Item_Number, Warehouse_No, Price, Product_Type) VALUES ('0060855925', 1, 13.99, 'Fantasy');
 INSERT INTO PRODUCT(Item_Number, Warehouse_No, Price, Product_Type) VALUES ('0061020648', 1, 7.99, 'Fantasy');
 INSERT INTO PRODUCT(Item_Number, Warehouse_No, Price, Product_Type) VALUES ('0061161721', 1, 7.99, 'Fantasy');
-INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher, Author_ID) VALUES ('0060502935', 166919206271381329, '0060502935', 'Going Postal', 'Harper', '448190480341881123 3893349940100885940 2917573118609099181 2917573118609099181 3926959087536946699 2701061845171752316 6467984738415102246 2917573118609099181 4495650341687031818 3424405385793778353 8594749801984075639 1645240255244935724 3893349940100885940 3424405385793778353 3424405385793778353');
-INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher, Author_ID) VALUES ('0060540753', 7912976822323989428, '0060540753', 'Patron Saint of Liars', 'Harperperennial Library', '7504496732994452890 8505325628901960794 8505325628901960794 2701061845171752316 6467984738415102246 4495650341687031818 3424405385793778353 8594749801984075639 1645240255244935724 3893349940100885940 3424405385793778353 3424405385793778353 2701061845171752316');
-INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher, Author_ID) VALUES ('0060855925', 166919206271381329, '0060855925', 'The Color of Magic', 'Harper', '448190480341881123 3893349940100885940 2917573118609099181 2917573118609099181 3926959087536946699 2701061845171752316 6467984738415102246 2917573118609099181 4495650341687031818 3424405385793778353 8594749801984075639 1645240255244935724 3893349940100885940 3424405385793778353 3424405385793778353');
-INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher, Author_ID) VALUES ('0060934417', 879223441983590207, '0060934417', 'Bel Canto: A Novel', 'Perennial', '7504496732994452890 8505325628901960794 8505325628901960794 2701061845171752316 6467984738415102246 4495650341687031818 3424405385793778353 8594749801984075639 1645240255244935724 3893349940100885940 3424405385793778353 3424405385793778353');
-INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher, Author_ID) VALUES ('0060958332', 879223441983590207, '0060958332', 'The Language Instinct: How the Mind Creates Language', 'Perennial', '1579381175152807484 3424405385793778353 3893349940100885940 372005136057422797 3893349940100885940 8505325628901960794 2701061845171752316 6467984738415102246 2861834768062237557 8505325628901960794 5201046630228754054 3893349940100885940 2917573118609099181 2701061845171752316');
-INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher, Author_ID) VALUES ('0060958405', 879223441983590207, '0060958405', 'Words and Rules: The Ingredients of Language', 'Perennial', '1579381175152807484 3424405385793778353 3893349940100885940 372005136057422797 3893349940100885940 8505325628901960794 2701061845171752316 6467984738415102246 2861834768062237557 8505325628901960794 5201046630228754054 3893349940100885940 2917573118609099181 2701061845171752316');
-INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher, Author_ID) VALUES ('0061020648', 166919206271381329, '0061020648', 'Guards! Guards!', 'Harper', '448190480341881123 3893349940100885940 2917573118609099181 2917573118609099181 3926959087536946699 2701061845171752316 6467984738415102246 2917573118609099181 4495650341687031818 3424405385793778353 8594749801984075639 1645240255244935724 3893349940100885940 3424405385793778353 3424405385793778353');
-INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher, Author_ID) VALUES ('0061020656', 166919206271381329, '0061020656', 'Pyramids', 'Harper', '448190480341881123 3893349940100885940 2917573118609099181 2917573118609099181 3926959087536946699 2701061845171752316 6467984738415102246 2917573118609099181 4495650341687031818 3424405385793778353 8594749801984075639 1645240255244935724 3893349940100885940 3424405385793778353 3424405385793778353');
-INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher, Author_ID) VALUES ('0061092177', 166919206271381329, '0061092177', 'Small Gods', 'Harper', '448190480341881123 3893349940100885940 2917573118609099181 2917573118609099181 3926959087536946699 2701061845171752316 6467984738415102246 2917573118609099181 4495650341687031818 3424405385793778353 8594749801984075639 1645240255244935724 3893349940100885940 3424405385793778353 3424405385793778353');
-INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher, Author_ID) VALUES ('0061161721', 166919206271381329, '0061161721', 'Unseen Academicals', 'Harper', '448190480341881123 3893349940100885940 2917573118609099181 2917573118609099181 3926959087536946699 2701061845171752316 6467984738415102246 2917573118609099181 4495650341687031818 3424405385793778353 8594749801984075639 1645240255244935724 3893349940100885940 3424405385793778353 3424405385793778353');
-INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher, Author_ID) VALUES ('0066214750', 3557654085457230250, '0066214750', 'Twelve Times Blessed', 'HarperCollins', '5229195933462795930 4495650341687031818 8594749801984075639 733882256401262985 1430413821843287009 3893349940100885940 5715290465860342571 3926959087536946699 8505325628901960794 2701061845171752316 8390056262071850844 2861834768062237557 3424405385793778353 8594749801984075639 1645240255244935724 4495650341687031818 2917573118609099181 2008343725282475665');
-INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher, Author_ID) VALUES ('0071414339', 6364931267445401650, '0071414339', 'Investing in Fixer-Uppers : A Complete Guide to Buying Low, Fixing Smart, Adding Value, and Selling (or Renting) High', 'McGraw-Hill Trade', '5229195933462795930 4495650341687031818 3926959087536946699 2701061845171752316 6467984738415102246 9201903121853007659 2701061845171752316 1232624614736289868 3893349940100885940 8594749801984075639 2861834768062237557 8074591266225558208 4495650341687031818 2701061845171752316');
-INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher, Author_ID) VALUES ('0072222743', 7059613620976317977, '0072222743', 'A+ Certification All-in-One Exam Guide', 'McGraw-Hill Osborne Media', '8390056262071850844 2861834768062237557 8594749801984075639 1645240255244935724 4495650341687031818 3893349940100885940 5715290465860342571 2701061845171752316 8390056262071850844 3893349940100885940 3926959087536946699 3893349940100885940 2917573118609099181 4921158142616678759 2701061845171752316');
-INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher, Author_ID) VALUES ('0072227710', 7059613620976317977, '0072227710', 'How To Do Everything with Your Tablet PC', 'McGraw-Hill Osborne Media', '7448694653164502922 2861834768062237557 5715290465860342571 5715290465860342571 2701061845171752316 8390056262071850844 4495650341687031818 8505325628901960794 8505325628901960794');
-INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher, Author_ID) VALUES ('0072227885', 7059613620976317977, '0072227885', 'SQL Server 2000 for Experienced DBA''s', 'McGraw-Hill Osborne Media', '7448694653164502922 2917573118609099181 2861834768062237557 4495650341687031818 8505325628901960794 2701061845171752316 5583154761624536126 8505325628901960794 2861834768062237557 9096899189138494356 1645240255244935724 3424405385793778353');
-INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher, Author_ID) VALUES ('0072294337', 7216776642615058669, '0072294337', 'Financial Markets & Corporate Strategy', 'McGraw-Hill/Irwin', '8390056262071850844 4495650341687031818 2917573118609099181 5201046630228754054 2701061845171752316 460133395376800011 2917573118609099181 2861834768062237557 8505325628901960794 8785166944456938394 5715290465860342571 4495650341687031818 3424405385793778353 3424405385793778353 3403865625094994559 2701061845171752316 1579381175152807484 1645240255244935724 3893349940100885940 2917573118609099181 2861834768062237557 2008343725282475665 4495650341687031818 8505325628901960794 2701061845171752316 448190480341881123 2861834768062237557 3424405385793778353 8074591266225558208 4495650341687031818 8505325628901960794');
-INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher, Author_ID) VALUES ('0072315318', 7216776642615058669, '0072315318', 'Analysis for Financial Management', 'McGraw-Hill/Irwin', '3966970826066249778 7972575655734105629 8785166944456938394 3893349940100885940 2917573118609099181 3424405385793778353 2701061845171752316 8344210365104673344 9201903121853007659 2701061845171752316 8290620908100484786 2861834768062237557 9096899189138494356 9096899189138494356 2861834768062237557 8505325628901960794 4921158142616678759 2701061845171752316');
-INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher, Author_ID) VALUES ('0130323519', 4274947051371758073, '0130323519', 'Financial Reporting and Analysis ', 'Prentice Hall', '3038599536101232816 4495650341687031818 4329913927848118560 2917573118609099181 3893349940100885940 8505325628901960794 8594749801984075639 3893349940100885940 2701061845171752316 3966970826066249778 3893349940100885940 372005136057422797 4921158142616678759 2861834768062237557 8505325628901960794 3893349940100885940 3403865625094994559 2701061845171752316 1232624614736289868 4495650341687031818 8505325628901960794 2861834768062237557 3893349940100885940 5715290465860342571 2701061845171752316 5137118883710496461 9201903121853007659 2701061845171752316 8344210365104673344 7972575655734105629 5715290465860342571 5715290465860342571 2861834768062237557 8505325628901960794 4921158142616678759 3403865625094994559 2701061845171752316 5137118883710496461 9201903121853007659 2701061845171752316 7448694653164502922 2917573118609099181 1430413821843287009 8594749801984075639 3893349940100885940 2701061845171752316 5229195933462795930 7972575655734105629 1645240255244935724 8505325628901960794 4921158142616678759 7972575655734105629 8505325628901960794');
-INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher, Author_ID) VALUES ('0130998516', 6633222037877344485, '0130998516', 'Real World FPGA Design with Verilog', 'Prentice Hall PTR', '5583154761624536126 3893349940100885940 8505325628901960794 2701061845171752316 8344210365104673344 7972575655734105629 3591202219158683266 3591202219158683266 8074591266225558208 4495650341687031818 8505325628901960794 2701061845171752316');
-INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher, Author_ID) VALUES ('0140077022', 8217272119788226075, '0140077022', 'White Noise ', 'Penguin USA ', '1232624614736289868 7972575655734105629 8505325628901960794 2701061845171752316 1232624614736289868 3893349940100885940 3038599536101232816 2861834768062237557 5715290465860342571 5715290465860342571 7972575655734105629');
-INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher, Author_ID) VALUES ('0142001740', 8217272119788226075, '0142001740', 'The Secret Life of Bees', 'Penguin USA ', '1579381175152807484 1430413821843287009 3893349940100885940 2701061845171752316 8390056262071850844 7972575655734105629 8505325628901960794 5201046630228754054 2701061845171752316 5583154761624536126 2861834768062237557 2008343725282475665 2008343725282475665');
-INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher, Author_ID) VALUES ('0156006219', 7475742398236535221, '0156006219', 'The Magician''s Assistant', 'Harvest Books', '7504496732994452890 8505325628901960794 8505325628901960794 2701061845171752316 6467984738415102246 4495650341687031818 3424405385793778353 8594749801984075639 1645240255244935724 3893349940100885940 3424405385793778353 3424405385793778353 2701061845171752316');
-INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher, Author_ID) VALUES ('0201615762', 171987041240991545, '0201615762', 'The Guru''s Guide to Transact-SQL', 'Addison-Wesley Pub Co', '5583154761624536126 3893349940100885940 8505325628901960794 2701061845171752316 8290620908100484786 3893349940100885940 8505325628901960794 2008343725282475665 3893349940100885940 2917573118609099181 4921158142616678759 7972575655734105629 8505325628901960794');
-INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher, Author_ID) VALUES ('0262024829', 1270370134534519105, '0262024829', 'Financial Modeling ', 'MIT Press', '1579381175152807484 2861834768062237557 8074591266225558208 7972575655734105629 8505325628901960794 2701061845171752316 7448694653164502922 3893349940100885940 8505325628901960794 8505325628901960794 2861834768062237557 8505325628901960794 9096899189138494356 4495650341687031818 1232692114763145932 2701061845171752316 7448694653164502922 3893349940100885940 8505325628901960794 5165434665157506602 4495650341687031818 8074591266225558208 2861834768062237557 8505325628901960794 2701061845171752316 8344210365104673344 5157262301961321484 4495650341687031818 8594749801984075639 5157262301961321484 5201046630228754054 3893349940100885940 4921158142616678759 2701061845171752316');
-INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher, Author_ID) VALUES ('0262232197', 1270370134534519105, '0262232197', 'Econometric Analysis of Cross Section and Panel Data', 'MIT Press', '5229195933462795930 3893349940100885940 3591202219158683266 3591202219158683266 2917573118609099181 3893349940100885940 3926959087536946699 2701061845171752316 8390056262071850844 9201903121853007659 2701061845171752316 5137118883710496461 7972575655734105629 7972575655734105629 5715290465860342571 2008343725282475665 2917573118609099181 2861834768062237557 2008343725282475665 9096899189138494356 3893349940100885940 2701061845171752316');
-INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher, Author_ID) VALUES ('0262521415', 1270370134534519105, '0262521415', 'Numerical Techniques in Finance', 'MIT Press', '1579381175152807484 2861834768062237557 8074591266225558208 7972575655734105629 8505325628901960794 2701061845171752316 7448694653164502922 3893349940100885940 8505325628901960794 8505325628901960794 2861834768062237557 8505325628901960794 9096899189138494356 4495650341687031818 2701061845171752316');
-INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher, Author_ID) VALUES ('0312243022', 7225947741816441005, '0312243022', 'The Hours', 'Picador', '8390056262071850844 2861834768062237557 8594749801984075639 1645240255244935724 4495650341687031818 3893349940100885940 5715290465860342571 2701061845171752316 8344210365104673344 1430413821843287009 8505325628901960794 8505325628901960794 2861834768062237557 8505325628901960794 9096899189138494356 1645240255244935724 4495650341687031818 8074591266225558208');
-INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher, Author_ID) VALUES ('0312276702', 760718589073547346, '0312276702', 'Jinn: A Novel', 'St. Martin''s Press', '8390056262071850844 4495650341687031818 3424405385793778353 3424405385793778353 1645240255244935724 3893349940100885940 4329913927848118560 2701061845171752316 1232624614736289868 3893349940100885940 5715290465860342571 4495650341687031818 8505325628901960794 3893349940100885940 3926959087536946699');
-INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher, Author_ID) VALUES ('0312287941', 760718589073547346, '0312287941', 'The Girl in the Red Coat: A Memoir', 'St. Martin''s Press', '3966970826066249778 7972575655734105629 8074591266225558208 4495650341687031818 2701061845171752316 3038599536101232816 2861834768062237557 9096899189138494356 7972575655734105629 8594749801984075639 5201046630228754054 4495650341687031818');
-INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher, Author_ID) VALUES ('0312311354', 7225947741816441005, '0312311354', 'The Pianist', 'Picador', '5137118883710496461 5715290465860342571 4495650341687031818 2008343725282475665 3926959087536946699 4921158142616678759 5715290465860342571 4495650341687031818 4329913927848118560 2701061845171752316 1579381175152807484 5157262301961321484 1945203840404730860 2861834768062237557 5715290465860342571 8074591266225558208 4495650341687031818 8505325628901960794');
-INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher, Author_ID) VALUES ('0316096199', 1434714067838102826, '0316096199', 'Lucky: A Memoir', 'Back Bay Books', '7504496732994452890 5715290465860342571 2861834768062237557 8594749801984075639 3893349940100885940 2701061845171752316 1579381175152807484 3893349940100885940 8785166944456938394 7972575655734105629 5715290465860342571 2008343725282475665');
-INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher, Author_ID) VALUES ('0316602051', 6357165283862126640, '0316602051', 'The Jester', 'Little Brown & Company', '5229195933462795930 4495650341687031818 8074591266225558208 3893349940100885940 4921158142616678759 2701061845171752316 6467984738415102246 4495650341687031818 3424405385793778353 3424405385793778353 3893349940100885940 2917573118609099181 4921158142616678759 7972575655734105629 8505325628901960794 3403865625094994559 2701061845171752316 7504496732994452890 8505325628901960794 2008343725282475665 2917573118609099181 3893349940100885940 4329913927848118560 2701061845171752316 460133395376800011 2917573118609099181 7972575655734105629 4921158142616678759 4921158142616678759');
-INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher, Author_ID) VALUES ('0316666343', 6357165283862126640, '0316666343', 'The Lovely Bones: A Novel', 'Little Brown & Company', '7504496732994452890 5715290465860342571 2861834768062237557 8594749801984075639 3893349940100885940 2701061845171752316 1579381175152807484 3893349940100885940 8785166944456938394 7972575655734105629 5715290465860342571 2008343725282475665 2701061845171752316');
-INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher, Author_ID) VALUES ('0321125169', 662536863768032435, '0321125169', 'ColdFusion MX Web Application Construction Kit', 'Macromedia Press', '7448694653164502922 3893349940100885940 8505325628901960794 2701061845171752316 2208103011680461486 7972575655734105629 2917573118609099181 3424405385793778353 4495650341687031818 3403865625094994559 2701061845171752316 4227121046047548955 4495650341687031818 3424405385793778353 3893349940100885940 2701061845171752316 5137118883710496461 3893349940100885940 2861834768062237557 4921158142616678759 4921158142616678759 3403865625094994559 2701061845171752316 3038599536101232816 3893349940100885940 7972575655734105629 8505325628901960794 2701061845171752316 8344210365104673344 1645240255244935724 4495650341687031818 5715290465860342571 8505325628901960794 2861834768062237557 8594749801984075639 5201046630228754054 3403865625094994559 2701061845171752316 7504496732994452890 8505325628901960794 9096899189138494356 3893349940100885940 5715290465860342571 4495650341687031818 2701061845171752316 8344210365104673344 9201903121853007659 2701061845171752316 7448694653164502922 1430413821843287009 2917573118609099181 4495650341687031818 9096899189138494356 5715290465860342571 2861834768062237557 4495650341687031818');
-INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher, Author_ID) VALUES ('0324107501', 1515871535796576351, '0324107501', 'Advanced Accounting', 'South-Western College Pub', '6467984738415102246 4495650341687031818 1430413821843287009 5715290465860342571 2701061845171752316 8390056262071850844 4495650341687031818 2917573118609099181 8594749801984075639 1430413821843287009 4921158142616678759 2701061845171752316 2208103011680461486 2861834768062237557 4921158142616678759 8594749801984075639 1645240255244935724 3893349940100885940 2917573118609099181 3403865625094994559 2701061845171752316 5137118883710496461 2861834768062237557 5715290465860342571 5715290465860342571 2861834768062237557 4495650341687031818 8074591266225558208 2701061845171752316 5229195933462795930 4495650341687031818 8074591266225558208 3893349940100885940 4921158142616678759 2701061845171752316 448190480341881123 4495650341687031818 3926959087536946699 5715290465860342571 7972575655734105629 2917573118609099181 3403865625094994559 2701061845171752316 3966970826066249778 2861834768062237557 3424405385793778353 4495650341687031818 2701061845171752316 8290620908100484786 4495650341687031818 2917573118609099181 3424405385793778353 1430413821843287009 8505325628901960794 9096899189138494356 2701061845171752316 8344210365104673344 1645240255244935724 3893349940100885940 8505325628901960794 9096899189138494356');
-INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher, Author_ID) VALUES ('0324113641', 1515871535796576351, '0324113641', 'Introductory Econometrics: A Modern Approach', 'South-Western College Pub', '5229195933462795930 3893349940100885940 3591202219158683266 3591202219158683266 2917573118609099181 3893349940100885940 3926959087536946699 2701061845171752316 8390056262071850844 9201903121853007659 2701061845171752316 5137118883710496461 7972575655734105629 7972575655734105629 5715290465860342571 2008343725282475665 2917573118609099181 2861834768062237557 2008343725282475665 9096899189138494356 3893349940100885940 2701061845171752316');
-INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher, Author_ID) VALUES ('0345336895', 1164802334194845259, '0345336895', 'Broca''s Brain: Reflections on the Romance of Science', 'Ballantine Books', '8344210365104673344 4495650341687031818 2917573118609099181 5715290465860342571 2701061845171752316 1579381175152807484 4495650341687031818 9096899189138494356 4495650341687031818 8505325628901960794 2701061845171752316');
-INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher, Author_ID) VALUES ('0345376595', 1900926824631937155, '0345376595', 'Pale Blue Dot: A Vision of the Human Future in Space', 'Ballantine Books ', '8344210365104673344 4495650341687031818 2917573118609099181 5715290465860342571 2701061845171752316 1579381175152807484 4495650341687031818 9096899189138494356 4495650341687031818 8505325628901960794 2701061845171752316');
-INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher, Author_ID) VALUES ('0345409469', 1900926824631937155, '0345409469', 'The Demon-Haunted World: Science As a Candle in the Dark', 'Ballantine Books ', '8344210365104673344 4495650341687031818 2917573118609099181 5715290465860342571 2701061845171752316 1579381175152807484 4495650341687031818 9096899189138494356 4495650341687031818 8505325628901960794 2701061845171752316');
-INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher, Author_ID) VALUES ('0345452089', 623981748118890351, '0345452089', 'The Vampire''s Violin', 'Del Rey', '8390056262071850844 2861834768062237557 8594749801984075639 1645240255244935724 4495650341687031818 3893349940100885940 5715290465860342571 2701061845171752316 3966970826066249778 7972575655734105629 8074591266225558208 5201046630228754054 3893349940100885940 3926959087536946699 2701061845171752316');
-INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher, Author_ID) VALUES ('0373218192', 509252194705406825, '0373218192', 'Engaging The Enemy', 'Silhouette', '4227121046047548955 7972575655734105629 2917573118609099181 4495650341687031818 2701061845171752316 3966970826066249778 7972575655734105629 8785166944456938394 3893349940100885940 2917573118609099181 3424405385793778353 4921158142616678759 2701061845171752316');
-INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher, Author_ID) VALUES ('0373218257', 1351499784624204223, '0373218257', 'Love By Design', 'Harlequin', '4227121046047548955 7972575655734105629 2917573118609099181 4495650341687031818 2701061845171752316 3966970826066249778 7972575655734105629 8785166944456938394 3893349940100885940 2917573118609099181 3424405385793778353 4921158142616678759 2701061845171752316');
-INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher, Author_ID) VALUES ('0373272839', 1351499784624204223, '0373272839', 'Letters to Kelly', 'Harlequin', '1579381175152807484 1430413821843287009 5157262301961321484 4495650341687031818 8505325628901960794 8505325628901960794 3893349940100885940 2701061845171752316 7448694653164502922 2917573118609099181 7972575655734105629 8594749801984075639 5201046630228754054 8074591266225558208 4495650341687031818 8505325628901960794 8505325628901960794');
-INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher, Author_ID) VALUES ('0375508325', 2289924385984378195, '0375508325', 'Cosmos', 'Random House', '8344210365104673344 4495650341687031818 2917573118609099181 5715290465860342571 2701061845171752316 1579381175152807484 4495650341687031818 9096899189138494356 4495650341687031818 8505325628901960794 2701061845171752316');
-INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher, Author_ID) VALUES ('0375703764', 4687230976750022907, '0375703764', 'House of Leaves', 'Pantheon Books', '8390056262071850844 4495650341687031818 2917573118609099181 5201046630228754054 2701061845171752316 4721836068047695996 9201903121853007659 2701061845171752316 1232624614736289868 4495650341687031818 8505325628901960794 2861834768062237557 3893349940100885940 5715290465860342571 3893349940100885940 4329913927848118560 4921158142616678759 5201046630228754054 2861834768062237557 2701061845171752316');
-INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher, Author_ID) VALUES ('0385494149', 2314721189558666903, '0385494149', 'Enduring Love', 'Anchor Books', '4633594474766855217 4495650341687031818 8505325628901960794 2701061845171752316 8390056262071850844 8594749801984075639 5516637451632179683 4329913927848118560 4495650341687031818 8505325628901960794 2701061845171752316');
-INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher, Author_ID) VALUES ('0385494246', 2314721189558666903, '0385494246', 'Amsterdam', 'Anchor Books', '4633594474766855217 4495650341687031818 8505325628901960794 2701061845171752316 8390056262071850844 8594749801984075639 5516637451632179683 4329913927848118560 4495650341687031818 8505325628901960794 2701061845171752316');
-INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher, Author_ID) VALUES ('0385494327', 2314721189558666903, '0385494327', 'Black Dogs', 'Anchor Books', '4633594474766855217 4495650341687031818 8505325628901960794 2701061845171752316 8390056262071850844 8594749801984075639 5516637451632179683 4329913927848118560 4495650341687031818 8505325628901960794 2701061845171752316');
-INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher, Author_ID) VALUES ('0385504470', 8062163139228164822, '0385504470', 'Lullaby: A Novel', 'Doubleday', '8344210365104673344 1645240255244935724 1430413821843287009 8594749801984075639 5201046630228754054 2701061845171752316 6467984738415102246 4495650341687031818 5715290465860342571 4495650341687031818 1645240255244935724 8505325628901960794 2861834768062237557 1430413821843287009 5201046630228754054 2701061845171752316');
-INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher, Author_ID) VALUES ('038572179X', 2314721189558666903, '038572179X', 'Atonement', 'Anchor Books', '4633594474766855217 4495650341687031818 8505325628901960794 2701061845171752316 8390056262071850844 8594749801984075639 5516637451632179683 4329913927848118560 4495650341687031818 8505325628901960794 2701061845171752316');
-INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher, Author_ID) VALUES ('0393318486', 8376643307400910370, '0393318486', 'How the Mind Works', 'W.W. Norton & Company', '1579381175152807484 3424405385793778353 3893349940100885940 372005136057422797 3893349940100885940 8505325628901960794 2701061845171752316 6467984738415102246 2861834768062237557 8505325628901960794 5201046630228754054 3893349940100885940 2917573118609099181 2701061845171752316');
-INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher, Author_ID) VALUES ('0393319407', 8376643307400910370, '0393319407', 'The Diversity of Life', 'W.W. Norton & Company', '5516637451632179683 2008343725282475665 4329913927848118560 4495650341687031818 2917573118609099181 2008343725282475665 2701061845171752316 5365389759864508958 4921158142616678759 8785166944456938394 7972575655734105629 2917573118609099181 8505325628901960794 3893349940100885940 2701061845171752316 5137118883710496461 2861834768062237557 5715290465860342571 4921158142616678759 7972575655734105629 8505325628901960794 2701061845171752316');
-INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher, Author_ID) VALUES ('0394739698', 3451835483050797022, '0394739698', 'A Field Guide to American Houses', 'Random House Trade Paperbacks', '1246882832017010057 2861834768062237557 2917573118609099181 9096899189138494356 2861834768062237557 8505325628901960794 2861834768062237557 4495650341687031818 2701061845171752316 8390056262071850844 8594749801984075639 7504496732994452890 5715290465860342571 3893349940100885940 4921158142616678759 3424405385793778353 3893349940100885940 2917573118609099181 3403865625094994559 2701061845171752316 3038599536101232816 3893349940100885940 3893349940100885940 2701061845171752316 8390056262071850844 8594749801984075639 7504496732994452890 5715290465860342571 3893349940100885940 4921158142616678759 3424405385793778353 3893349940100885940 2917573118609099181');
-INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher, Author_ID) VALUES ('0399149392', 5202850637235335005, '0399149392', 'Chesapeake Blue', 'Putnam Pub Group', '4227121046047548955 7972575655734105629 2917573118609099181 4495650341687031818 2701061845171752316 3966970826066249778 7972575655734105629 8785166944456938394 3893349940100885940 2917573118609099181 3424405385793778353 4921158142616678759 2701061845171752316');
-INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher, Author_ID) VALUES ('0399149848', 5202850637235335005, '0399149848', 'Birthright', 'Putnam Pub Group', '4227121046047548955 7972575655734105629 2917573118609099181 4495650341687031818 2701061845171752316 3966970826066249778 7972575655734105629 8785166944456938394 3893349940100885940 2917573118609099181 3424405385793778353 4921158142616678759 2701061845171752316');
-INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher, Author_ID) VALUES ('0425188361', 4396843747763423035, '0425188361', 'Cerulean Sins', 'Berkley Pub Group', '3038599536101232816 4495650341687031818 1430413821843287009 2917573118609099181 3893349940100885940 5715290465860342571 5715290465860342571 2701061845171752316 5583154761624536126 9201903121853007659 2701061845171752316 8290620908100484786 4495650341687031818 8074591266225558208 2861834768062237557 5715290465860342571 3424405385793778353 7972575655734105629 8505325628901960794 2701061845171752316');
-INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher, Author_ID) VALUES ('0440237556', 3777204664149487569, '0440237556', 'The Dark Highlander', 'Dell Pub Co', '5583154761624536126 4495650341687031818 2917573118609099181 3893349940100885940 8505325628901960794 2701061845171752316 8390056262071850844 4495650341687031818 2917573118609099181 2861834768062237557 3893349940100885940 2701061845171752316 8390056262071850844 7972575655734105629 8505325628901960794 2861834768062237557 8505325628901960794 9096899189138494356');
-INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher, Author_ID) VALUES ('0446527793', 5464437955954808673, '0446527793', 'The Guardian', 'Warner Books', '4227121046047548955 2861834768062237557 8594749801984075639 1645240255244935724 7972575655734105629 5715290465860342571 4495650341687031818 4921158142616678759 2701061845171752316 1579381175152807484 1945203840404730860 4495650341687031818 2917573118609099181 5201046630228754054 4921158142616678759 2701061845171752316');
-INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher, Author_ID) VALUES ('0446606812', 5464437955954808673, '0446606812', 'Message in a Bottle', 'Warner Books', '4227121046047548955 2861834768062237557 8594749801984075639 1645240255244935724 7972575655734105629 5715290465860342571 4495650341687031818 4921158142616678759 2701061845171752316 1579381175152807484 1945203840404730860 4495650341687031818 2917573118609099181 5201046630228754054 4921158142616678759 2701061845171752316');
-INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher, Author_ID) VALUES ('0446608955', 5464437955954808673, '0446608955', 'A Walk to Remember', 'Warner Books', '4227121046047548955 2861834768062237557 8594749801984075639 1645240255244935724 7972575655734105629 5715290465860342571 4495650341687031818 4921158142616678759 2701061845171752316 1579381175152807484 1945203840404730860 4495650341687031818 2917573118609099181 5201046630228754054 4921158142616678759 2701061845171752316');
-INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher, Author_ID) VALUES ('0446676098', 5464437955954808673, '0446676098', 'The Notebook', 'Warner Books', '4227121046047548955 2861834768062237557 8594749801984075639 1645240255244935724 7972575655734105629 5715290465860342571 4495650341687031818 4921158142616678759 2701061845171752316 1579381175152807484 1945203840404730860 4495650341687031818 2917573118609099181 5201046630228754054 4921158142616678759 2701061845171752316');
-INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher, Author_ID) VALUES ('0471200247', 2609627358580823498, '0471200247', 'The Data Warehouse Toolkit: The Complete Guide to Dimensional Modeling', 'John Wiley & Sons', '3966970826066249778 4495650341687031818 5715290465860342571 1945203840404730860 1645240255244935724 2701061845171752316 5583154761624536126 2861834768062237557 8074591266225558208 8785166944456938394 4495650341687031818 5715290465860342571 5715290465860342571 3403865625094994559 2701061845171752316 8390056262071850844 4495650341687031818 2917573118609099181 9096899189138494356 3926959087536946699 2701061845171752316 3966970826066249778 7972575655734105629 4921158142616678759 4921158142616678759');
-INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher, Author_ID) VALUES ('0471286168', 2609627358580823498, '0471286168', 'Architecture: Form, Space, and Order', 'John Wiley & Sons', '2208103011680461486 2917573118609099181 4495650341687031818 8505325628901960794 8594749801984075639 2861834768062237557 4921158142616678759 2701061845171752316 1232624614736289868 9201903121853007659 2701061845171752316 5583154761624536126 9201903121853007659 2701061845171752316 8344210365104673344 1645240255244935724 2861834768062237557 8505325628901960794 9096899189138494356');
-INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher, Author_ID) VALUES ('0471288217', 2609627358580823498, '0471288217', 'A Visual Dictionary of Architecture', 'John Wiley & Sons', '2208103011680461486 2917573118609099181 4495650341687031818 8505325628901960794 8594749801984075639 2861834768062237557 4921158142616678759 2701061845171752316 1232624614736289868 9201903121853007659 2701061845171752316 5583154761624536126 9201903121853007659 2701061845171752316 8344210365104673344 1645240255244935724 2861834768062237557 8505325628901960794 9096899189138494356');
-INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher, Author_ID) VALUES ('0471358983', 2609627358580823498, '0471358983', 'Building Construction Illustrated', 'John Wiley & Sons', '2208103011680461486 2917573118609099181 4495650341687031818 8505325628901960794 8594749801984075639 2861834768062237557 4921158142616678759 2701061845171752316 1232624614736289868 9201903121853007659 2701061845171752316 5583154761624536126 9201903121853007659 2701061845171752316 8344210365104673344 1645240255244935724 2861834768062237557 8505325628901960794 9096899189138494356 3403865625094994559 2701061845171752316 8344210365104673344 4495650341687031818 4921158142616678759 4921158142616678759 4495650341687031818 8505325628901960794 2008343725282475665 2917573118609099181 4495650341687031818 2701061845171752316 7504496732994452890 2008343725282475665 4495650341687031818 8074591266225558208 4921158142616678759');
-INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher, Author_ID) VALUES ('0471363049', 2609627358580823498, '0471363049', 'Intermediate Accounting', 'John Wiley & Sons', '1232624614736289868 7972575655734105629 8505325628901960794 4495650341687031818 5715290465860342571 2008343725282475665 2701061845171752316 5516637451632179683 9201903121853007659 2701061845171752316 5583154761624536126 2861834768062237557 3893349940100885940 4921158142616678759 7972575655734105629 3403865625094994559 2701061845171752316 5229195933462795930 3893349940100885940 2917573118609099181 2917573118609099181 3926959087536946699 2701061845171752316 5229195933462795930 9201903121853007659 2701061845171752316 5137118883710496461 3893349940100885940 3926959087536946699 9096899189138494356 4495650341687031818 8505325628901960794 2008343725282475665 3424405385793778353 3403865625094994559 2701061845171752316 448190480341881123 3893349940100885940 2917573118609099181 2917573118609099181 3926959087536946699 2701061845171752316 1232624614736289868 9201903121853007659 2701061845171752316 5137118883710496461 4495650341687031818 2917573118609099181 3591202219158683266 2861834768062237557 3893349940100885940 5715290465860342571 2008343725282475665');
-INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher, Author_ID) VALUES ('0471391123', 2609627358580823498, '0471391123', 'Beyond Coso : Internal Control to Enhance Corporate Governance', 'John Wiley & Sons', '1579381175152807484 3424405385793778353 3893349940100885940 372005136057422797 3893349940100885940 8505325628901960794 2701061845171752316 5229195933462795930 9201903121853007659 2701061845171752316 3966970826066249778 7972575655734105629 7972575655734105629 3424405385793778353 2701061845171752316');
-INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher, Author_ID) VALUES ('0517576600', 7555928695508355316, '0517576600', 'Color: Natural Palettes for Painted Rooms', 'Clarkson N. Potter', '1232624614736289868 7972575655734105629 8505325628901960794 4495650341687031818 5715290465860342571 2008343725282475665 2701061845171752316 5583154761624536126 4495650341687031818 1430413821843287009 3591202219158683266 8074591266225558208 4495650341687031818 8505325628901960794 3403865625094994559 2701061845171752316 448190480341881123 4495650341687031818 3591202219158683266 3591202219158683266 3926959087536946699 2701061845171752316 1232624614736289868 4495650341687031818 1645240255244935724 5715290465860342571 3403865625094994559 2701061845171752316 3038599536101232816 4495650341687031818 1430413821843287009 2917573118609099181 3893349940100885940 5715290465860342571 2701061845171752316 460133395376800011 2917573118609099181 4495650341687031818 3893349940100885940 8785166944456938394 3893349940100885940 2917573118609099181 3403865625094994559 2701061845171752316 448190480341881123 2861834768062237557 8505325628901960794 4495650341687031818 2701061845171752316 2208103011680461486 2917573118609099181 3893349940100885940 3893349940100885940 8074591266225558208 4495650341687031818 8505325628901960794 2701061845171752316');
-INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher, Author_ID) VALUES ('0596004478', 8951200706417644764, '0596004478', 'Google Hacks', 'O''Reilly & Associates', '448190480341881123 4495650341687031818 2917573118609099181 4495650341687031818 2701061845171752316 8344210365104673344 4495650341687031818 5715290465860342571 2861834768062237557 4921158142616678759 1645240255244935724 4495650341687031818 2861834768062237557 8505325628901960794 3403865625094994559 2701061845171752316 3966970826066249778 4495650341687031818 3893349940100885940 5715290465860342571 2701061845171752316 1232624614736289868 7972575655734105629 2917573118609099181 8505325628901960794 3591202219158683266 3893349940100885940 4921158142616678759 3424405385793778353');
-INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher, Author_ID) VALUES ('0609610570', 1807581078471719722, '0609610570', 'Execution: The Discipline of Getting Things Done', 'Crown Pub', '3038599536101232816 4495650341687031818 2917573118609099181 2917573118609099181 3926959087536946699 2701061845171752316 7448694653164502922 7972575655734105629 4921158142616678759 4921158142616678759 2861834768062237557 2008343725282475665 3926959087536946699 3403865625094994559 2701061845171752316 3966970826066249778 4495650341687031818 8074591266225558208 2701061845171752316 8344210365104673344 1645240255244935724 4495650341687031818 2917573118609099181 4495650341687031818 8505325628901960794 3403865625094994559 2701061845171752316 8344210365104673344 1645240255244935724 4495650341687031818 2917573118609099181 5715290465860342571 3893349940100885940 4921158142616678759 2701061845171752316 7448694653164502922 1430413821843287009 2917573118609099181 8594749801984075639 5201046630228754054');
-INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher, Author_ID) VALUES ('0670031518', 3109399297562314494, '0670031518', 'The Blank Slate: The Modern Denial of Human Nature', 'Viking Press', '1579381175152807484 3424405385793778353 3893349940100885940 372005136057422797 3893349940100885940 8505325628901960794 2701061845171752316 6467984738415102246 2861834768062237557 8505325628901960794 5201046630228754054 3893349940100885940 2917573118609099181');
-INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher, Author_ID) VALUES ('0671004107', 7542971598406282020, '0671004107', 'Contact', 'Pocket Books', '8344210365104673344 4495650341687031818 2917573118609099181 5715290465860342571 2701061845171752316 1579381175152807484 4495650341687031818 9096899189138494356 4495650341687031818 8505325628901960794 2701061845171752316');
-INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher, Author_ID) VALUES ('067463442X', 8896463560712417215, '067463442X', 'On Human Nature', 'Harvard Univ Pr', '5516637451632179683 2008343725282475665 4329913927848118560 4495650341687031818 2917573118609099181 2008343725282475665 2701061845171752316 5365389759864508958 4921158142616678759 8785166944456938394 7972575655734105629 2917573118609099181 8505325628901960794 3893349940100885940 2701061845171752316 5137118883710496461 2861834768062237557 5715290465860342571 4921158142616678759 7972575655734105629 8505325628901960794 2701061845171752316');
-INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher, Author_ID) VALUES ('0679450785', 7398888942745156232, '0679450785', 'The Future of Life', 'Knopf', '5516637451632179683 2008343725282475665 4329913927848118560 4495650341687031818 2917573118609099181 2008343725282475665 2701061845171752316 5365389759864508958 4921158142616678759 8785166944456938394 7972575655734105629 2917573118609099181 8505325628901960794 3893349940100885940 2701061845171752316 5137118883710496461 2861834768062237557 5715290465860342571 4921158142616678759 7972575655734105629 8505325628901960794 2701061845171752316');
-INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher, Author_ID) VALUES ('0679722955', 5559927955612428609, '0679722955', 'The Names', 'Vintage Books', '1232624614736289868 7972575655734105629 8505325628901960794 2701061845171752316 1232624614736289868 3893349940100885940 3038599536101232816 2861834768062237557 5715290465860342571 5715290465860342571 7972575655734105629 2701061845171752316');
-INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher, Author_ID) VALUES ('067976867X', 2289924385984378195, '067976867X', 'Consilience: The Unity of Knowledge', 'Random House', '5516637451632179683 2008343725282475665 4329913927848118560 4495650341687031818 2917573118609099181 2008343725282475665 2701061845171752316 5365389759864508958 4921158142616678759 8785166944456938394 7972575655734105629 2917573118609099181 8505325628901960794 3893349940100885940 2701061845171752316 5137118883710496461 2861834768062237557 5715290465860342571 4921158142616678759 7972575655734105629 8505325628901960794 2701061845171752316');
-INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher, Author_ID) VALUES ('0684843285', 5007029921233459988, '0684843285', 'ON FOOD AND COOKING', 'Fireside', '8290620908100484786 4495650341687031818 2917573118609099181 7972575655734105629 5715290465860342571 2008343725282475665 2701061845171752316 8390056262071850844 8594749801984075639 460133395376800011 3893349940100885940 3893349940100885940');
-INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher, Author_ID) VALUES ('0684848155', 4940862268633144344, '0684848155', 'UNDERWORLD: A NOVEL', 'Scribner Paperback Fiction', '1232624614736289868 7972575655734105629 8505325628901960794 2701061845171752316 1232624614736289868 3893349940100885940 3038599536101232816 2861834768062237557 5715290465860342571 5715290465860342571 7972575655734105629 2701061845171752316');
-INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher, Author_ID) VALUES ('0735712123', 6998817003215311102, '0735712123', 'MySQL', 'Addison-Wesley Publishing', '6467984738415102246 4495650341687031818 1430413821843287009 5715290465860342571 2701061845171752316 1232624614736289868 1430413821843287009 7448694653164502922 7972575655734105629 2861834768062237557 4921158142616678759');
-INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher, Author_ID) VALUES ('0735712360', 8348947531138565022, '0735712360', 'The Photoshop Book for Digital Photographers', 'New Riders Publishing', '1579381175152807484 8594749801984075639 7972575655734105629 3424405385793778353 3424405385793778353 2701061845171752316 5583154761624536126 3893349940100885940 5715290465860342571 8785166944456938394 3926959087536946699 2701061845171752316');
-INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher, Author_ID) VALUES ('0735712379', 8348947531138565022, '0735712379', 'Photoshop 7 Down & Dirty Tricks', 'New Riders Publishing', '1579381175152807484 8594749801984075639 7972575655734105629 3424405385793778353 3424405385793778353 2701061845171752316 5583154761624536126 3893349940100885940 5715290465860342571 8785166944456938394 3926959087536946699 2701061845171752316');
-INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher, Author_ID) VALUES ('0735713170', 8348947531138565022, '0735713170', 'Mac OS X v. 10.2 Jaguar Killer Tips', 'New Riders Publishing', '1579381175152807484 8594749801984075639 7972575655734105629 3424405385793778353 3424405385793778353 2701061845171752316 5583154761624536126 3893349940100885940 5715290465860342571 8785166944456938394 3926959087536946699 2701061845171752316');
-INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher, Author_ID) VALUES ('0738206679', 2051990700899886976, '0738206679', 'Linked: The New Science of Networks', 'Perseus Publishing', '7504496732994452890 5715290465860342571 8785166944456938394 3893349940100885940 2917573118609099181 3424405385793778353 4478700686173251024 3038599536101232816 1266502453928267650 4921158142616678759 5157262301961321484 5715290465860342571 1178778787810854902 2701061845171752316 7448694653164502922 4495650341687031818 2917573118609099181 4495650341687031818 8785166944456938394 1266502453928267650 4921158142616678759 2861834768062237557 2701061845171752316');
-INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher, Author_ID) VALUES ('0743206061', 6253675790260708746, '0743206061', 'The Second Time Around', 'Simon & Schuster', '8390056262071850844 4495650341687031818 2917573118609099181 3926959087536946699 2701061845171752316 8290620908100484786 2861834768062237557 9096899189138494356 9096899189138494356 2861834768062237557 8505325628901960794 4921158142616678759 2701061845171752316 8344210365104673344 5715290465860342571 4495650341687031818 2917573118609099181 5201046630228754054 3403865625094994559 2701061845171752316 8390056262071850844 4495650341687031818 2917573118609099181 3926959087536946699 2701061845171752316 8290620908100484786 2861834768062237557 9096899189138494356 9096899189138494356 2861834768062237557 8505325628901960794 4921158142616678759 2701061845171752316 8344210365104673344 5715290465860342571 4495650341687031818 2917573118609099181 5201046630228754054 2701061845171752316');
-INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher, Author_ID) VALUES ('0743222008', 6253675790260708746, '0743222008', 'The Vanished Man: A Lincoln Rhyme Novel', 'Simon & Schuster', '5229195933462795930 3893349940100885940 3591202219158683266 3591202219158683266 3893349940100885940 2917573118609099181 3926959087536946699 2701061845171752316 1232624614736289868 3893349940100885940 4495650341687031818 372005136057422797 3893349940100885940 2917573118609099181');
-INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher, Author_ID) VALUES ('0743244249', 193669624405061062, '0743244249', 'Cosmopolis: A Novel', 'Scribner', '1232624614736289868 7972575655734105629 8505325628901960794 2701061845171752316 1232624614736289868 3893349940100885940 3038599536101232816 2861834768062237557 5715290465860342571 5715290465860342571 7972575655734105629');
-INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher, Author_ID) VALUES ('0743455967', 7542971598406282020, '0743455967', 'On Writing', 'Pocket Books', '1579381175152807484 3424405385793778353 3893349940100885940 1945203840404730860 1645240255244935724 3893349940100885940 8505325628901960794 2701061845171752316 5583154761624536126 2861834768062237557 8505325628901960794 9096899189138494356 2701061845171752316');
-INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher, Author_ID) VALUES ('0743457358', 7542971598406282020, '0743457358', 'Everything''s Eventual: 14 Dark Tales', 'Pocket Books', '1579381175152807484 3424405385793778353 3893349940100885940 1945203840404730860 1645240255244935724 3893349940100885940 8505325628901960794 2701061845171752316 5583154761624536126 2861834768062237557 8505325628901960794 9096899189138494356');
-INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher, Author_ID) VALUES ('0743467523', 7542971598406282020, '0743467523', 'Dreamcatcher', 'Pocket Books', '1579381175152807484 3424405385793778353 3893349940100885940 1945203840404730860 1645240255244935724 3893349940100885940 8505325628901960794 2701061845171752316 5583154761624536126 2861834768062237557 8505325628901960794 9096899189138494356');
-INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher, Author_ID) VALUES ('0782140114', 6355047252195268992, '0782140114', 'Access 2002 Developer''s Handbook Set', 'Sybex', '6467984738415102246 4495650341687031818 1430413821843287009 5715290465860342571 2701061845171752316 3038599536101232816 2861834768062237557 3424405385793778353 4329913927848118560 2861834768062237557 8505325628901960794 3403865625094994559 2701061845171752316 5583154761624536126 3893349940100885940 8505325628901960794 2701061845171752316 460133395376800011 3893349940100885940 3424405385793778353 5157262301961321484 3403865625094994559 2701061845171752316 8390056262071850844 2861834768062237557 5201046630228754054 3893349940100885940 2701061845171752316 460133395376800011 1430413821843287009 8505325628901960794 2008343725282475665 3893349940100885940 2917573118609099181 5715290465860342571 7972575655734105629 3926959087536946699');
-INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher, Author_ID) VALUES ('0782140661', 6355047252195268992, '0782140661', 'OCP: Oracle9i Certification Kit', 'Sybex', '8344210365104673344 1645240255244935724 2861834768062237557 1945203840404730860 2701061845171752316 1232624614736289868 4495650341687031818 4329913927848118560 3893349940100885940 4921158142616678759 3403865625094994559 2701061845171752316 7448694653164502922 2861834768062237557 5165434665157506602 1430413821843287009 2701061845171752316 448190480341881123 1645240255244935724 7972575655734105629 8074591266225558208 4495650341687031818 4921158142616678759 3403865625094994559 2701061845171752316 1232624614736289868 7972575655734105629 1430413821843287009 9096899189138494356 2701061845171752316 1579381175152807484 3424405385793778353 1430413821843287009 8505325628901960794 4921158142616678759 3403865625094994559 2701061845171752316 8390056262071850844 4495650341687031818 3424405385793778353 3424405385793778353 1645240255244935724 3893349940100885940 4329913927848118560 2701061845171752316 5137118883710496461 3893349940100885940 2861834768062237557 4921158142616678759 1645240255244935724 4495650341687031818 8505325628901960794 3403865625094994559 2701061845171752316 5229195933462795930 7972575655734105629 4921158142616678759 3893349940100885940 1945203840404730860 1645240255244935724 2701061845171752316 8344210365104673344 9201903121853007659 2701061845171752316 5229195933462795930 7972575655734105629 1645240255244935724 8505325628901960794 4921158142616678759 7972575655734105629 8505325628901960794');
-INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher, Author_ID) VALUES ('0787960756', 3384817879675090050, '0787960756', 'The Five Dysfunctions of a Team: A Leadership Fable', 'Jossey-Bass', '6467984738415102246 4495650341687031818 3424405385793778353 2917573118609099181 2861834768062237557 8594749801984075639 5201046630228754054 2701061845171752316 3038599536101232816 3893349940100885940 8505325628901960794 8594749801984075639 2861834768062237557 7972575655734105629 8505325628901960794 2861834768062237557');
-INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher, Author_ID) VALUES ('0805317554', 6998817003215311102, '0805317554', 'Fundamentals of Database Systems ', 'Addison-Wesley Publishing', '3966970826066249778 4495650341687031818 8074591266225558208 3893349940100885940 5157262301961321484 2701061845171752316 7504496732994452890 9201903121853007659 2701061845171752316 5516637451632179683 5715290465860342571 8074591266225558208 4495650341687031818 4921158142616678759 2917573118609099181 2861834768062237557 3403865625094994559 2701061845171752316 1579381175152807484 1645240255244935724 4495650341687031818 8074591266225558208 5201046630228754054 4495650341687031818 8505325628901960794 3424405385793778353 2701061845171752316 7448694653164502922 9201903121853007659 2701061845171752316 4227121046047548955 4495650341687031818 372005136057422797 4495650341687031818 3424405385793778353 1645240255244935724 3893349940100885940');
-INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher, Author_ID) VALUES ('0865659982', 1307007477582590477, '0865659982', 'Composers'' Houses', 'Vendome Pr', '460133395376800011 3893349940100885940 2917573118609099181 4495650341687031818 2917573118609099181 2008343725282475665 2701061845171752316 460133395376800011 3893349940100885940 3591202219158683266 3893349940100885940 8505325628901960794 3403865625094994559 2701061845171752316 8344210365104673344 1645240255244935724 2917573118609099181 2861834768062237557 4921158142616678759 3424405385793778353 2861834768062237557 8505325628901960794 3893349940100885940 2701061845171752316 7448694653164502922 4495650341687031818 4921158142616678759 3424405385793778353 2861834768062237557 8505325628901960794 3403865625094994559 2701061845171752316 5229195933462795930 4495650341687031818 8594749801984075639 733882256401262985 1430413821843287009 3893349940100885940 4921158142616678759 2701061845171752316 5516637451632179683 372005136057422797 2917573118609099181 4495650341687031818 2917573118609099181 2008343725282475665');
-INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher, Author_ID) VALUES ('0972263608', 4796282540201795597, '0972263608', 'Creating Documents with BusinessObjects 5.1', 'Schmidt Ink, Inc.', '3966970826066249778 7972575655734105629 8785166944456938394 3893349940100885940 2917573118609099181 3424405385793778353 2701061845171752316 1232624614736289868 9201903121853007659 2701061845171752316 1579381175152807484 8594749801984075639 1645240255244935724 8074591266225558208 2861834768062237557 2008343725282475665 3424405385793778353');
-INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher, Author_ID) VALUES ('1558605525', 5643367884824530898, '1558605525', 'Data Mining: Practical Machine Learning Tools and Techniques with Java Implementations', 'Morgan Kaufmann', '4633594474766855217 4495650341687031818 8505325628901960794 2701061845171752316 8290620908100484786 9201903121853007659 2701061845171752316 5137118883710496461 2861834768062237557 3424405385793778353 3424405385793778353 3893349940100885940 8505325628901960794 3403865625094994559 2701061845171752316 5516637451632179683 2861834768062237557 8785166944456938394 3893349940100885940 2701061845171752316 2208103011680461486 2917573118609099181 4495650341687031818 8505325628901960794 5201046630228754054');
-INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher, Author_ID) VALUES ('1558606432', 5643367884824530898, '1558606432', 'Persuasive Technology: Using Computers to Change What We Think and Do', 'Morgan Kaufmann', '7448694653164502922 9201903121853007659 2701061845171752316 5229195933462795930 9201903121853007659 2701061845171752316 2208103011680461486 7972575655734105629 9096899189138494356 9096899189138494356 2701061845171752316');
-INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher, Author_ID) VALUES ('1561584029', 493430826131003924, '1561584029', 'The Complete Illustrated Guide to Furniture and Cabinet Construction', 'Taunton Pr', '7504496732994452890 8505325628901960794 2008343725282475665 3926959087536946699 2701061845171752316 3966970826066249778 4495650341687031818 3893349940100885940 2701061845171752316');
-INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher, Author_ID) VALUES ('1561586196', 493430826131003924, '1561586196', 'Building a Shed', 'Taunton Pr', '5229195933462795930 7972575655734105629 4921158142616678759 3893349940100885940 1945203840404730860 1645240255244935724 2701061845171752316 448190480341881123 2917573118609099181 1430413821843287009 2861834768062237557 8505325628901960794 2861834768062237557 2701061845171752316');
-INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher, Author_ID) VALUES ('156158648X', 493430826131003924, '156158648X', 'The New City Home: Smart Solutions for Metro Living', 'Taunton Pr', '3038599536101232816 3893349940100885940 4921158142616678759 5715290465860342571 2861834768062237557 3893349940100885940 2701061845171752316 6467984738415102246 5715290465860342571 1430413821843287009 8074591266225558208 8074591266225558208 3893349940100885940 2917573118609099181 2701061845171752316 8344210365104673344 5715290465860342571 4495650341687031818 9096899189138494356 3893349940100885940 3424405385793778353 3424405385793778353 2701061845171752316');
-INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher, Author_ID) VALUES ('1565924916', 8951200706417644764, '1565924916', 'Ldap System Administration', 'O''Reilly & Associates', '460133395376800011 3893349940100885940 2917573118609099181 4495650341687031818 5715290465860342571 2008343725282475665 2701061845171752316 8344210365104673344 4495650341687031818 2917573118609099181 3424405385793778353 3893349940100885940 2917573118609099181 2701061845171752316');
-INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher, Author_ID) VALUES ('1579550088', 8759591962610636351, '1579550088', 'A New Kind of Science', 'Wolfram Media, Inc.', '1579381175152807484 3424405385793778353 3893349940100885940 1945203840404730860 1645240255244935724 3893349940100885940 8505325628901960794 2701061845171752316 5137118883710496461 7972575655734105629 5715290465860342571 3591202219158683266 2917573118609099181 4495650341687031818 8074591266225558208 2701061845171752316');
-INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher, Author_ID) VALUES ('1579902944', 7291700161482813076, '1579902944', 'Choosing & Using Hand Tools', 'Lark Books', '7504496732994452890 8505325628901960794 2008343725282475665 3926959087536946699 2701061845171752316 3966970826066249778 4495650341687031818 3893349940100885940 2701061845171752316');
-INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher, Author_ID) VALUES ('1586851322', 8874382239276678658, '1586851322', 'Prefab', 'Gibbs Smith Publisher', '7448694653164502922 2917573118609099181 3926959087536946699 4495650341687031818 8505325628901960794 2701061845171752316 7448694653164502922 1430413821843287009 2917573118609099181 5201046630228754054 1645240255244935724 4495650341687031818 2917573118609099181 3424405385793778353 3403865625094994559 2701061845171752316 7504496732994452890 5715290465860342571 5715290465860342571 2861834768062237557 4921158142616678759 7972575655734105629 8505325628901960794 2701061845171752316 7504496732994452890 2917573118609099181 2861834768062237557 3893349940100885940 3591202219158683266 3591202219158683266');
-INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher, Author_ID) VALUES ('1586851357', 8874382239276678658, '1586851357', 'Cabins & Camps', 'Gibbs Smith Publisher', '3966970826066249778 4495650341687031818 5715290465860342571 1945203840404730860 1645240255244935724 2701061845171752316 3966970826066249778 9201903121853007659 2701061845171752316 5583154761624536126 3926959087536946699 5715290465860342571 5715290465860342571 7972575655734105629 3893349940100885940 2701061845171752316');
-INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher, Author_ID) VALUES ('1590520734', 7035099084273230353, '1590520734', 'The Rescuer: The O''Malley Series', 'Multnomah Publishers Inc.', '1232624614736289868 3893349940100885940 3893349940100885940 2701061845171752316 8290620908100484786 3893349940100885940 8505325628901960794 2008343725282475665 3893349940100885940 2917573118609099181 4921158142616678759 7972575655734105629 8505325628901960794');
-INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher, Author_ID) VALUES ('1861004486', 3411795340668371775, '1861004486', 'Professional SQL Server 2000 Programming', 'Wrox Press Inc', '3966970826066249778 7972575655734105629 8785166944456938394 2701061845171752316 1246882832017010057 2861834768062237557 3893349940100885940 2861834768062237557 2917573118609099181 4495650341687031818');
-INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher, Author_ID) VALUES ('1880418568', 8609874166970744047, '1880418568', 'Wolves of the Calla ', 'Donald M. Grant Publisher, Inc.', '1579381175152807484 3424405385793778353 3893349940100885940 1945203840404730860 1645240255244935724 3893349940100885940 8505325628901960794 2701061845171752316 5583154761624536126 2861834768062237557 8505325628901960794 9096899189138494356 3403865625094994559 2701061845171752316 7448694653164502922 3893349940100885940 2917573118609099181 8505325628901960794 2861834768062237557 3893349940100885940 2701061845171752316 5137118883710496461 2917573118609099181 2861834768062237557 9096899189138494356 1645240255244935724 3424405385793778353 4921158142616678759 7972575655734105629 8505325628901960794');
+INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher) VALUES ('0782140661', 502, '0782140661', 'OCP: Oracle9i Certification Kit', 'Sybex');
+INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher) VALUES ('0072227885', 503, '0072227885', 'SQL Server 2000 for Experienced DBA''s', 'McGraw-Hill Osborne Media');
+INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher) VALUES ('0471200247', 504, '0471200247', 'The Data Warehouse Toolkit: The Complete Guide to Dimensional Modeling', 'John Wiley & Sons');
+INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher) VALUES ('0072227710', 503, '0072227710', 'How To Do Everything with Your Tablet PC', 'McGraw-Hill Osborne Media');
+INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher) VALUES ('1558605525', 505, '1558605525', 'Data Mining: Practical Machine Learning Tools and Techniques with Java Implementations', 'Morgan Kaufmann');
+INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher) VALUES ('0972263608', 506, '0972263608', 'Creating Documents with BusinessObjects 5.1', 'Schmidt Ink, Inc.');
+INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher) VALUES ('0201615762', 507, '0201615762', 'The Guru''s Guide to Transact-SQL', 'Addison-Wesley Pub Co');
+INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher) VALUES ('0782140114', 502, '0782140114', 'Access 2002 Developer''s Handbook Set', 'Sybex');
+INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher) VALUES ('0321125169', 508, '0321125169', 'ColdFusion MX Web Application Construction Kit', 'Macromedia Press');
+INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher) VALUES ('0805317554', 509, '0805317554', 'Fundamentals of Database Systems ', 'Addison-Wesley Publishing');
+INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher) VALUES ('1861004486', 510, '1861004486', 'Professional SQL Server 2000 Programming', 'Wrox Press Inc');
+INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher) VALUES ('0735712123', 509, '0735712123', 'MySQL', 'Addison-Wesley Publishing');
+INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher) VALUES ('0425188361', 511, '0425188361', 'Cerulean Sins', 'Berkley Pub Group');
+INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher) VALUES ('0142001740', 512, '0142001740', 'The Secret Life of Bees', 'Penguin USA ');
+INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher) VALUES ('0596004478', 513, '0596004478', 'Google Hacks', 'O''Reilly & Associates');
+INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher) VALUES ('0071414339', 514, '0071414339', 'Investing in Fixer-Uppers : A Complete Guide to Buying Low, Fixing Smart, Adding Value, and Selling (or Renting) High', 'McGraw-Hill Trade');
+INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher) VALUES ('0312311354', 515, '0312311354', 'The Pianist', 'Picador');
+INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher) VALUES ('0312287941', 516, '0312287941', 'The Girl in the Red Coat: A Memoir', 'St. Martin''s Press');
+INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher) VALUES ('0312243022', 515, '0312243022', 'The Hours', 'Picador');
+INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher) VALUES ('0609610570', 517, '0609610570', 'Execution: The Discipline of Getting Things Done', 'Crown Pub');
+INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher) VALUES ('0316602051', 518, '0316602051', 'The Jester', 'Little Brown & Company');
+INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher) VALUES ('0743222008', 519, '0743222008', 'The Vanished Man: A Lincoln Rhyme Novel', 'Simon & Schuster');
+INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher) VALUES ('0066214750', 520, '0066214750', 'Twelve Times Blessed', 'HarperCollins');
+INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher) VALUES ('0787960756', 521, '0787960756', 'The Five Dysfunctions of a Team: A Leadership Fable', 'Jossey-Bass');
+INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher) VALUES ('0743206061', 519, '0743206061', 'The Second Time Around', 'Simon & Schuster');
+INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher) VALUES ('1590520734', 522, '1590520734', 'The Rescuer: The O''Malley Series', 'Multnomah Publishers Inc.');
+INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher) VALUES ('0060934417', 523, '0060934417', 'Bel Canto: A Novel', 'Perennial');
+INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher) VALUES ('0440237556', 524, '0440237556', 'The Dark Highlander', 'Dell Pub Co');
+INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher) VALUES ('0373272839', 525, '0373272839', 'Letters to Kelly', 'Harlequin');
+INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher) VALUES ('0670031518', 526, '0670031518', 'The Blank Slate: The Modern Denial of Human Nature', 'Viking Press');
+INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher) VALUES ('0738206679', 527, '0738206679', 'Linked: The New Science of Networks', 'Perseus Publishing');
+INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher) VALUES ('067976867X', 528, '067976867X', 'Consilience: The Unity of Knowledge', 'Random House');
+INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher) VALUES ('0679450785', 529, '0679450785', 'The Future of Life', 'Knopf');
+INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher) VALUES ('1579550088', 530, '1579550088', 'A New Kind of Science', 'Wolfram Media, Inc.');
+INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher) VALUES ('0684843285', 531, '0684843285', 'ON FOOD AND COOKING', 'Fireside');
+INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher) VALUES ('0471358983', 504, '0471358983', 'Building Construction Illustrated', 'John Wiley & Sons');
+INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher) VALUES ('0394739698', 532, '0394739698', 'A Field Guide to American Houses', 'Random House Trade Paperbacks');
+INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher) VALUES ('1586851322', 533, '1586851322', 'Prefab', 'Gibbs Smith Publisher');
+INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher) VALUES ('1586851357', 533, '1586851357', 'Cabins & Camps', 'Gibbs Smith Publisher');
+INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher) VALUES ('156158648X', 534, '156158648X', 'The New City Home: Smart Solutions for Metro Living', 'Taunton Pr');
+INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher) VALUES ('0865659982', 535, '0865659982', 'Composers'' Houses', 'Vendome Pr');
+INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher) VALUES ('0517576600', 536, '0517576600', 'Color: Natural Palettes for Painted Rooms', 'Clarkson N. Potter');
+INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher) VALUES ('0262024829', 537, '0262024829', 'Financial Modeling ', 'MIT Press');
+INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher) VALUES ('0072294337', 538, '0072294337', 'Financial Markets & Corporate Strategy', 'McGraw-Hill/Irwin');
+INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher) VALUES ('0072315318', 538, '0072315318', 'Analysis for Financial Management', 'McGraw-Hill/Irwin');
+INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher) VALUES ('0324107501', 539, '0324107501', 'Advanced Accounting', 'South-Western College Pub');
+INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher) VALUES ('0471363049', 504, '0471363049', 'Intermediate Accounting', 'John Wiley & Sons');
+INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher) VALUES ('0130323519', 540, '0130323519', 'Financial Reporting and Analysis ', 'Prentice Hall');
+INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher) VALUES ('0446527793', 541, '0446527793', 'The Guardian', 'Warner Books');
+INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher) VALUES ('0743244249', 542, '0743244249', 'Cosmopolis: A Novel', 'Scribner');
+INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher) VALUES ('0743467523', 543, '0743467523', 'Dreamcatcher', 'Pocket Books');
+INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher) VALUES ('0375703764', 544, '0375703764', 'House of Leaves', 'Pantheon Books');
+INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher) VALUES ('0345452089', 545, '0345452089', 'The Vampire''s Violin', 'Del Rey');
+INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher) VALUES ('0385504470', 546, '0385504470', 'Lullaby: A Novel', 'Doubleday');
+INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher) VALUES ('0312276702', 516, '0312276702', 'Jinn: A Novel', 'St. Martin''s Press');
+INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher) VALUES ('0743457358', 543, '0743457358', 'Everything''s Eventual: 14 Dark Tales', 'Pocket Books');
+INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher) VALUES ('1880418568', 547, '1880418568', 'Wolves of the Calla ', 'Donald M. Grant Publisher, Inc.');
+INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher) VALUES ('0743455967', 543, '0743455967', 'On Writing', 'Pocket Books');
+INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher) VALUES ('0140077022', 512, '0140077022', 'White Noise ', 'Penguin USA ');
+INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher) VALUES ('0679722955', 548, '0679722955', 'The Names', 'Vintage Books');
+INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher) VALUES ('0684848155', 549, '0684848155', 'UNDERWORLD: A NOVEL', 'Scribner Paperback Fiction');
+INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher) VALUES ('0471286168', 504, '0471286168', 'Architecture: Form, Space, and Order', 'John Wiley & Sons');
+INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher) VALUES ('0471288217', 504, '0471288217', 'A Visual Dictionary of Architecture', 'John Wiley & Sons');
+INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher) VALUES ('0156006219', 550, '0156006219', 'The Magician''s Assistant', 'Harvest Books');
+INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher) VALUES ('0060540753', 551, '0060540753', 'Patron Saint of Liars', 'Harperperennial Library');
+INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher) VALUES ('0393318486', 552, '0393318486', 'How the Mind Works', 'W.W. Norton & Company');
+INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher) VALUES ('0060958332', 523, '0060958332', 'The Language Instinct: How the Mind Creates Language', 'Perennial');
+INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher) VALUES ('0060958405', 523, '0060958405', 'Words and Rules: The Ingredients of Language', 'Perennial');
+INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher) VALUES ('0393319407', 552, '0393319407', 'The Diversity of Life', 'W.W. Norton & Company');
+INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher) VALUES ('067463442X', 553, '067463442X', 'On Human Nature', 'Harvard Univ Pr');
+INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher) VALUES ('0446608955', 541, '0446608955', 'A Walk to Remember', 'Warner Books');
+INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher) VALUES ('0446676098', 541, '0446676098', 'The Notebook', 'Warner Books');
+INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher) VALUES ('0446606812', 541, '0446606812', 'Message in a Bottle', 'Warner Books');
+INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher) VALUES ('0262521415', 537, '0262521415', 'Numerical Techniques in Finance', 'MIT Press');
+INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher) VALUES ('0262232197', 537, '0262232197', 'Econometric Analysis of Cross Section and Panel Data', 'MIT Press');
+INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher) VALUES ('0324113641', 539, '0324113641', 'Introductory Econometrics: A Modern Approach', 'South-Western College Pub');
+INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher) VALUES ('0471391123', 504, '0471391123', 'Beyond Coso : Internal Control to Enhance Corporate Governance', 'John Wiley & Sons');
+INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher) VALUES ('0130998516', 554, '0130998516', 'Real World FPGA Design with Verilog', 'Prentice Hall PTR');
+INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher) VALUES ('1565924916', 513, '1565924916', 'Ldap System Administration', 'O''Reilly & Associates');
+INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher) VALUES ('0735712360', 555, '0735712360', 'The Photoshop Book for Digital Photographers', 'New Riders Publishing');
+INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher) VALUES ('0735712379', 555, '0735712379', 'Photoshop 7 Down & Dirty Tricks', 'New Riders Publishing');
+INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher) VALUES ('0735713170', 555, '0735713170', 'Mac OS X v. 10.2 Jaguar Killer Tips', 'New Riders Publishing');
+INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher) VALUES ('1558606432', 505, '1558606432', 'Persuasive Technology: Using Computers to Change What We Think and Do', 'Morgan Kaufmann');
+INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher) VALUES ('0072222743', 503, '0072222743', 'A+ Certification All-in-One Exam Guide', 'McGraw-Hill Osborne Media');
+INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher) VALUES ('0345409469', 556, '0345409469', 'The Demon-Haunted World: Science As a Candle in the Dark', 'Ballantine Books ');
+INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher) VALUES ('0375508325', 528, '0375508325', 'Cosmos', 'Random House');
+INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher) VALUES ('0345336895', 557, '0345336895', 'Broca''s Brain: Reflections on the Romance of Science', 'Ballantine Books');
+INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher) VALUES ('0671004107', 543, '0671004107', 'Contact', 'Pocket Books');
+INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher) VALUES ('0345376595', 556, '0345376595', 'Pale Blue Dot: A Vision of the Human Future in Space', 'Ballantine Books ');
+INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher) VALUES ('0316666343', 518, '0316666343', 'The Lovely Bones: A Novel', 'Little Brown & Company');
+INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher) VALUES ('0316096199', 558, '0316096199', 'Lucky: A Memoir', 'Back Bay Books');
+INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher) VALUES ('038572179X', 559, '038572179X', 'Atonement', 'Anchor Books');
+INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher) VALUES ('0385494246', 559, '0385494246', 'Amsterdam', 'Anchor Books');
+INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher) VALUES ('0385494327', 559, '0385494327', 'Black Dogs', 'Anchor Books');
+INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher) VALUES ('0385494149', 559, '0385494149', 'Enduring Love', 'Anchor Books');
+INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher) VALUES ('0399149848', 560, '0399149848', 'Birthright', 'Putnam Pub Group');
+INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher) VALUES ('0373218192', 561, '0373218192', 'Engaging The Enemy', 'Silhouette');
+INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher) VALUES ('0373218257', 525, '0373218257', 'Love By Design', 'Harlequin');
+INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher) VALUES ('0399149392', 560, '0399149392', 'Chesapeake Blue', 'Putnam Pub Group');
+INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher) VALUES ('1561584029', 534, '1561584029', 'The Complete Illustrated Guide to Furniture and Cabinet Construction', 'Taunton Pr');
+INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher) VALUES ('1579902944', 562, '1579902944', 'Choosing & Using Hand Tools', 'Lark Books');
+INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher) VALUES ('1561586196', 534, '1561586196', 'Building a Shed', 'Taunton Pr');
+INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher) VALUES ('0061092177', 563, '0061092177', 'Small Gods', 'Harper');
+INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher) VALUES ('0060502935', 563, '0060502935', 'Going Postal', 'Harper');
+INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher) VALUES ('0061020656', 563, '0061020656', 'Pyramids', 'Harper');
+INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher) VALUES ('0060855925', 563, '0060855925', 'The Color of Magic', 'Harper');
+INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher) VALUES ('0061020648', 563, '0061020648', 'Guards! Guards!', 'Harper');
+INSERT INTO BOOK(ISBN, Publisher_ID, Item_Number, Book_Title, Publisher) VALUES ('0061161721', 563, '0061161721', 'Unseen Academicals', 'Harper');
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (502, '0782140661');
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (503, '0782140661');
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (504, '0782140661');
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (505, '0782140661');
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (506, '0782140661');
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (507, '0072227885');
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (508, '0471200247');
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (509, '0471200247');
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (510, '0072227710');
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (511, '1558605525');
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (512, '1558605525');
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (513, '0972263608');
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (514, '0201615762');
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (515, '0782140114');
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (516, '0782140114');
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (517, '0782140114');
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (518, '0321125169');
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (519, '0321125169');
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (520, '0321125169');
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (521, '0321125169');
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (522, '0805317554');
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (523, '0805317554');
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (524, '1861004486');
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (525, '0735712123');
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (526, '0425188361');
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (527, '0142001740');
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (528, '0596004478');
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (529, '0596004478');
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (530, '0071414339');
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (531, '0312311354');
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (532, '0312287941');
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (533, '0312243022');
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (534, '0609610570');
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (535, '0609610570');
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (536, '0609610570');
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (537, '0316602051');
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (538, '0316602051');
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (539, '0743222008');
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (540, '0066214750');
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (541, '0787960756');
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (542, '0743206061');
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (543, '1590520734');
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (544, '0060934417');
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (545, '0440237556');
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (546, '0373272839');
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (547, '0670031518');
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (548, '0738206679');
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (549, '067976867X');
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (549, '0679450785');
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (550, '1579550088');
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (551, '0684843285');
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (552, '0471358983');
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (553, '0471358983');
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (554, '0394739698');
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (555, '0394739698');
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (556, '1586851322');
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (557, '1586851322');
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (558, '1586851357');
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (559, '156158648X');
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (560, '0865659982');
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (561, '0865659982');
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (562, '0865659982');
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (563, '0517576600');
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (564, '0517576600');
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (565, '0517576600');
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (566, '0517576600');
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (567, '0262024829');
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (568, '0072294337');
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (569, '0072294337');
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (570, '0072315318');
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (571, '0324107501');
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (572, '0324107501');
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (573, '0324107501');
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (574, '0471363049');
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (575, '0471363049');
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (576, '0471363049');
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (577, '0130323519');
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (578, '0130323519');
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (579, '0130323519');
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (580, '0446527793');
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (581, '0743206061');
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (582, '0743244249');
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (583, '0743467523');
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (584, '0375703764');
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (585, '0345452089');
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (586, '0385504470');
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (587, '0312276702');
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (583, '0743457358');
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (583, '1880418568');
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (588, '1880418568');
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (589, '0743455967');
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (582, '0140077022');
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (590, '0679722955');
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (590, '0684848155');
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (552, '0471286168');
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (552, '0471288217');
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (591, '0156006219');
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (591, '0060540753');
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (592, '0393318486');
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (592, '0060958332');
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (592, '0060958405');
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (549, '0393319407');
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (549, '067463442X');
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (580, '0446608955');
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (580, '0446676098');
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (580, '0446606812');
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (593, '0262521415');
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (594, '0262232197');
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (594, '0324113641');
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (595, '0471391123');
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (596, '0130998516');
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (597, '1565924916');
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (598, '0735712360');
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (598, '0735712379');
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (598, '0735713170');
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (599, '1558606432');
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (600, '0072222743');
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (601, '0345409469');
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (601, '0375508325');
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (601, '0345336895');
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (601, '0671004107');
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (601, '0345376595');
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (602, '0316666343');
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (603, '0316096199');
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (604, '038572179X');
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (604, '0385494246');
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (604, '0385494327');
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (604, '0385494149');
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (605, '0399149848');
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (605, '0373218192');
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (605, '0373218257');
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (605, '0399149392');
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (606, '1561584029');
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (606, '1579902944');
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (607, '1561586196');
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (608, '0061092177');
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (608, '0060502935');
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (608, '0061020656');
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (608, '0060855925');
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (608, '0061020648');
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (608, '0061161721');
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0782140661', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0072227885', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0471200247', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0072227710', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '1558605525', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0972263608', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0201615762', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0782140114', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0321125169', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0805317554', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '1861004486', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0735712123', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0425188361', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0142001740', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0596004478', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0071414339', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0312311354', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0312287941', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0312243022', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0609610570', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0316602051', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0743222008', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0066214750', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0787960756', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0743206061', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '1590520734', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0060934417', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0440237556', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0373272839', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0670031518', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0738206679', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '067976867X', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0679450785', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '1579550088', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0684843285', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0471358983', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0394739698', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '1586851322', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '1586851357', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '156158648X', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0865659982', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0517576600', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0262024829', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0072294337', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0072315318', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0324107501', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0471363049', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0130323519', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0446527793', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0743244249', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0743467523', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0375703764', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0345452089', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0385504470', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0312276702', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0743457358', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '1880418568', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0743455967', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0140077022', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0679722955', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0684848155', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0471286168', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0471288217', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0156006219', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0060540753', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0393318486', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0060958332', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0060958405', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0393319407', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '067463442X', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0446608955', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0446676098', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0446606812', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0262521415', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0262232197', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0324113641', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0471391123', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0130998516', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '1565924916', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0735712360', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0735712379', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0735713170', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '1558606432', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0072222743', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0345409469', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0375508325', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0345336895', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0671004107', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0345376595', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0316666343', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0316096199', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '038572179X', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0385494246', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0385494327', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0385494149', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0399149848', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0373218192', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0373218257', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0399149392', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '1561584029', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '1579902944', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '1561586196', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0061092177', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0060502935', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0061020656', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0060855925', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0061020648', 1);
+INSERT INTO STORES_PRODUCT(Warehouse_No, Item_Number, Quantity) VALUES (1, '0061161721', 1);
 
+--SQL code that depends on books being added before hand--
 INSERT INTO WRITTEN_BY(Author_ID, ISBN)
 VALUES
 (1, 471363049),
@@ -1273,3 +1523,29 @@ VALUES
 (20, 684848155),
 (19, 1561586196),
 (20, 517576600);
+
+INSERT INTO PURCHASE(Transaction_ID, Shopping_Address, Billing_Address, Payment_Method, Date, Product_Number)
+VALUES
+(22, '777 Brockton Avenue, Abington MA 2351' , '777 Brockton Avenue, Abington MA 2351' , 'CREDIT', 2023-06-06,  0782140661),
+(23, '777 Brockton Avenue, Abington MA 2351' , '777 Brockton Avenue, Abington MA 2351' , 'CREDIT', 2023-06-06,  0471200247),
+(24, '777 Brockton Avenue, Abington MA 2351' , '777 Brockton Avenue, Abington MA 2351' , 'CREDIT', 2023-06-06,  0072227710),
+(25, '777 Brockton Avenue, Abington MA 2351' , '777 Brockton Avenue, Abington MA 2351' , 'CREDIT', 2023-06-06, 0735712123),
+(26, '777 Brockton Avenue, Abington MA 2351' , '777 Brockton Avenue, Abington MA 2351' , 'CREDIT', 2023-06-06,  0738206679),
+(27, '777 Brockton Avenue, Abington MA 2351' , '777 Brockton Avenue, Abington MA 2351' , 'CREDIT', 2023-06-06,  0743244249),
+(28, '777 Brockton Avenue, Abington MA 2351' , '777 Brockton Avenue, Abington MA 2351' , 'CREDIT', 2023-06-06,  0061020648),
+(29, '777 Brockton Avenue, Abington MA 2351' , '777 Brockton Avenue, Abington MA 2351' , 'CREDIT', 2023-06-06,  0060855925),
+(30, '777 Brockton Avenue, Abington MA 2351' , '777 Brockton Avenue, Abington MA 2351' , 'CREDIT', 2023-06-06,  0061092177),
+(31, '777 Brockton Avenue, Abington MA 2351' , '777 Brockton Avenue, Abington MA 2351' , 'CREDIT', 2023-06-06,  0061161721);
+
+INSERT INTO MAKES_PURCHASE(Quantity, Loyalty_No, Transaction_ID)
+VALUES
+(22, 21, 22),
+(23, 21, 23),
+(24, 21, 24),
+(25, 21, 25),
+(26, 21, 26),
+(27, 21, 27),
+(1, 21, 28),
+(3, 21, 29),
+(4, 21, 30),
+(5, 21, 31);
