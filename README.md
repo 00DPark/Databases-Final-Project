@@ -15,3 +15,6 @@ project.db contains the database file
 
 #Queries
 WorksheetTwoExtraQueries.txt and WorksheetTwoSimpleQueries. txt contains the desired queries
+
+#Samples Inserts and Delete 
+Sample_Inserts_Deletes.txt contains all of the sample inserts and deletes

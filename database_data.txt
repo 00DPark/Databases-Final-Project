@@ -1559,4 +1559,3 @@ CREATE INDEX idx_book_isbn_product_number ON BOOK(ISBN, Product_Number);
 CREATE INDEX idx_purchase_product ON PURCHASE(Purchase_ID, Product_Number);
 CREATE INDEX idx_makes_purchase_loyalty_purchase ON MAKES_PURCHASE(Loyalty_No, Purchase_ID);
 CREATE INDEX idx_written_by_author_isbn ON WRITTEN_BY(Author_ID, ISBN);
-CREATE INDEX idx_purchase_product ON PURCHASE(Purchase_ID, Product_Number);

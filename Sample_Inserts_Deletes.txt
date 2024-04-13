@@ -1,0 +1,36 @@
+-- SAMPLE INSERT STATMENTS --
+
+-- Inserting a new warehouse:
+INSERT INTO WAREHOUSE (Warehouse_No, Address) VALUES ('25', '281 W Lane Ave, Columbus, OH 43210');
+
+-- Inserting a new product:
+INSERT INTO PRODUCT (Product_Number, Price, Product_Type) VALUES ('2024', 19.99, 'Drink');
+
+-- Inserting a new book store:
+INSERT INTO BOOK_STORE (Store_ID, Address) VALUES ('22', '180 W Lane Ave, Columbus, OH 43210');
+
+-- Inserting a new employee:
+INSERT INTO EMPLOYEE (Employee_ID, Store_ID, Sales_No, Shift, First_Name, Last_Name) VALUES ('101', '22', 1001, '9AM-5PM', 'Jane', 'Doe');
+
+-- Inserting a new purchase:
+INSERT INTO PURCHASE (Purchase_ID, Shipping_Address, Billing_Address, Payment_Method, Date, Product_Number) VALUES ('999999', '456 Elm Street, Los Angeles, CA 02358', '456 Elm Street, Los Angeles, CA 02358', 'Credit Card', '2024-04-13', '2024');
+
+-- SAMPLE DELETES STATEMENTS --
+
+-- Deleting purchases associated with the product:
+DELETE FROM PURCHASE WHERE Product_Number = '2024';
+
+-- Deleting records of the product from stores:
+DELETE FROM STORES_PRODUCT WHERE Product_Number = '2024';
+
+-- Deleting the product:
+DELETE FROM PRODUCT WHERE Product_Number = '2024';
+
+-- Deleting a warehouse:
+DELETE FROM WAREHOUSE WHERE Warehouse_No = '25';
+
+-- Deleting an employee:
+DELETE FROM EMPLOYEE WHERE Employee_ID = '101';
+
+-- Deleting a book store:
+DELETE FROM BOOK_STORE WHERE Store_ID = '22';
