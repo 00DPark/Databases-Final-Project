@@ -165,8 +165,6 @@ CREATE TABLE PURCHASE (
     Billing_Address VARCHAR(100) NOT NULL,
     Payment_Method VARCHAR(100) NOT NULL,
     Date DATE NOT NULL,
-    Product_Number INT NOT NULL,
-    FOREIGN KEY (Product_Number) REFERENCES PRODUCT(Product_Number),
     PRIMARY KEY (Purchase_ID)
 );
 
@@ -208,7 +206,7 @@ CREATE TABLE STOCKED_BY (
 );
 
 --Create table that holds the relationship between products and purchases
-CREATE TABLE IS_A_PART_OF(
+CREATE TABLE PRODUCT_PURCHASE(
     Product_Number INT NOT NULL,
     Purchase_ID INT NOT NULL,
     Quantity INT NOT NULL,
@@ -352,11 +350,11 @@ VALUES
 (7, 1.00, "Drink"),
 (8, 1.00, "Drink"),
 (9, 1.00, "Drink"),
-(10, 12.00, "Picture Book"),
-(11, 12.00, "Picture Book"),
-(12, 12.29, "Picture Book"),
-(13, 15.72, "Picture Book"),
-(14, 16.92, "Picture Book"),
+(10, 12.00, "Board Game"),
+(11, 12.00, "Board Game"),
+(12, 12.29, "Board Game"),
+(13, 15.72, "Board Game"),
+(14, 16.92, "Board Game"),
 (15, 20.34, "Board Game"),
 (16, 22.84, "Board Game"),
 (17, 29.31,  "Board Game"),
@@ -741,29 +739,29 @@ VALUES
 (52, 20.00, "Board Game");
 
 --Insert purchases into database
-INSERT INTO PURCHASE(Purchase_ID, Shipping_Address, Billing_Address, Payment_Method, Date, Product_Number)
+INSERT INTO PURCHASE(Purchase_ID, Shipping_Address, Billing_Address, Payment_Method, Date)
 VALUES
-(1, '777 Brockton Avenue, Abington MA 2351', '777 Brockton Avenue, Abington MA 2351', 'CREDIT', '2023-06-06',  1),
-(2, '30 Memorial Drive, Avon MA 2322', '30 Memorial Drive, Avon MA 2322', 'CREDIT', '2023-06-06', 2),
-(3, '250 Hartford Avenue, Bellingham MA 2019', '250 Hartford Avenue, Bellingham MA 2019', 'CREDIT', '2023-01-03', 3),
-(4, '700 Oak Street, Brockton MA 2301', '700 Oak Street, Brockton MA 2301', 'CREDIT', '2024-02-01', 4),
-(5, '66-4 Parkhurst Rd, Chelmsford MA 1824', '66-4 Parkhurst Rd, Chelmsford MA 1824', 'CREDIT', '2023-02-29',  5),
-(6, '591 Memorial Dr, Chicopee MA 1020', '591 Memorial Dr, Chicopee MA 1020', 'CREDIT', '2023-06-09',  6),
-(7, '55 Brooksby Village Way, Danvers MA 1923', '55 Brooksby Village Way, Danvers MA 1923', 'CREDIT', '2024-01-01', 7),
-(8, '137 Teaticket Hwy, East Falmouth MA 2536', '137 Teaticket Hwy, East Falmouth MA 2536', 'CREDIT', '2024-01-11',  8),
-(9, '42 Fairhaven Commons Way, Fairhaven MA 2719', '42 Fairhaven Commons Way, Fairhaven MA 2719', 'CREDIT', '2024-01-31',  9),
-(10, '374 William S Canning Blvd, Fall River MA 2721', '374 William S Canning Blvd, Fall River MA 2721', 'DEBIT', '2024-02-21', 10),
-(11, '121 Worcester Rd, Framingham MA 1701', '121 Worcester Rd, Framingham MA 1701', 'DEBIT', '2023-12-24', 11),
-(12, '677 Timpany Blvd, Gardner MA 1440', '677 Timpany Blvd, Gardner MA 1440', 'DEBIT', '2024-02-01', 12),
-(13, '337 Russell St, Hadley MA 1035', '337 Russell St, Hadley MA 1035', 'DEBIT', '2024-01-07',  13),
-(14, '295 Plymouth Street, Halifax MA 2338', '295 Plymouth Street, Halifax MA 2338', 'DEBIT', '2024-01-08',  14),
-(15, '1775 Washington St, Hanover MA 2339', '1775 Washington St, Hanover MA 2339', 'DEBIT', '2024-04-01', 15),
-(16, '280 Washington Street, Hudson MA 1749', '5399 W Genesse St, Camillus NY 13031', 'CASH', '2024-04-05', 16),
-(17, '20 Soojian Dr, Leicester MA 1524', '30 Catskill, Catskill NY 12414', 'CASH', '2024-04-05', 17),
-(18, '11 Jungle Road, Leominster MA 1453', '872 Route 13, Cortlandville NY 13045', 'CASH', '2024-04-05', 18),
-(19, '301 Massachusetts Ave, Lunenburg MA 1462', '301 Massachusetts Ave, Lunenburg MA 1462', 'CASH', '2024-04-01', 19),
-(20, '780 Lynnway, Lynn MA 1905', '301 Massachusetts Ave, Lunenburg MA 1462', 'CASH', '2023-04-05', 20),
-(21, '70 Pleasant Valley Street, Methuen MA 1844', '70 Pleasant Valley Street, Methuen MA 1844', 'CASH', '2022-06-05', 21);
+(1, '777 Brockton Avenue, Abington MA 2351', '777 Brockton Avenue, Abington MA 2351', 'CREDIT', '2023-06-06'),
+(2, '30 Memorial Drive, Avon MA 2322', '30 Memorial Drive, Avon MA 2322', 'CREDIT', '2023-06-06'),
+(3, '250 Hartford Avenue, Bellingham MA 2019', '250 Hartford Avenue, Bellingham MA 2019', 'CREDIT', '2023-01-03'),
+(4, '700 Oak Street, Brockton MA 2301', '700 Oak Street, Brockton MA 2301', 'CREDIT', '2024-02-01'),
+(5, '66-4 Parkhurst Rd, Chelmsford MA 1824', '66-4 Parkhurst Rd, Chelmsford MA 1824', 'CREDIT', '2023-02-29'),
+(6, '591 Memorial Dr, Chicopee MA 1020', '591 Memorial Dr, Chicopee MA 1020', 'CREDIT', '2023-06-09'),
+(7, '55 Brooksby Village Way, Danvers MA 1923', '55 Brooksby Village Way, Danvers MA 1923', 'CREDIT', '2024-01-01'),
+(8, '137 Teaticket Hwy, East Falmouth MA 2536', '137 Teaticket Hwy, East Falmouth MA 2536', 'CREDIT', '2024-01-11'),
+(9, '42 Fairhaven Commons Way, Fairhaven MA 2719', '42 Fairhaven Commons Way, Fairhaven MA 2719', 'CREDIT', '2024-01-31'),
+(10, '374 William S Canning Blvd, Fall River MA 2721', '374 William S Canning Blvd, Fall River MA 2721', 'DEBIT', '2024-02-21'),
+(11, '121 Worcester Rd, Framingham MA 1701', '121 Worcester Rd, Framingham MA 1701', 'DEBIT', '2023-12-24'),
+(12, '677 Timpany Blvd, Gardner MA 1440', '677 Timpany Blvd, Gardner MA 1440', 'DEBIT', '2024-02-01'),
+(13, '337 Russell St, Hadley MA 1035', '337 Russell St, Hadley MA 1035', 'DEBIT', '2024-01-07'),
+(14, '295 Plymouth Street, Halifax MA 2338', '295 Plymouth Street, Halifax MA 2338', 'DEBIT', '2024-01-08'),
+(15, '1775 Washington St, Hanover MA 2339', '1775 Washington St, Hanover MA 2339', 'DEBIT', '2024-04-01'),
+(16, '280 Washington Street, Hudson MA 1749', '5399 W Genesse St, Camillus NY 13031', 'CASH', '2024-04-05'),
+(17, '20 Soojian Dr, Leicester MA 1524', '30 Catskill, Catskill NY 12414', 'CASH', '2024-04-05'),
+(18, '11 Jungle Road, Leominster MA 1453', '872 Route 13, Cortlandville NY 13045', 'CASH', '2024-04-05'),
+(19, '301 Massachusetts Ave, Lunenburg MA 1462', '301 Massachusetts Ave, Lunenburg MA 1462', 'CASH', '2024-04-01'),
+(20, '780 Lynnway, Lynn MA 1905', '301 Massachusetts Ave, Lunenburg MA 1462', 'CASH', '2023-04-05'),
+(21, '70 Pleasant Valley Street, Methuen MA 1844', '70 Pleasant Valley Street, Methuen MA 1844', 'CASH', '2022-06-05');
 
 --Insert drinks into database
 INSERT INTO DRINK(Product_Number, Drink_Name)
@@ -1555,18 +1553,18 @@ VALUES
 (20, 517576600);
 
 --Insert purchases into database
-INSERT INTO PURCHASE(Purchase_ID, Shipping_Address, Billing_Address, Payment_Method, Date, Product_Number)
+INSERT INTO PURCHASE(Purchase_ID, Shipping_Address, Billing_Address, Payment_Method, Date)
 VALUES
-(22, '777 Brockton Avenue, Abington MA 2351' , '777 Brockton Avenue, Abington MA 2351' , 'CREDIT', '2023-06-06',  '0782140661'),
-(23, '777 Brockton Avenue, Abington MA 2351' , '777 Brockton Avenue, Abington MA 2351' , 'CREDIT', '2023-06-06',  '0471200247'),
-(24, '777 Brockton Avenue, Abington MA 2351' , '777 Brockton Avenue, Abington MA 2351' , 'CREDIT', '2023-06-06',  '0072227710'),
-(25, '777 Brockton Avenue, Abington MA 2351' , '777 Brockton Avenue, Abington MA 2351' , 'CREDIT', '2023-06-06', '0735712123'),
-(26, '777 Brockton Avenue, Abington MA 2351' , '777 Brockton Avenue, Abington MA 2351' , 'CREDIT', '2023-06-06',  '0738206679'),
-(27, '777 Brockton Avenue, Abington MA 2351' , '777 Brockton Avenue, Abington MA 2351' , 'CREDIT', '2023-06-06',  '0743244249'),
-(28, '777 Brockton Avenue, Abington MA 2351' , '777 Brockton Avenue, Abington MA 2351' , 'CREDIT', '2023-06-06',  '0061020648'),
-(29, '777 Brockton Avenue, Abington MA 2351' , '777 Brockton Avenue, Abington MA 2351' , 'CREDIT', '2023-06-06',  '0060855925'),
-(30, '777 Brockton Avenue, Abington MA 2351' , '777 Brockton Avenue, Abington MA 2351' , 'CREDIT', '2023-06-06',  '0061092177'),
-(31, '777 Brockton Avenue, Abington MA 2351' , '777 Brockton Avenue, Abington MA 2351' , 'CREDIT', '2023-06-06',  '0061161721');
+(22, '777 Brockton Avenue, Abington MA 2351' , '777 Brockton Avenue, Abington MA 2351' , 'CREDIT', '2023-06-06'),
+(23, '777 Brockton Avenue, Abington MA 2351' , '777 Brockton Avenue, Abington MA 2351' , 'CREDIT', '2023-06-06'),
+(24, '777 Brockton Avenue, Abington MA 2351' , '777 Brockton Avenue, Abington MA 2351' , 'CREDIT', '2023-06-06'),
+(25, '777 Brockton Avenue, Abington MA 2351' , '777 Brockton Avenue, Abington MA 2351' , 'CREDIT', '2023-06-06'),
+(26, '777 Brockton Avenue, Abington MA 2351' , '777 Brockton Avenue, Abington MA 2351' , 'CREDIT', '2023-06-06'),
+(27, '777 Brockton Avenue, Abington MA 2351' , '777 Brockton Avenue, Abington MA 2351' , 'CREDIT', '2023-06-06'),
+(28, '777 Brockton Avenue, Abington MA 2351' , '777 Brockton Avenue, Abington MA 2351' , 'CREDIT', '2023-06-06'),
+(29, '777 Brockton Avenue, Abington MA 2351' , '777 Brockton Avenue, Abington MA 2351' , 'CREDIT', '2023-06-06'),
+(30, '777 Brockton Avenue, Abington MA 2351' , '777 Brockton Avenue, Abington MA 2351' , 'CREDIT', '2023-06-06'),
+(31, '777 Brockton Avenue, Abington MA 2351' , '777 Brockton Avenue, Abington MA 2351' , 'CREDIT', '2023-06-06');
 
 --Insert which customer makes certain purchases into database
 INSERT INTO MAKES_PURCHASE(Loyalty_No, Purchase_ID)
@@ -1583,7 +1581,7 @@ VALUES
 (21, 31);
 
 --Insert which products are a part of certain purchases into database
-INSERT INTO IS_A_PART_OF(Quantity, Product_Number, Purchase_ID)
+INSERT INTO PRODUCT_PURCHASE(Quantity, Product_Number, Purchase_ID)
 VALUES
 (20, 11, 11),
 (1, 1, 1),
@@ -1640,7 +1638,6 @@ WHERE S.Product_Number= P.Product_Number AND W.Warehouse_No=S.Warehouse_No  AND 
 
 --Created indices to speed up commonly queried operations
 CREATE INDEX idx_book_isbn_product_number ON BOOK(ISBN, Product_Number);
-CREATE INDEX idx_purchase_product ON PURCHASE(Purchase_ID, Product_Number);
 CREATE INDEX idx_makes_purchase_loyalty_purchase ON MAKES_PURCHASE(Loyalty_No, Purchase_ID);
 CREATE INDEX idx_written_by_author_isbn ON WRITTEN_BY(Author_ID, ISBN);
-CREATE INDEX idx_is_a_part_of ON IS_A_PART_OF(Product_Number, Purchase_ID);
+CREATE INDEX idx_is_a_part_of ON PRODUCT_PURCHASE(Product_Number, Purchase_ID);
