@@ -1613,7 +1613,10 @@ VALUES
 (2, 609610570, 1),
 (2, 609610570, 3),
 (2, 609610570, 21),
-(2, 1579902944, 21);
+(2, 1579902944, 21),
+(3, 61092177, 20),
+(4, 60502935, 21),
+(5, 60855925, 22);
 
 --Generate views
 --Create view for viewing which product a customer purchases and the transaction details
