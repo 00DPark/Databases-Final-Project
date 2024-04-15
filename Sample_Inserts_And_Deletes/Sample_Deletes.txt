@@ -1,0 +1,19 @@
+-- SAMPLE DELETES STATEMENTS --
+
+-- Deleting purchases associated with the product:
+DELETE FROM PURCHASE WHERE Product_Number = '2024';
+
+-- Deleting records of the product from stores:
+DELETE FROM STORES_PRODUCT WHERE Product_Number = '2024';
+
+-- Deleting the product:
+DELETE FROM PRODUCT WHERE Product_Number = '2024';
+
+-- Deleting a warehouse:
+DELETE FROM WAREHOUSE WHERE Warehouse_No = '25';
+
+-- Deleting an employee:
+DELETE FROM EMPLOYEE WHERE Employee_ID = '101';
+
+-- Deleting a book store:
+DELETE FROM BOOK_STORE WHERE Store_ID = '22';

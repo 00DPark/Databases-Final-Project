@@ -1,13 +1,13 @@
 BEGIN TRANSACTION;
 --Transaction creates a warehouse and stores a product within that warehouse
-INSERT INTO WAREHOUSE (Warehouse_No, Address) VALUES ('66', '123 Sesame Street, Aurora, CO 12345');
-INSERT INTO STORES_PRODUCT (Warehouse_No, Product_Number, Quantity) VALUES ('66', '11', 100), ('66', '22', 200);
+INSERT INTO WAREHOUSE (Warehouse_No, Address) VALUES (66, '123 Sesame Street, Aurora, CO 12345');
+INSERT INTO STORES_PRODUCT (Warehouse_No, Product_Number, Quantity) VALUES (66, 11, 100), (66, 22, 200);
 COMMIT;
 
 BEGIN TRANSACTION;
 --Transaction creates a purchase and maps the purchase to a particular customer
-INSERT INTO PURCHASE (Purchase_ID, Shipping_Address, Billing_Address, Payment_Method, Date, Product_Number) VALUES ('2511', '123 Elm Street, Aurora, CO 12345', '123 Elm Street, Aurora, CO 12345', 'Credit Card', '2024-04-20', '6');
-INSERT INTO MAKES_PURCHASE (Quantity, Loyalty_No, Purchase_ID) VALUES (12, '1', '21');
+INSERT INTO PURCHASE (Purchase_ID, Shipping_Address, Billing_Address, Payment_Method, Date, Product_Number) VALUES (2511, '123 Elm Street, Aurora, CO 12345', '123 Elm Street, Aurora, CO 12345', 'Credit Card', '2024-04-20', 6);
+INSERT INTO MAKES_PURCHASE (Loyalty_No, Purchase_ID) VALUES (1, 21);
 COMMIT;
 
 BEGIN TRANSACTION;
@@ -19,13 +19,14 @@ COMMIT;
 BEGIN TRANSACTION;
 --Transaction for adding new customers to the database
 INSERT INTO CUSTOMER (Loyalty_No, Email_Address, Address, First_Name, Last_Name) VALUES (101, 'max@gmail.com', '456 Elm St Lane, Atlanta, GA 23529', 'Max', 'Smith');
-INSERT INTO PURCHASE (Purchase_ID, Shipping_Address, Billing_Address, Payment_Method, Date, Product_Number) VALUES (10001, '456 Elm St Lane, Atlanta, GA 23529', '456 Elm St Lane, Atlanta, GA 23529', 'CASH', '2024-04-10', '11');
-INSERT INTO MAKES_PURCHASE (Quantity, Loyalty_No, Purchase_ID) VALUES (1, 101, 10001);
+INSERT INTO PURCHASE (Purchase_ID, Shipping_Address, Billing_Address, Payment_Method, Date, Product_Number) VALUES (10001, '456 Elm St Lane, Atlanta, GA 23529', '456 Elm St Lane, Atlanta, GA 23529', 'CASH', '2024-04-10', 11);
+INSERT INTO MAKES_PURCHASE (Loyalty_No, Purchase_ID) VALUES (101, 10001);
 COMMIT;
 
 BEGIN TRANSACTION;
 --Transaction for deleting entire database which could be useful if a data breach occurred and there was no other choice
 DELETE FROM MAKES_PURCHASE;
+DELETE FROM IS_A_PART_OF;
 DELETE FROM PURCHASE;
 DELETE FROM STOCKED_BY;
 DELETE FROM WRITTEN_BY;
