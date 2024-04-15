@@ -1,9 +1,11 @@
+--Create table for warehouse 
 CREATE TABLE WAREHOUSE (
     Warehouse_No INT NOT NULL,
     Address VARCHAR(100) NOT NULL,
     PRIMARY KEY (Warehouse_No)
 );
 
+--Create table for stores product
 CREATE TABLE STORES_PRODUCT (
     Warehouse_No INT NOT NULL,
     Product_Number INT NOT NULL,
@@ -13,6 +15,7 @@ CREATE TABLE STORES_PRODUCT (
     PRIMARY KEY (Warehouse_No, Product_Number)
 );
 
+--Create table for product
 CREATE TABLE PRODUCT (
     Product_Number INT NOT NULL,
     Price DECIMAL(10, 2) NOT NULL DEFAULT 0.00,
@@ -21,6 +24,7 @@ CREATE TABLE PRODUCT (
 
 );
 
+--Create table for drinks
 CREATE TABLE DRINK (
     Product_Number INT NOT NULL,
     Drink_Name VARCHAR(100) NOT NULL,
@@ -29,6 +33,7 @@ CREATE TABLE DRINK (
 
 );
 
+--Create table for board games
 CREATE TABLE BOARD_GAME (
     Product_Number INT NOT NULL,
     Game_Name VARCHAR(100) NOT NULL,
@@ -37,6 +42,7 @@ CREATE TABLE BOARD_GAME (
 
 );
 
+--Create table for books
 CREATE TABLE BOOK (
     ISBN INT NOT NULL,
     Product_Number INT NOT NULL,
@@ -46,12 +52,14 @@ CREATE TABLE BOOK (
     PRIMARY KEY (ISBN)
 );
 
+--Create table for publishers
 CREATE TABLE PUBLISHER (
     Publisher_ID INT NOT NULL,
     Publisher_NAME VARCHAR(100) NOT NULL,
     PRIMARY KEY (Publisher_ID)
 );
 
+--Create table for authors
 CREATE TABLE AUTHOR (
     Author_ID INT NOT NULL,
     First_Name VARCHAR(100) NOT NULL,
@@ -59,6 +67,8 @@ CREATE TABLE AUTHOR (
     Last_Name VARCHAR(100) NOT NULL,
     PRIMARY KEY (Author_ID)
 );
+
+--Create table for employees
 CREATE TABLE EMPLOYEE (
     Employee_ID INT NOT NULL,
     Store_ID INT NOT NULL,
@@ -70,6 +80,7 @@ CREATE TABLE EMPLOYEE (
     PRIMARY KEY (Employee_ID)
 );
 
+--Create table for departments
 CREATE TABLE DEPARTMENT (
     Dept_No INT NOT NULL,
     Store_ID INT NOT NULL,
@@ -79,6 +90,7 @@ CREATE TABLE DEPARTMENT (
     PRIMARY KEY (Dept_No)
 );
 
+--Create table for managers in general
 CREATE TABLE MANAGER (
     Employee_ID INT NOT NULL,
     Store_ID INT NOT NULL,
@@ -94,6 +106,7 @@ CREATE TABLE MANAGER (
     PRIMARY KEY (Employee_ID)
 );
 
+--Create table for general employees
 CREATE TABLE GENERAL_EMPLOYEE (
     Employee_ID INT NOT NULL,
     Store_ID INT NOT NULL,
@@ -106,6 +119,7 @@ CREATE TABLE GENERAL_EMPLOYEE (
     PRIMARY KEY (Employee_ID)
 );
 
+--Create table for managers who manage employees
 CREATE TABLE EMPLOYEE_MANAGER (
     Employee_ID INT NOT NULL,
     Store_ID INT NOT NULL,
@@ -121,6 +135,7 @@ CREATE TABLE EMPLOYEE_MANAGER (
     PRIMARY KEY (Employee_ID)
 );
 
+--Create table for managers who manage stores
 CREATE TABLE STORE_MANAGER (
     Employee_ID INT NOT NULL,
     Store_ID INT NOT NULL,
@@ -136,12 +151,14 @@ CREATE TABLE STORE_MANAGER (
     PRIMARY KEY (Employee_ID)
 );
 
+--Create table for book stores
 CREATE TABLE BOOK_STORE (
     Store_ID INT NOT NULL,
     Address VARCHAR(100) NOT NULL,
     PRIMARY KEY (Store_ID)
 );
 
+--Create table for purchases
 CREATE TABLE PURCHASE (
     Purchase_ID INT NOT NULL,
     Shipping_Address VARCHAR(100) NOT NULL,
@@ -153,6 +170,7 @@ CREATE TABLE PURCHASE (
     PRIMARY KEY (Purchase_ID)
 );
 
+--Create table for customers
 CREATE TABLE CUSTOMER (
     Loyalty_No INT NOT NULL,
     Email_Address VARCHAR(100) NOT NULL,
@@ -162,8 +180,8 @@ CREATE TABLE CUSTOMER (
     PRIMARY KEY (Loyalty_No)
 );
 
+--Create table for customers who make purchases
 CREATE TABLE MAKES_PURCHASE (
-    Quantity INT NOT NULL,
     Loyalty_No INT NOT NULL,
     Purchase_ID INT NOT NULL,
     FOREIGN KEY (Loyalty_No) REFERENCES CUSTOMER(Loyalty_No),
@@ -171,6 +189,7 @@ CREATE TABLE MAKES_PURCHASE (
     PRIMARY KEY (Loyalty_No, Purchase_ID)
 );
 
+--Create table that holds which author writes which book
 CREATE TABLE WRITTEN_BY (
     Author_ID INT NOT NULL,
     ISBN INT NOT NULL,
@@ -179,6 +198,7 @@ CREATE TABLE WRITTEN_BY (
     PRIMARY KEY (Author_ID, ISBN)
 );
 
+--Create table that holds which employee stocks which products
 CREATE TABLE STOCKED_BY (
     Employee_ID INT NOT NULL,
     Product_Number INT NOT NULL,
@@ -187,6 +207,17 @@ CREATE TABLE STOCKED_BY (
     PRIMARY KEY (Employee_ID, Product_Number)
 );
 
+--Create table that holds the relationship between products and purchases
+CREATE TABLE IS_A_PART_OF(
+    Product_Number INT NOT NULL,
+    Purchase_ID INT NOT NULL,
+    Quantity INT NOT NULL,
+    FOREIGN KEY(Product_Number) REFERENCES PRODUCT(Product_Number)
+    FOREIGN KEY(Purchase_ID) REFERENCES PURCHASE(Purchase_ID)
+    PRIMARY KEY(Product_Number, Purchase_ID)
+);
+
+--Insert customers into database
 INSERT INTO CUSTOMER(Loyalty_No, Email_Address, Address, First_Name, Last_Name)
 VALUES
 (1,'ilial@msn.com', '777 Brockton Avenue, Abington MA 2351' , 'Matt', 'Smith'),
@@ -211,6 +242,7 @@ VALUES
 (20,'notaprguy@icloud.com', '780 Lynnway, Lynn MA 1905', 'John', 'John'),
 (21,'forsberg@yahoo.ca', '70 Pleasant Valley Street, Methuen MA 1844', 'Wanos', 'Bahiru');
 
+--Insert authors into database
 INSERT INTO AUTHOR(Author_ID, First_Name, Middle_Name, Last_Name)
 VALUES
 (1, 'Ernest', '' , 'Hemingway'),
@@ -234,7 +266,7 @@ VALUES
 (19, 'Stephen', '', 'King'),
 (20, 'Franz', '', 'Kafka');
 
-
+--Insert book stores into database
 INSERT INTO BOOK_STORE(Store_ID, Address)
 VALUES
 (0, '1201 Rt 300, Newburgh NY 12550'),
@@ -259,6 +291,7 @@ VALUES
 (19, '474 Boston Post Road, North Windham CT 6256'),
 (20, '650 Main Ave, Norwalk CT 6851');
 
+--Insert warehouses into database
 INSERT INTO WAREHOUSE(Warehouse_No, Address)
 VALUES
 (1, '3100 Hough Rd, Florence AL 35630'),
@@ -283,6 +316,7 @@ VALUES
 (20, '4538 Us Hwy 231, Wetumpka AL 36092'),
 (21, '1610 South Lane, Aurora CO 32803');
 
+--Insert publishers into database
 INSERT INTO PUBLISHER(Publisher_ID, Publisher_NAME)
 VALUES
 (1, 'Big Books Co'),
@@ -306,6 +340,7 @@ VALUES
 (19, 'Goerdell Incompleteness Press'),
 (20, 'Paperback Press');
 
+--Insert products into database
 INSERT INTO PRODUCT(Product_Number, Price, Product_Type)
 VALUES
 (1, 1.00, "Drink"),
@@ -329,6 +364,7 @@ VALUES
 (19, 10.10, "Board Game"),
 (20, 9.99, "Board Game");
 
+--Insert departments into database
 INSERT INTO DEPARTMENT(Dept_No, Store_ID, Dept_Name, Dept_Address)
 VALUES
 (1, 4, 'Books', '700 Oak Street, Brockton MA 2301'),
@@ -371,6 +407,7 @@ VALUES
 (38, 9, 'Drinks', '2008 Neil Avenue, Columbus, OH, 43210'),
 (39, 9, 'Board Games', '2008 Neil Avenue, Columbus, OH, 43210');
 
+--Insert employees into database
 INSERT INTO EMPLOYEE(Employee_ID, Store_ID, Sales_No, Shift, First_Name, Last_Name)
 VALUES
 (1, 4, 250, '9AM-5PM', 'John', 'Smith'),
@@ -454,6 +491,7 @@ VALUES
 (79, 8, 432, '5PM - 10PM', 'Barack', 'Obama'),
 (80, 4, 432, '5PM - 10PM', 'Donald', 'Trump');
 
+--Insert managers in general into database
 INSERT INTO MANAGER(Employee_ID, Store_ID, Sales_No, Shift, First_Name, Last_Name, Manager_ID, Manager_Type)
 VALUES
 (1, 4, 250, '9AM-5PM', 'John', 'Smith', 1, 'Store_Manager'),
@@ -499,6 +537,7 @@ VALUES
 (79, 8, 432, '5PM - 10PM', 'Barack', 'Obama', 41, 'Store_Manager'),
 (80, 4, 432, '5PM - 10PM', 'Donald', 'Trump', 42, 'Employee_Manager');
 
+--Insert general employees into database
 INSERT INTO GENERAL_EMPLOYEE(Employee_ID, Store_ID, Sales_No, Shift, First_Name, Last_Name)
 VALUES
 (3, 4, 4, '9AM-5PM', 'Jack', 'Black'),
@@ -531,6 +570,7 @@ VALUES
 (67, 18, 12, '5PM - 10PM', 'Franklin', 'Roosevelt'),
 (76, 18, 2, '5PM - 10PM', 'George', 'Bush');
 
+--Insert managers who manage employees into database
 INSERT INTO EMPLOYEE_MANAGER(Employee_ID, Store_ID, Sales_No, Shift, First_Name, Last_Name, Manager_ID, Manager_Type)
 VALUES
 (2,4,3, '9AM-5PM', 'Jane', 'Doe', 2, 'Employee_Manager'),
@@ -555,6 +595,7 @@ VALUES
 (75, 18, 12, '5PM - 10PM', 'Ronald', 'Reagan', 40, 'Employee_Manager'),
 (80, 18, 12, '5PM - 10PM', 'Donald', 'Trump', 42, 'Employee_Manager');
 
+--Insert managers who manage stores into database
 INSERT INTO Store_Manager(Employee_ID, Store_ID, Sales_No, Shift, First_Name, Last_Name, Manager_ID, Manager_Type)
 VALUES
 (1, 4, 15, '9AM-5PM', 'John', 'Smith', 1, 'Store_Manager'),
@@ -579,6 +620,7 @@ VALUES
 (73, 18, 12, '5PM - 10PM', 'Gerald', 'Ford', 39, 'Store_Manager'),
 (79, 18, 12, '5PM - 10PM', 'Barack', 'Obama', 41, 'Store_Manager');
 
+--Insert which employees stock which products into database
 INSERT INTO Stocked_By(Employee_ID, Product_Number)
 VALUES
 (3, 1),
@@ -662,7 +704,7 @@ VALUES
 (79, 19),
 (80, 20); 
 
-
+--Insert products into database
 INSERT INTO PRODUCT(Product_Number, Price, Product_Type)
 VALUES
 (21, 1.53, "Drink"),
@@ -698,6 +740,7 @@ VALUES
 (51, 20.00, "Board Game"),
 (52, 20.00, "Board Game");
 
+--Insert purchases into database
 INSERT INTO PURCHASE(Purchase_ID, Shipping_Address, Billing_Address, Payment_Method, Date, Product_Number)
 VALUES
 (1, '777 Brockton Avenue, Abington MA 2351', '777 Brockton Avenue, Abington MA 2351', 'CREDIT', '2023-06-06',  1),
@@ -722,7 +765,7 @@ VALUES
 (20, '780 Lynnway, Lynn MA 1905', '301 Massachusetts Ave, Lunenburg MA 1462', 'CASH', '2023-04-05', 20),
 (21, '70 Pleasant Valley Street, Methuen MA 1844', '70 Pleasant Valley Street, Methuen MA 1844', 'CASH', '2022-06-05', 21);
 
-
+--Insert drinks into database
 INSERT INTO DRINK(Product_Number, Drink_Name)
 VALUES
 (1, 'Sprite'),
@@ -746,8 +789,7 @@ VALUES
 (30, 'Pepsi Zero'),
 (31,'Pepsi');
 
-
-
+--Insert board games into database
 INSERT INTO BOARD_GAME(Product_Number,Game_Name)
 VALUES
 (32, 'Monopoly'),
@@ -772,6 +814,7 @@ VALUES
 (51,'Heroscape'),
 (52,'Risk');
 
+--Insert which products are stored in various warehouses into database
 INSERT INTO STORES_PRODUCT(Warehouse_No, Product_Number, Quantity) 
 VALUES
 (1,  1, 1),
@@ -827,30 +870,31 @@ VALUES
 (20,51, 88),
 (20, 52, 48);
 
-INSERT INTO MAKES_PURCHASE(Quantity, Loyalty_No, Purchase_ID)
+--Insert which customer makes certain purchases into database
+INSERT INTO MAKES_PURCHASE(Loyalty_No, Purchase_ID)
 VALUES
-(20, 11, 11),
-(1, 1, 1),
-(14, 2,2),
-(7, 3, 3),
-(1, 4, 4),
-(3, 5, 5),
-(4, 6, 6),
-(1, 8, 8),
-(2, 9, 9),
-(3, 10, 10),
-(1, 12, 12),
-(2, 13, 13),
-(2, 14, 14),
-(5, 15, 15),
-(6, 16, 16),
-(3, 17, 17),
-(2, 18, 18),
-(1, 19, 19),
-(3, 20, 20),
-(2, 21, 21);
+(11, 11),
+(1, 1),
+(2,2),
+(3, 3),
+(4, 4),
+(5, 5),
+(6, 6),
+(8, 8),
+(9, 9),
+(10, 10),
+(12, 12),
+(13, 13),
+(14, 14),
+(15, 15),
+(16, 16),
+(17, 17),
+(18, 18),
+(19, 19),
+(20, 20),
+(21, 21);
 
---imported data from sheet--
+--imported data from sheet that script converted into insert statements for author, books, publishers, products, books, which authors wrote certain books, and which warehouse a product is stored in 
 INSERT INTO AUTHOR(Author_ID, First_Name, Middle_Name, Last_Name) VALUES (502, 'Chip', '', 'Dawes');
 INSERT INTO AUTHOR(Author_ID, First_Name, Middle_Name, Last_Name) VALUES (503, 'Biju', '', 'Thomas');
 INSERT INTO AUTHOR(Author_ID, First_Name, Middle_Name, Last_Name) VALUES (504, 'Doug', '', 'Stuns');
@@ -1510,6 +1554,7 @@ VALUES
 (19, 1561586196),
 (20, 517576600);
 
+--Insert purchases into database
 INSERT INTO PURCHASE(Purchase_ID, Shipping_Address, Billing_Address, Payment_Method, Date, Product_Number)
 VALUES
 (22, '777 Brockton Avenue, Abington MA 2351' , '777 Brockton Avenue, Abington MA 2351' , 'CREDIT', '2023-06-06',  '0782140661'),
@@ -1523,32 +1568,71 @@ VALUES
 (30, '777 Brockton Avenue, Abington MA 2351' , '777 Brockton Avenue, Abington MA 2351' , 'CREDIT', '2023-06-06',  '0061092177'),
 (31, '777 Brockton Avenue, Abington MA 2351' , '777 Brockton Avenue, Abington MA 2351' , 'CREDIT', '2023-06-06',  '0061161721');
 
-INSERT INTO MAKES_PURCHASE(Quantity, Loyalty_No, Purchase_ID)
+--Insert which customer makes certain purchases into database
+INSERT INTO MAKES_PURCHASE(Loyalty_No, Purchase_ID)
 VALUES
-(22, 21, 22),
-(23, 21, 23),
-(24, 21, 24),
-(25, 21, 25),
-(26, 21, 26),
-(27, 21, 27),
-(1, 21, 28),
-(3, 21, 29),
-(4, 21, 30),
-(5, 21, 31);
+(21, 22),
+(21, 23),
+(21, 24),
+(21, 25),
+(21, 26),
+(21, 27),
+(21, 28),
+(21, 29),
+(21, 30),
+(21, 31);
+
+--Insert which products are a part of certain purchases into database
+INSERT INTO IS_A_PART_OF(Quantity, Product_Number, Purchase_ID)
+VALUES
+(20, 11, 11),
+(1, 1, 1),
+(14, 2,2),
+(7, 3, 3),
+(1, 4, 4),
+(3, 5, 5),
+(4, 6, 6),
+(1, 8, 8),
+(2, 9, 9),
+(3, 10, 10),
+(1, 12, 12),
+(2, 13, 13),
+(2, 14, 14),
+(5, 15, 15),
+(6, 16, 16),
+(3, 17, 17),
+(2, 18, 18),
+(1, 19, 19),
+(1, 20, 19),
+(3, 20, 20),
+(2, 805317554, 21),
+(2, 1861004486, 21),
+(2, 52, 21),
+(2, 782140661, 21),
+(2, 609610570, 24),
+(2, 609610570, 22),
+(2, 609610570, 2),
+(2, 609610570, 1),
+(2, 609610570, 3),
+(2, 609610570, 21),
+(2, 1579902944, 21);
 
 --Generate views
+--Create view for viewing which product a customer purchases and the transaction details
 CREATE VIEW CUSTOMER_TRANSACTIONS AS
 SELECT C.First_Name, C.Last_Name, C.Loyalty_No, P.Shipping_Address, P.Billing_Address, P.Payment_Method, P.Date, PR.Product_Type, MP.Quantity
 FROM CUSTOMER C, PURCHASE P, PRODUCT PR, MAKES_PURCHASE MP
 WHERE C.Loyalty_No= MP.Loyalty_No AND P.Product_Number= PR.Product_Number AND P.Purchase_ID= MP.Purchase_ID
 ORDER BY MP.Quantity DESC;
 
+--Create view for looking at which employees work at a store managed by a certain store manager
 CREATE VIEW MANAGED_EMPLOYEE_INFO AS
 SELECT S.Employee_ID As Store_Manager_ID, S.First_Name AS Store_Manager_First_Name, S.Last_Name AS Store_Manager_Last_Name, E.Employee_ID , E.First_Name , E.Last_Name, E.Sales_No AS Sales_Made_By_Employee,     (SELECT COUNT(*) FROM STOCKED_BY WHERE Employee_ID = E.Employee_ID) AS Products_Stocked
 FROM GENERAL_EMPLOYEE E, STORE_MANAGER S
 WHERE E.Store_ID= S.Store_ID 
 ORDER BY S.Store_ID;
 
+--Create view for viewing product details that are stored in various warehouses
 CREATE VIEW PRODUCT_WAREHOUSE_STORAGE AS
 SELECT DISTINCT W.Warehouse_No, W.Address, P.Product_Number,  P.Product_Type
 FROM STORES_PRODUCT S, WAREHOUSE W, PRODUCT P
@@ -1559,3 +1643,4 @@ CREATE INDEX idx_book_isbn_product_number ON BOOK(ISBN, Product_Number);
 CREATE INDEX idx_purchase_product ON PURCHASE(Purchase_ID, Product_Number);
 CREATE INDEX idx_makes_purchase_loyalty_purchase ON MAKES_PURCHASE(Loyalty_No, Purchase_ID);
 CREATE INDEX idx_written_by_author_isbn ON WRITTEN_BY(Author_ID, ISBN);
+CREATE INDEX idx_is_a_part_of ON IS_A_PART_OF(Product_Number, Purchase_ID);
