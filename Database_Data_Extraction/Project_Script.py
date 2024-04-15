@@ -141,7 +141,7 @@ def get_stores_product_inserts(data):
             for isbn in unique_books['ISBN']]
 
 # read the CSV file and skip the first row with book as the only value
-input_data = pd.read_csv('data.csv', encoding='latin-1', skiprows=1)
+input_data = pd.read_csv('Database_Data_Extraction/data.csv', encoding='latin-1', skiprows=1)
 
 # update data to handle the case where there are multiple authors
 updated_data = add_previous_columns_to_author(input_data)
