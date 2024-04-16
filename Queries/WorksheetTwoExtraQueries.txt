@@ -1,89 +1,79 @@
 --Provide a list of customer names, along with the total dollar amount each customer has spent.
-SELECT C.First_Name, C.Last_Name, C.Loyalty_No, SUM(PR.Price) As Dollar_Amount_Spent
-FROM CUSTOMER C, PURCHASE P, MAKES_PURCHASE M, PRODUCT PR
-WHERE C.Loyalty_No= M.Loyalty_No AND P.Purchase_ID= M.Purchase_ID AND PR.Product_Number=P.Product_Number
-GROUP BY C.Loyalty_No
-ORDER BY SUM(PR.Price) DESC;
+SELECT CUSTOMER.First_Name, CUSTOMER.Last_Name, SUM(PRODUCT.Price) As Dollar_Amount_Spent
+FROM MAKES_PURCHASE, PRODUCT_PURCHASE, PRODUCT, CUSTOMER
+WHERE MAKES_PURCHASE.Purchase_ID= PRODUCT_PURCHASE.Purchase_ID AND PRODUCT_PURCHASE.Product_Number= PRODUCT.Product_Number AND CUSTOMER.Loyalty_No= MAKES_PURCHASE.Loyalty_No
+GROUP BY CUSTOMER.Loyalty_No
+ORDER BY SUM(PRODUCT.Price) DESC;
+
 
 --Provide a list of customer names and e-mail addresses for customers who have spent more than the average customer.
-SELECT C.First_Name, C.Last_Name, C.Email_Address
-FROM CUSTOMER C, MAKES_PURCHASE MP, PRODUCT PR, PURCHASE P
-WHERE C.Loyalty_No = MP.Loyalty_No AND MP.Purchase_ID = P.Purchase_ID AND  P.Product_Number = PR.Product_Number
-GROUP BY C.Loyalty_No, C.First_Name, C.Last_Name, C.Email_Address
-HAVING SUM(PR.Price) > (
-    SELECT AVG(CustomerTotalPurchase)
+SELECT CUSTOMER.First_Name, CUSTOMER.Last_Name, CUSTOMER.Email_Address
+FROM CUSTOMER, MAKES_PURCHASE, PRODUCT_PURCHASE, PRODUCT
+WHERE CUSTOMER.Loyalty_No= MAKES_PURCHASE.Loyalty_No AND MAKES_PURCHASE.Purchase_ID= PRODUCT_PURCHASE.Purchase_ID AND PRODUCT_PURCHASE.Product_Number= PRODUCT.Product_Number
+GROUP BY CUSTOMER.Loyalty_No
+HAVING SUM(PRODUCT.PRICE) >
+	(SELECT AVG(CustomerTotalPurchase)
     FROM (
-        SELECT SUM(PR2.Price) AS CustomerTotalPurchase
-        FROM CUSTOMER C2, MAKES_PURCHASE MP2, PURCHASE P2, PRODUCT PR2
-		WHERE  C2.Loyalty_No = MP2.Loyalty_No AND MP2.Purchase_ID = P2.Purchase_ID AND P2.Product_Number = PR2.Product_Number
-        GROUP BY C2.Loyalty_No
-    ) 
-);
-
---Provide a list of the titles in the database and associated total copies sold to customers, sorted from the title that has sold the most individual copies to the title that has sold the least.
-SELECT B.Book_Title, SUM(MP.Quantity) AS Total_Books_Sold
-FROM MAKES_PURCHASE MP,  PURCHASE P, BOOK B, PRODUCT PR
-WHERE  MP.Purchase_ID = P.Purchase_ID AND  P.Product_Number = B.Product_Number AND P.Product_Number=PR.Product_Number
-GROUP BY B.ISBN
-ORDER BY SUM(MP.Quantity) DESC;
+        SELECT SUM(PRODUCT.Price) AS CustomerTotalPurchase
+        FROM CUSTOMER, MAKES_PURCHASE, PRODUCT_PURCHASE, PRODUCT
+		WHERE CUSTOMER.Loyalty_No= MAKES_PURCHASE.Loyalty_No AND MAKES_PURCHASE.Purchase_ID= PRODUCT_PURCHASE.Purchase_ID AND PRODUCT_PURCHASE.Product_Number= PRODUCT.Product_Number
+        GROUP BY CUSTOMER.Loyalty_No
+		)
+    ) ;
 
 --Provide a list of the titles in the database and associated dollar totals for copies sold to customers, sorted from the title that has sold the highest dollar amount to the title that has sold the smallest.
-SELECT B.Book_Title, MP.QUANTITY*PR.Price AS Total_Money_Generated
-FROM MAKES_PURCHASE MP,  PURCHASE P, BOOK B, PRODUCT PR
-WHERE  MP.Purchase_ID = P.Purchase_ID AND  P.Product_Number = B.Product_Number AND P.Product_Number=PR.Product_Number
-GROUP BY ISBN
-ORDER BY MP.QUANTITY*PR.Price DESC;
+SELECT BOOK.Book_Title, PRODUCT.Price * PRODUCT_PURCHASE.Quantity AS Total_Money_Sold
+FROM BOOK, PRODUCT_PURCHASE, PRODUCT
+WHERE BOOK.Product_Number= PRODUCT_PURCHASE.Product_Number AND PRODUCT.Product_Number= PRODUCT_PURCHASE.Product_Number
+GROUP BY BOOK.ISBN
+ORDER BY PRODUCT.Price * PRODUCT_PURCHASE.Quantity DESC;
 
---Find the most popular author in the database (i.e. the one who has sold the most books)
-SELECT A.First_Name, A.Last_Name, MP.Quantity
-FROM MAKES_PURCHASE MP,  PURCHASE P, BOOK B, PRODUCT PR, WRITTEN_BY W, AUTHOR A
-WHERE  MP.Purchase_ID = P.Purchase_ID AND  P.Product_Number = B.Product_Number AND P.Product_Number=PR.Product_Number AND W.ISBN= B.ISBN AND W.Author_ID= A.Author_ID
-GROUP BY A.Author_ID
-ORDER BY MP.QUANTITY DESC
+--Find the most popular author in the database (i.e. the one who has sold the most books) 
+SELECT AUTHOR.First_Name, AUTHOR.Middle_Name, AUTHOR.Last_Name, SUM(PRODUCT_PURCHASE.QUANTITY) AS Total_Books_Sold
+FROM PRODUCT_PURCHASE, BOOK  , WRITTEN_BY, AUTHOR 
+WHERE PRODUCT_PURCHASE.Product_Number= BOOK.Product_Number AND BOOK.ISBN=WRITTEN_BY.ISBN AND AUTHOR.Author_ID= WRITTEN_BY.Author_ID
+GROUP BY AUTHOR.Author_ID
+ORDER BY SUM(PRODUCT_PURCHASE.QUANTITY) DESC
 LIMIT 1;
 
 --Find the most profitable author in the database for this store (i.e. the one who has brought in the most money)
-SELECT A.First_Name, A.Middle_Name, A.Last_Name, SUM(P.Price * MP.Quantity) AS Total_Revenue
-FROM AUTHOR A, BOOK B, PRODUCT P, PURCHASE PU, MAKES_PURCHASE MP, WRITTEN_BY W
-WHERE A.Author_ID = W.Author_ID AND W.ISBN= B.ISBN
-AND B.Product_Number = P.Product_Number
-AND P.Product_Number = PU.Product_Number
-AND PU.Purchase_ID = MP.Purchase_ID
-GROUP BY A.Author_ID
+SELECT  AUTHOR.First_Name, AUTHOR.Middle_Name, AUTHOR.Last_Name, SUM(PRODUCT.Price * PRODUCT_PURCHASE.Quantity) AS Total_Revenue
+FROM AUTHOR, WRITTEN_BY, BOOK, PRODUCT_PURCHASE, PRODUCT
+WHERE AUTHOR.Author_ID= WRITTEN_BY.Author_ID AND BOOK.Product_Number= PRODUCT.Product_Number AND PRODUCT_PURCHASE.Product_Number= PRODUCT.Product_Number
+GROUP BY AUTHOR.Author_ID
 ORDER BY Total_Revenue DESC
 LIMIT 1;
 
-
-
 --Provide a list of customer information for customers who purchased anything written by the most profitable author in the database.
-	SELECT  C.First_Name, C.Last_Name, C.Loyalty_No, C.Email_Address, C.Address
-FROM CUSTOMER C, PURCHASE PU, PRODUCT PR, MAKES_PURCHASE MP, BOOK B, WRITTEN_BY W
-WHERE C.Loyalty_No= MP.Loyalty_No AND PU.Product_Number= PR.Product_Number AND W.ISBN= B.ISBN AND PR.Product_Number= B.Product_Number AND MP.Purchase_ID= PU.Purchase_ID AND W.Author_ID IN
-	(SELECT A1.Author_ID
-	FROM AUTHOR A1, BOOK B1, PRODUCT P1, PURCHASE PU1, MAKES_PURCHASE MP1, WRITTEN_BY W1
-	WHERE A1.Author_ID = W1.Author_ID AND W1.ISBN= B1.ISBN
-	AND B1.Product_Number = P1.Product_Number
-	AND P1.Product_Number = PU1.Product_Number
-	AND PU1.Purchase_ID = MP1.Purchase_ID
-	GROUP BY A1.Author_ID
-	ORDER BY SUM(P1.Price * MP1.Quantity)  DESC
-	LIMIT 1);
+SELECT CUSTOMER.First_Name, CUSTOMER.Last_Name, CUSTOMER.Loyalty_No
+FROM MAKES_PURCHASE, CUSTOMER
+WHERE MAKES_PURCHASE.Loyalty_No= CUSTOMER.Loyalty_No AND MAKES_PURCHASE.Purchase_ID IN
+			(
+				SELECT  PRODUCT_PURCHASE.Purchase_ID
+				FROM AUTHOR, WRITTEN_BY, BOOK, PRODUCT_PURCHASE, PRODUCT
+				WHERE AUTHOR.Author_ID= WRITTEN_BY.Author_ID AND BOOK.Product_Number= PRODUCT.Product_Number AND PRODUCT_PURCHASE.Product_Number= PRODUCT.Product_Number
+				GROUP BY AUTHOR.Author_ID
+				ORDER BY SUM(PRODUCT.Price * PRODUCT_PURCHASE.Quantity)
+				LIMIT 1);
 
 --Provide the list of authors who wrote the books purchased by the customers who have spent more than the average customer.
 SELECT DISTINCT A.First_Name, A.Middle_Name, A.Last_Name
-FROM AUTHOR A, WRITTEN_BY WB, BOOK B, PRODUCT P, PURCHASE PU, MAKES_PURCHASE MP
-WHERE A.Author_ID = WB.Author_ID AND WB.ISBN = B.ISBN AND B.Product_Number = P.Product_Number AND P.Product_Number = PU.Product_Number AND PU.Purchase_ID = MP.Purchase_ID AND MP.Loyalty_No IN
+FROM AUTHOR A, WRITTEN_BY WB, BOOK B, PRODUCT P, PURCHASE PU, MAKES_PURCHASE MP, PRODUCT_PURCHASE PP
+WHERE A.Author_ID = WB.Author_ID AND WB.ISBN = B.ISBN AND B.Product_Number = P.Product_Number AND P.Product_Number = PP.Product_Number AND PU.Purchase_ID = MP.Purchase_ID AND PP.Purchase_ID= MP.Purchase_ID AND MP.Loyalty_No IN
  (
     SELECT MP1.Loyalty_No
-    FROM MAKES_PURCHASE MP1, PRODUCT P1
+    FROM MAKES_PURCHASE MP1, PRODUCT P1, PRODUCT_PURCHASE PP1
+	WHERE MP1.Purchase_ID= PP1.Purchase_ID AND P1.Product_Number= PP1.Product_Number
     GROUP BY MP1. Loyalty_No
-    HAVING SUM(MP1. Quantity * P1.Price) > 
+    HAVING SUM(PP1. Quantity * P1.Price) > 
 	(
         SELECT AVG(Total_Spending)
         FROM 
-		(SELECT Loyalty_No, SUM(Quantity * Price) AS Total_Spending
-            FROM MAKES_PURCHASE
-            GROUP BY Loyalty_No
+		(SELECT MAKES_PURCHASE.Loyalty_No, SUM(PRODUCT_PURCHASE.Quantity * PRODUCT.Price) AS Total_Spending
+            FROM MAKES_PURCHASE, PRODUCT_PURCHASE, PRODUCT
+			WHERE MAKES_PURCHASE.Purchase_ID= PRODUCT_PURCHASE.Purchase_ID AND PRODUCT_PURCHASE.Product_Number= PRODUCT.Product_Number
+            GROUP BY MAKES_PURCHASE.Loyalty_No
 		)
     )
 );
+
