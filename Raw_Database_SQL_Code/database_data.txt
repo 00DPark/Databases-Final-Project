@@ -10,8 +10,8 @@ CREATE TABLE STORES_PRODUCT (
     Warehouse_No INT NOT NULL,
     Product_Number INT NOT NULL,
     Quantity INT NOT NULL DEFAULT 0,
-    FOREIGN KEY (Warehouse_No) REFERENCES WAREHOUSE(Warehouse_No),
-    FOREIGN KEY (Product_Number) REFERENCES PRODUCT(Product_Number),
+    FOREIGN KEY (Warehouse_No) REFERENCES WAREHOUSE(Warehouse_No) ON DELETE CASCADE,
+    FOREIGN KEY (Product_Number) REFERENCES PRODUCT(Product_Number) ON DELETE CASCADE,
     PRIMARY KEY (Warehouse_No, Product_Number)
 );
 
@@ -29,7 +29,7 @@ CREATE TABLE PRODUCT (
 CREATE TABLE DRINK (
     Product_Number INT NOT NULL,
     Drink_Name VARCHAR(100) NOT NULL,
-    FOREIGN KEY (Product_Number) REFERENCES PRODUCT(Product_Number),
+    FOREIGN KEY (Product_Number) REFERENCES PRODUCT(Product_Number) ON DELETE CASCADE,
     PRIMARY KEY (Drink_Name)
 
 );
@@ -38,7 +38,7 @@ CREATE TABLE DRINK (
 CREATE TABLE BOARD_GAME (
     Product_Number INT NOT NULL,
     Game_Name VARCHAR(100) NOT NULL,
-    FOREIGN KEY (Product_Number) REFERENCES PRODUCT(Product_Number),
+    FOREIGN KEY (Product_Number) REFERENCES PRODUCT(Product_Number) ON DELETE CASCADE,
     PRIMARY KEY (Game_Name)
 
 );
@@ -49,8 +49,8 @@ CREATE TABLE BOOK (
     Product_Number INT NOT NULL,
     Book_Title VARCHAR(100) NOT NULL,
     Publisher_ID INT NOT NULL,
-    FOREIGN KEY (Product_Number) REFERENCES PRODUCT(Product_Number),
-    FOREIGN KEY (Publisher_ID) REFERENCES PUBLISHER(Publisher_ID),
+    FOREIGN KEY (Product_Number) REFERENCES PRODUCT(Product_Number) ON DELETE CASCADE,
+    FOREIGN KEY (Publisher_ID) REFERENCES PUBLISHER(Publisher_ID) ON DELETE CASCADE,
     PRIMARY KEY (ISBN)
 );
 
@@ -79,8 +79,8 @@ CREATE TABLE EMPLOYEE (
     First_Name VARCHAR(100) NOT NULL,
     Last_Name VARCHAR(100) NOT NULL,
     Dept_No INT NOT NULL, 
-    FOREIGN KEY (Store_ID) REFERENCES BOOK_STORE(Store_ID),
-    FOREIGN KEY(Dept_No) REFERENCES DEPARTMENT(Dept_No),
+    FOREIGN KEY (Store_ID) REFERENCES BOOK_STORE(Store_ID) ON DELETE CASCADE,
+    FOREIGN KEY(Dept_No) REFERENCES DEPARTMENT(Dept_No) ON DELETE CASCADE,
     PRIMARY KEY (Employee_ID)
 );
 
@@ -90,7 +90,7 @@ CREATE TABLE DEPARTMENT (
     Store_ID INT NOT NULL,
     Dept_Name VARCHAR(100) NOT NULL,
     Dept_Address VARCHAR(100) NOT NULL,
-    FOREIGN KEY (Store_ID) REFERENCES BOOK_STORE(Store_ID),
+    FOREIGN KEY (Store_ID) REFERENCES BOOK_STORE(Store_ID) ON DELETE CASCADE,
     PRIMARY KEY (Dept_No)
 );
 
@@ -105,10 +105,10 @@ CREATE TABLE MANAGER (
     Manager_ID INT NOT NULL,
     Manager_Type VARCHAR(100) NOT NULL,
     Dept_No INT NOT NULL,
-    FOREIGN KEY (Employee_ID) REFERENCES EMPLOYEE(Employee_ID),
-    FOREIGN KEY (Store_ID) REFERENCES BOOK_STORE(Store_ID),
-    FOREIGN KEY (Manager_ID) REFERENCES EMPLOYEE(Employee_ID),
-    FOREIGN KEY(Dept_No) REFERENCES DEPARTMENT(Dept_No),
+    FOREIGN KEY (Employee_ID) REFERENCES EMPLOYEE(Employee_ID) ON DELETE CASCADE,
+    FOREIGN KEY (Store_ID) REFERENCES BOOK_STORE(Store_ID) ON DELETE CASCADE,
+    FOREIGN KEY (Manager_ID) REFERENCES EMPLOYEE(Employee_ID) ON DELETE CASCADE,
+    FOREIGN KEY(Dept_No) REFERENCES DEPARTMENT(Dept_No) ON DELETE CASCADE,
     PRIMARY KEY (Employee_ID)
 );
 
@@ -121,9 +121,9 @@ CREATE TABLE GENERAL_EMPLOYEE (
     First_Name VARCHAR(100) NOT NULL,
     Last_Name VARCHAR(100) NOT NULL,
     Dept_No INT NOT NULL,
-    FOREIGN KEY (Employee_ID) REFERENCES EMPLOYEE(Employee_ID),
-    FOREIGN KEY (Store_ID) REFERENCES BOOK_STORE(Store_ID),
-    FOREIGN KEY(Dept_No) REFERENCES DEPARTMENT(Dept_No),
+    FOREIGN KEY (Employee_ID) REFERENCES EMPLOYEE(Employee_ID) ON DELETE CASCADE,
+    FOREIGN KEY (Store_ID) REFERENCES BOOK_STORE(Store_ID) ON DELETE CASCADE,
+    FOREIGN KEY(Dept_No) REFERENCES DEPARTMENT(Dept_No) ON DELETE CASCADE,
     PRIMARY KEY (Employee_ID)
 );
 
@@ -138,10 +138,10 @@ CREATE TABLE EMPLOYEE_MANAGER (
     Manager_ID INT NOT NULL,
     Manager_Type VARCHAR(100) NOT NULL,
     Dept_No INT NOT NULL,
-    FOREIGN KEY (Employee_ID) REFERENCES EMPLOYEE(Employee_ID),
-    FOREIGN KEY (Store_ID) REFERENCES BOOK_STORE(Store_ID),
-    FOREIGN KEY (Manager_ID) REFERENCES EMPLOYEE(Employee_ID),
-        FOREIGN KEY(Dept_No) REFERENCES DEPARTMENT(Dept_No),
+    FOREIGN KEY (Employee_ID) REFERENCES EMPLOYEE(Employee_ID) ON DELETE CASCADE,
+    FOREIGN KEY (Store_ID) REFERENCES BOOK_STORE(Store_ID) ON DELETE CASCADE,
+    FOREIGN KEY (Manager_ID) REFERENCES EMPLOYEE(Employee_ID) ON DELETE CASCADE,
+    FOREIGN KEY(Dept_No) REFERENCES DEPARTMENT(Dept_No) ON DELETE CASCADE,
     PRIMARY KEY (Employee_ID)
 );
 
@@ -156,9 +156,9 @@ CREATE TABLE STORE_MANAGER (
     Manager_ID INT NOT NULL,
     Manager_Type VARCHAR(100) NOT NULL,
     Dept_No INT NOT NULL,
-    FOREIGN KEY (Employee_ID) REFERENCES EMPLOYEE(Employee_ID),
-    FOREIGN KEY (Store_ID) REFERENCES BOOK_STORE(Store_ID),
-    FOREIGN KEY (Manager_ID) REFERENCES EMPLOYEE(Employee_ID),
+    FOREIGN KEY (Employee_ID) REFERENCES EMPLOYEE(Employee_ID) ON DELETE CASCADE,
+    FOREIGN KEY (Store_ID) REFERENCES BOOK_STORE(Store_ID) ON DELETE CASCADE,
+    FOREIGN KEY (Manager_ID) REFERENCES EMPLOYEE(Employee_ID) ON DELETE CASCADE,
     PRIMARY KEY (Employee_ID)
 );
 
@@ -193,8 +193,8 @@ CREATE TABLE CUSTOMER (
 CREATE TABLE MAKES_PURCHASE (
     Loyalty_No INT NOT NULL,
     Purchase_ID INT NOT NULL,
-    FOREIGN KEY (Loyalty_No) REFERENCES CUSTOMER(Loyalty_No),
-    FOREIGN KEY (Purchase_ID) REFERENCES PURCHASE(Purchase_ID),
+    FOREIGN KEY (Loyalty_No) REFERENCES CUSTOMER(Loyalty_No) ON DELETE CASCADE,
+    FOREIGN KEY (Purchase_ID) REFERENCES PURCHASE(Purchase_ID) ON DELETE CASCADE,
     PRIMARY KEY (Loyalty_No, Purchase_ID)
 );
 
@@ -202,8 +202,8 @@ CREATE TABLE MAKES_PURCHASE (
 CREATE TABLE WRITTEN_BY (
     Author_ID INT NOT NULL,
     ISBN INT NOT NULL,
-    FOREIGN KEY (Author_ID) REFERENCES AUTHOR(Author_ID),
-    FOREIGN KEY (ISBN) REFERENCES BOOK(ISBN),
+    FOREIGN KEY (Author_ID) REFERENCES AUTHOR(Author_ID) ON DELETE CASCADE,
+    FOREIGN KEY (ISBN) REFERENCES BOOK(ISBN) ON DELETE CASCADE,
     PRIMARY KEY (Author_ID, ISBN)
 );
 
@@ -211,8 +211,8 @@ CREATE TABLE WRITTEN_BY (
 CREATE TABLE STOCKED_BY (
     Employee_ID INT NOT NULL,
     Product_Number INT NOT NULL,
-    FOREIGN KEY (Employee_ID) REFERENCES EMPLOYEE(Employee_ID),
-    FOREIGN KEY (Product_Number) REFERENCES PRODUCT(Product_Number),
+    FOREIGN KEY (Employee_ID) REFERENCES EMPLOYEE(Employee_ID) ON DELETE CASCADE,
+    FOREIGN KEY (Product_Number) REFERENCES PRODUCT(Product_Number) ON DELETE CASCADE,
     PRIMARY KEY (Employee_ID, Product_Number)
 );
 
@@ -221,8 +221,8 @@ CREATE TABLE PRODUCT_PURCHASE(
     Product_Number INT NOT NULL,
     Purchase_ID INT NOT NULL,
     Quantity INT NOT NULL,
-    FOREIGN KEY(Product_Number) REFERENCES PRODUCT(Product_Number)
-    FOREIGN KEY(Purchase_ID) REFERENCES PURCHASE(Purchase_ID)
+    FOREIGN KEY(Product_Number) REFERENCES PRODUCT(Product_Number) ON DELETE CASCADE, 
+    FOREIGN KEY(Purchase_ID) REFERENCES PURCHASE(Purchase_ID) ON DELETE CASCADE ,
     PRIMARY KEY(Product_Number, Purchase_ID)
 );
 
@@ -1633,24 +1633,24 @@ VALUES
 (5, 60855925, 22);
 
 --Generate views
---Create view for viewing which book a customer purchases and the transaction details
-CREATE VIEW CUSTOMER_TRANSACTIONS AS
+--Create view for viewing which book a customer purchases and the transaction details for cash transactions
+CREATE VIEW CASH_CUSTOMER_TRANSACTIONS AS
 SELECT CUSTOMER.First_Name, CUSTOMER.Last_Name, CUSTOMER.Loyalty_No, CUSTOMER.Email_Address, PURCHASE.Purchase_ID,  PURCHASE.Billing_Address,PURCHASE.Shipping_Address , PURCHASE.Date, PURCHASE.Payment_Method, BOOK.Book_Title
 FROM CUSTOMER, MAKES_PURCHASE, PURCHASE, BOOK, PRODUCT_PURCHASE
-WHERE CUSTOMER.Loyalty_No= MAKES_PURCHASE.Loyalty_No AND MAKES_PURCHASE.Purchase_ID= PURCHASE.Purchase_ID AND PRODUCT_PURCHASE.Purchase_ID= PURCHASE.Purchase_ID AND PRODUCT_PURCHASE.Product_Number= BOOK.Product_Number;
+WHERE CUSTOMER.Loyalty_No= MAKES_PURCHASE.Loyalty_No AND MAKES_PURCHASE.Purchase_ID= PURCHASE.Purchase_ID AND PRODUCT_PURCHASE.Purchase_ID= PURCHASE.Purchase_ID AND PRODUCT_PURCHASE.Product_Number= BOOK.Product_Number AND PURCHASE.Payment_Method= 'CASH';
 
---Create view for looking at which employees work at a store managed by a certain store manager
+--Create view for looking at which employees work at a store managed by a certain store manager in this example the manager is John Smith
 CREATE VIEW MANAGED_EMPLOYEE_INFO AS
 SELECT S.Employee_ID As Store_Manager_ID, S.First_Name AS Store_Manager_First_Name, S.Last_Name AS Store_Manager_Last_Name, E.Employee_ID , E.First_Name , E.Last_Name, E.Sales_No AS Sales_Made_By_Employee,     (SELECT COUNT(*) FROM STOCKED_BY WHERE Employee_ID = E.Employee_ID) AS Products_Stocked
 FROM GENERAL_EMPLOYEE E, STORE_MANAGER S
-WHERE E.Store_ID= S.Store_ID 
+WHERE E.Store_ID= S.Store_ID AND S.First_Name= 'John' AND S.Last_Name= 'Smith'
 ORDER BY S.Store_ID;
 
---Create view for viewing product details that are stored in various warehouses in this example it is first warehouse
+--Create view for viewing product details that are stored in various warehouses in this example it is first warehouse and focuses on Romance Books
 CREATE VIEW PRODUCT_WAREHOUSE_STORAGE AS
 SELECT DISTINCT W.Warehouse_No, W.Address, P.Product_Number,  P.Product_Type
 FROM STORES_PRODUCT S, WAREHOUSE W, PRODUCT P
-WHERE S.Product_Number= P.Product_Number AND W.Warehouse_No=S.Warehouse_No  AND P.Product_Number AND W.Warehouse_No=1;
+WHERE S.Product_Number= P.Product_Number AND W.Warehouse_No=S.Warehouse_No  AND P.Product_Number AND W.Warehouse_No=1 AND P.Product_Type= 'Romance Book';
 
 --Created indices to speed up commonly queried operations
 CREATE INDEX idx_book_isbn_product_number ON BOOK(ISBN, Product_Number);
