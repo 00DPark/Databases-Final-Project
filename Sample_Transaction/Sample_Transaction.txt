@@ -6,27 +6,21 @@ COMMIT;
 
 BEGIN TRANSACTION;
 --Transaction creates a purchase and maps the purchase to a particular customer
-INSERT INTO PURCHASE (Purchase_ID, Shipping_Address, Billing_Address, Payment_Method, Date, Product_Number) VALUES (2511, '123 Elm Street, Aurora, CO 12345', '123 Elm Street, Aurora, CO 12345', 'Credit Card', '2024-04-20', 6);
-INSERT INTO MAKES_PURCHASE (Loyalty_No, Purchase_ID) VALUES (1, 21);
+INSERT INTO PURCHASE (Purchase_ID, Shipping_Address, Billing_Address, Payment_Method, Date) VALUES (2511, '123 Elm Street, Aurora, CO 12345', '123 Elm Street, Aurora, CO 12345', 'Credit Card', '2024-04-20');
+INSERT INTO MAKES_PURCHASE (Loyalty_No, Purchase_ID) VALUES (1, 2511);
+INSERT INTO PRODUCT_PURCHASE(Quantity, Product_Number, Purchase_ID) VALUES(20, 20, 2511);
 COMMIT;
 
 BEGIN TRANSACTION;
 --Transaction creates an employee and lists them as a store manager
-INSERT INTO EMPLOYEE (Employee_ID, Store_ID, Sales_No, Shift, First_Name, Last_Name) VALUES (230, 12, 1001, '9AM-5PM', 'John', 'Doe');
-INSERT INTO STORE_MANAGER (Employee_ID, Store_ID, Sales_No, Shift, First_Name, Last_Name, Manager_ID, Manager_Type) VALUES (230, 12, 1001, '9AM-5PM', 'John', 'Doe', 230, 'Store Manager');
-COMMIT;
-
-BEGIN TRANSACTION;
---Transaction for adding new customers to the database
-INSERT INTO CUSTOMER (Loyalty_No, Email_Address, Address, First_Name, Last_Name) VALUES (101, 'max@gmail.com', '456 Elm St Lane, Atlanta, GA 23529', 'Max', 'Smith');
-INSERT INTO PURCHASE (Purchase_ID, Shipping_Address, Billing_Address, Payment_Method, Date, Product_Number) VALUES (10001, '456 Elm St Lane, Atlanta, GA 23529', '456 Elm St Lane, Atlanta, GA 23529', 'CASH', '2024-04-10', 11);
-INSERT INTO MAKES_PURCHASE (Loyalty_No, Purchase_ID) VALUES (101, 10001);
+INSERT INTO EMPLOYEE (Employee_ID, Store_ID, Sales_No, Shift, First_Name, Last_Name, Dept_No) VALUES (230, 12, 1001, '9AM-5PM', 'John', 'Doe', 25);
+INSERT INTO STORE_MANAGER (Employee_ID, Store_ID, Sales_No, Shift, First_Name, Last_Name, Manager_ID, Manager_Type, Dept_No) VALUES (230, 12, 1001, '9AM-5PM', 'John', 'Doe', 230, 'Store Manager', 25);
 COMMIT;
 
 BEGIN TRANSACTION;
 --Transaction for deleting entire database which could be useful if a data breach occurred and there was no other choice
 DELETE FROM MAKES_PURCHASE;
-DELETE FROM IS_A_PART_OF;
+DELETE FROM PRODUCT_PURCHASE;
 DELETE FROM PURCHASE;
 DELETE FROM STOCKED_BY;
 DELETE FROM WRITTEN_BY;

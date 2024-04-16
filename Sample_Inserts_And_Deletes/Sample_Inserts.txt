@@ -1,16 +1,15 @@
 -- SAMPLE INSERT STATMENTS --
 
--- Inserting a new warehouse:
-INSERT INTO WAREHOUSE (Warehouse_No, Address) VALUES ('25', '281 W Lane Ave, Columbus, OH 43210');
+--Inserting a new book:
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES (01234598, 99.99, 'Spiritual Book');
+INSERT INTO PUBLISHER(Publisher_ID, Publisher_NAME) VALUES (1111, 'Narnia');
+INSERT INTO BOOK(ISBN,Product_Number, Book_Title, Publisher_ID) VALUES (01234598,  01234598, 'The Guide to Life', 1111);
 
--- Inserting a new product:
-INSERT INTO PRODUCT (Product_Number, Price, Product_Type) VALUES ('2024', 19.99, 'Drink');
+--Inserting a new publisher:
+INSERT INTO PUBLISHER(Publisher_ID, Publisher_NAME) VALUES (100, 'Narnia');
 
--- Inserting a new book store:
-INSERT INTO BOOK_STORE (Store_ID, Address) VALUES ('22', '180 W Lane Ave, Columbus, OH 43210');
+--Inserting a new author:
+INSERT INTO AUTHOR(Author_ID, First_Name, Middle_Name, Last_Name) VALUES (25, 'Dwyane', 'The Rock', 'Johnson');
 
--- Inserting a new employee:
-INSERT INTO EMPLOYEE (Employee_ID, Store_ID, Sales_No, Shift, First_Name, Last_Name) VALUES ('101', '22', 1001, '9AM-5PM', 'Jane', 'Doe');
-
--- Inserting a new purchase:
-INSERT INTO PURCHASE (Purchase_ID, Shipping_Address, Billing_Address, Payment_Method, Date, Product_Number) VALUES ('999999', '456 Elm Street, Los Angeles, CA 02358', '456 Elm Street, Los Angeles, CA 02358', 'Credit Card', '2024-04-13', '2024');
+--Insert a new customer:
+INSERT INTO CUSTOMER(Loyalty_No, Email_Address, Address, First_Name, Last_Name) VALUES (100, 'emailaddress@gmail.com', '1600 Pennsylvania Avenue NW, Washington, DC 20500', 'Spongebob','Squarepants');

@@ -5,9 +5,10 @@ import pandas as pd
 # Since the warehouse is not given, just placed it in a random warehouse
 # Values are only inserted into author, publisher, product, written by, book tables as these are required based on the schema
 
-# function to update string with double single quotes for SQL compatibility
+# function to update string with single quotes for SQL compatibility
 def update_string(string):
     return string.replace("'", "''")
+
 
 # fill missing values from the previously filled row and handle multiple authors
 def add_previous_columns_to_author(data):
@@ -93,20 +94,72 @@ def get_product_inserts(data):
     return [f"INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES ('{isbn}', {price.replace('$', '')}, '{update_string(category)}');" 
             for isbn, price, category in zip(unique_books['ISBN'], unique_books['Price'], unique_books['Category'] + ' Book')]
 
+# # get insert statements for books
+# def get_book_inserts(data):
+#     inserts = []
+#     # get rid of duplicate books if the ISBNs are the same
+#     unique_books = data.drop_duplicates(subset=['ISBN'])
+
+#     # iterate through all of the data with unique books
+#     for _, row in unique_books.iterrows():
+#         # return the book data such as ISBN, Title, and Publisher
+#         isbn = row['ISBN']
+#         title = update_string(row['Title'])
+#         publisher = update_string(row['Publisher'])
+#         publisher_id = publisher_id_map[publisher]  # Retrieve publisher ID from the map
+#         inserts.append(f"INSERT INTO BOOK(ISBN, Product_Number, Book_Title, Publisher_ID) VALUES ('{isbn}',  '{isbn}', '{title}', {publisher_id});")
+#     return inserts
+# get insert statements for publishers
+# def get_publisher_inserts(data):
+#     # get the map containing all of the publishers
+#     global publisher_id_map
+#     inserts = []
+
+#     # iterate through all of the unique publishers
+#     for pub in data['Publisher'].unique():
+
+#         # now get a unique code for the publisher and assign it to the publisher
+#         pub_id = generate_unique_code('publisher')
+#         publisher_id_map[pub] = pub_id
+
+#         # return the publisher id and name
+#         inserts.append(f"INSERT INTO PUBLISHER(Publisher_ID, Publisher_Name) VALUES ({pub_id}, '{pub}');")
+#     return inserts
+
+# # # get insert statements for books
+# def get_book_inserts(data):
+#     inserts = []
+#     # get rid of duplicate books if the ISBNs are the same
+#     unique_books = data.drop_duplicates(subset=['ISBN'])
+
+#     # iterate through all of the data with unique books
+#     for _, row in unique_books.iterrows():
+
+#         # return the book data such as ISBN, Title, and Publisher
+#         isbn = row['ISBN']
+#         title = update_string(row['Title'])
+#         publisher = row['Publisher']  # Use original publisher name
+#         inserts.append(f"INSERT INTO BOOK(ISBN,Product_Number, Book_Title, Publisher) VALUES ('{isbn}',  '{isbn}', '{title}', '{publisher}');")
+#     return inserts
 # get insert statements for books
 def get_book_inserts(data):
     inserts = []
-    #get rid of duplicate books if the ISBNs are the same
+    # get rid of duplicate books if the ISBNs are the same
     unique_books = data.drop_duplicates(subset=['ISBN'])
 
-    #iterate through all of the data with unique books
+    # iterate through all of the data with unique books
     for _, row in unique_books.iterrows():
 
-        #return the book data such as ISBN, Title, and Publisher
+        # return the book data such as ISBN, Title, and Publisher
         isbn = row['ISBN']
         title = update_string(row['Title'])
-        publisher = update_string(row['Publisher'])
-        inserts.append(f"INSERT INTO BOOK(ISBN,Product_Number, Book_Title, Publisher) VALUES ('{isbn}',  '{isbn}', '{title}', '{publisher}');")
+        publisher = row['Publisher']  # Use original publisher name
+        
+        # Get the Publisher_ID from the publisher_id_map
+        publisher_id = publisher_id_map[publisher]
+        
+        # Include Publisher_ID in the SQL insert statement
+        inserts.append(f"INSERT INTO BOOK(ISBN, Product_Number, Book_Title, Publisher_ID) VALUES ('{isbn}',  '{isbn}', '{title}', {publisher_id});")
     return inserts
 
 # get insert statements for written by
