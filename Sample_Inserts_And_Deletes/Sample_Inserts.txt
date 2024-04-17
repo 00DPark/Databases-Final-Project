@@ -1,15 +1,23 @@
 -- SAMPLE INSERT STATMENTS --
 
---Inserting a new book:
+
+--Inserting a new book (technically this covers publisher and author as well):
 INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES (01234598, 99.99, 'Spiritual Book');
 INSERT INTO PUBLISHER(Publisher_ID, Publisher_NAME) VALUES (1111, 'Narnia');
 INSERT INTO BOOK(ISBN,Product_Number, Book_Title, Publisher_ID) VALUES (01234598,  01234598, 'The Guide to Life', 1111);
+INSERT INTO AUTHOR(Author_ID, First_Name, Middle_Name, Last_Name) VALUES (27, 'Dwyane', 'John', 'Jones');
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (27, 01234598 );
 
 --Inserting a new publisher:
 INSERT INTO PUBLISHER(Publisher_ID, Publisher_NAME) VALUES (100, 'Narnia');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES (012345981, 99.99, 'Tourist Book');
+INSERT INTO BOOK(ISBN,Product_Number, Book_Title, Publisher_ID) VALUES (012345981,  012345981, 'Gullivers Travel', 100);
 
 --Inserting a new author:
-INSERT INTO AUTHOR(Author_ID, First_Name, Middle_Name, Last_Name) VALUES (25, 'Dwyane', 'The Rock', 'Johnson');
+INSERT INTO AUTHOR(Author_ID, First_Name, Middle_Name, Last_Name) VALUES (25, 'Orenthal', 'James', 'Simpson');
+INSERT INTO PRODUCT(Product_Number, Price, Product_Type) VALUES (0123459812, 99.99, 'Autobiography Book');
+INSERT INTO BOOK(ISBN,Product_Number, Book_Title, Publisher_ID) VALUES (0123459812,  0123459812, 'IF I DID IT', 1);
+INSERT INTO WRITTEN_BY(Author_ID, ISBN) VALUES (25, 0123459812);
 
 --Insert a new customer:
 INSERT INTO CUSTOMER(Loyalty_No, Email_Address, Address, First_Name, Last_Name) VALUES (100, 'emailaddress@gmail.com', '1600 Pennsylvania Avenue NW, Washington, DC 20500', 'Spongebob','Squarepants');
