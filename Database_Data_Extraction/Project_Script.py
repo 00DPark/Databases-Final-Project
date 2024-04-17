@@ -208,6 +208,6 @@ written_by_table = get_written_by_inserts(updated_data)
 stores_product_table = get_stores_product_inserts(updated_data)
 
 # output file with sql print statements
-with open('script_insert_output.txt', 'w') as file: 
+with open('Database_Data_Extraction/script_insert_output.txt', 'w') as file: 
     for inserts in [author_table, publisher_table, product_table, book_table, written_by_table, stores_product_table]:
         file.write('\n'.join(inserts) + '\n')

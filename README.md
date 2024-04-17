@@ -19,7 +19,6 @@ Sample_Inserts.txt contains all of the sample inserts
 
 #Sample Transaction Folder
 Sample_Transaction.txt contains sample transactions the database could utilize
-#Script Code
 
 #SQLite Database Folder
 project.db contains the SQLite database file 
