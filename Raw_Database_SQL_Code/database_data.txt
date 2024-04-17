@@ -1633,6 +1633,16 @@ VALUES
 (4, 60502935, 21),
 (5, 60855925, 22);
 
+
+INSERT INTO EMPLOYEE(Employee_ID, Store_ID, Sales_No, Shift, First_Name, Last_Name, Dept_No)
+VALUES(3241, 20,  999987, '1AM-12PM', 'Parker', 'Wiksell', 37);
+INSERT INTO MANAGER(Employee_ID, Store_ID, Sales_No, Shift, First_Name, Last_Name, Manager_ID, Manager_Type, Dept_No)
+VALUES(3241, 20,  999987, '1AM-12PM', 'Parker', 'Wiksell', 3241, 'THE MANAGER', 37);
+INSERT INTO EMPLOYEE_MANAGER(Employee_ID, Store_ID, Sales_No, Shift, First_Name, Last_Name, Manager_ID, Manager_Type, Dept_No)
+VALUES(3241, 20,  999987, '1AM-12PM', 'Parker', 'Wiksell', 3241, 'THE MANAGER', 37);
+INSERT INTO Store_Manager(Employee_ID, Store_ID, Sales_No, Shift, First_Name, Last_Name, Manager_ID, Manager_Type, Dept_No)
+VALUES(3241, 20,  999987, '1AM-12PM', 'Parker', 'Wiksell', 3241, 'THE MANAGER', 37);
+
 --Generate views
 --Create view for viewing which book a customer purchases and the transaction details for cash transactions
 CREATE VIEW CASH_CUSTOMER_TRANSACTIONS AS
@@ -1657,3 +1667,4 @@ CREATE INDEX idx_quantity_product_purchased ON PRODUCT_PURCHASE(Quantity);
 CREATE INDEX idx_author_name ON AUTHOR(First_Name, Middle_Name, Last_Name);
 CREATE INDEX idx_employee_name_store ON EMPLOYEE(First_Name, Last_Name, Store_ID);
 CREATE INDEX idx_customer_name_email ON CUSTOMER(First_Name, Last_Name, Email_Address);
+
