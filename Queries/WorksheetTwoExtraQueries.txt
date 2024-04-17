@@ -1,0 +1,20 @@
+--Find employee managers that are also store managers
+SELECT M.First_Name, M.Last_Name
+FROM MANAGER M;
+
+--Find the average price of products
+SELECT AVG(PRODUCT.Price)
+FROM PRODUCT;
+
+--Find the customer who has purchased the most books and the total number of books they have purchased
+SELECT CUSTOMER.First_Name, CUSTOMER.Last_Name, MAKES_PURCHASE.Loyalty_No, SUM(PRODUCT_PURCHASE.Quantity) AS Total_Books_Purchased
+FROM BOOK, MAKES_PURCHASE, PRODUCT_PURCHASE, CUSTOMER 
+WHERE BOOK.Product_Number= PRODUCT_PURCHASE.Product_Number AND MAKES_PURCHASE.Purchase_ID= PRODUCT_PURCHASE.Purchase_ID AND CUSTOMER.Loyalty_No= MAKES_PURCHASE.Loyalty_No
+GROUP BY MAKES_PURCHASE.Loyalty_No
+ORDER BY SUM(PRODUCT_PURCHASE.Quantity) DESC
+LIMIT 1;
+
+--Find the highest number of sales that an employee made
+SELECT First_Name, Last_Name, MAX(EMPLOYEE.Sales_No)
+FROM EMPLOYEE
+
