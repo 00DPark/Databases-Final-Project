@@ -7,7 +7,7 @@ project_script.py contains the python code for  converting the data into sql ins
 script_insert_output.txt contains the output sql statements that the script products
 
 #Queries Folder
-WorksheetTwoExtraQueries.txt and WorksheetTwoSimpleQueries. txt contains the desired queries from Checkpoints
+WorksheetTwoExtraQueries.txt, WorksheetTwoAdvancedQueries.txt, WorksheetTwoSimpleQueries. txt contains the desired queries from Checkpoints
 
 #Raw Database SQL Code Folder
 database_data.txt contains all of the SQL code for the data base 
