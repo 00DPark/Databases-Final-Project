@@ -1654,7 +1654,7 @@ FROM STORES_PRODUCT S, WAREHOUSE W, PRODUCT P
 WHERE S.Product_Number= P.Product_Number AND W.Warehouse_No=S.Warehouse_No  AND P.Product_Number AND W.Warehouse_No=1 AND P.Product_Type= 'Romance Book';
 
 --Created indices to speed up commonly queried operations
-CREATE INDEX idx_book_isbn_product_number ON BOOK(ISBN, Product_Number);
-CREATE INDEX idx_makes_purchase_loyalty_purchase ON MAKES_PURCHASE(Loyalty_No, Purchase_ID);
-CREATE INDEX idx_written_by_author_isbn ON WRITTEN_BY(Author_ID, ISBN);
-CREATE INDEX idx_is_a_part_of ON PRODUCT_PURCHASE(Product_Number, Purchase_ID);
+CREATE INDEX idx_quantity_product_purchased ON PRODUCT_PURCHASE(Quantity);
+CREATE INDEX idx_author_name ON AUTHOR(First_Name, Middle_Name, Last_Name);
+CREATE INDEX idx_employee_name_store ON EMPLOYEE(First_Name, Last_Name, Store_ID);
+CREATE INDEX idx_customer_name_email ON CUSTOMER(First_Name, Last_Name, Email_Address);

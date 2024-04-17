@@ -1,6 +1,14 @@
 --Note indices are already in database code so no need to run them separately
 --Created indices to speed up commonly queried operations
-CREATE INDEX idx_book_isbn_product_number ON BOOK(ISBN, Product_Number);
-CREATE INDEX idx_makes_purchase_loyalty_purchase ON MAKES_PURCHASE(Loyalty_No, Purchase_ID);
-CREATE INDEX idx_written_by_author_isbn ON WRITTEN_BY(Author_ID, ISBN);
-CREATE INDEX idx_is_a_part_of ON PRODUCT_PURCHASE(Product_Number, Purchase_ID);
+
+--Speeds up common purchases for quanitity purchased for a specific product purchases
+CREATE INDEX idx_quantity_product_purchased ON PRODUCT_PURCHASE(Quantity);
+
+--Speeds up common searches for author names
+CREATE INDEX idx_author_name ON AUTHOR(First_Name, Middle_Name, Last_Name);
+
+--Speeds up common searches for employee names
+CREATE INDEX idx_employee_name_store ON EMPLOYEE(First_Name, Last_Name, Store_ID);
+
+--Speeds up common searches for
+CREATE INDEX idx_customer_name_email ON CUSTOMER(First_Name, Last_Name, Email_Address);
