@@ -1,7 +1,7 @@
 --Find the titles of all books by Pratchett that cost less than $10
 SELECT B.Book_Title
 FROM BOOK B, AUTHOR A, PRODUCT P, WRITTEN_BY W
-WHERE B.Product_Number= P.Product_Number AND W.Author_ID= A.Author_ID AND B.ISBN= W.ISBN AND A.Last_Name= 'Pratchett';
+WHERE B.Product_Number= P.Product_Number AND W.Author_ID= A.Author_ID AND B.ISBN= W.ISBN AND A.Last_Name= 'Pratchett' AND P.Price < 10.0;
 
 --Give all the titles and their dates of purchase made by a single customer (you choose how to designate the customer)
 SELECT B.Book_Title, P.Date
