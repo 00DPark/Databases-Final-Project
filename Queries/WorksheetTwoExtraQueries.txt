@@ -16,5 +16,5 @@ LIMIT 1;
 
 --Find the highest number of sales that an employee made
 SELECT First_Name, Last_Name, MAX(EMPLOYEE.Sales_No)
-FROM EMPLOYEE
+FROM EMPLOYEE;
 
