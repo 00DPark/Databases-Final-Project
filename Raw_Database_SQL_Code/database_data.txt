@@ -1642,10 +1642,9 @@ WHERE CUSTOMER.Loyalty_No= MAKES_PURCHASE.Loyalty_No AND MAKES_PURCHASE.Purchase
 
 --Create view for looking at which employees work at a store managed by a certain store manager in this example the manager is John Smith
 CREATE VIEW MANAGED_EMPLOYEE_INFO AS
-SELECT S.Employee_ID As Store_Manager_ID, S.First_Name AS Store_Manager_First_Name, S.Last_Name AS Store_Manager_Last_Name, E.Employee_ID , E.First_Name , E.Last_Name, E.Sales_No AS Sales_Made_By_Employee,     (SELECT COUNT(*) FROM STOCKED_BY WHERE Employee_ID = E.Employee_ID) AS Products_Stocked
+SELECT S.Employee_ID As Store_Manager_ID, S.First_Name AS Store_Manager_First_Name, S.Last_Name AS Store_Manager_Last_Name, E.Employee_ID , E.First_Name , E.Last_Name, E.Sales_No
 FROM GENERAL_EMPLOYEE E, STORE_MANAGER S
-WHERE E.Store_ID= S.Store_ID AND S.First_Name= 'John' AND S.Last_Name= 'Smith'
-ORDER BY S.Store_ID;
+WHERE E.Store_ID= S.Store_ID AND S.First_Name= 'John' AND S.Last_Name= 'Smith';
 
 --Create view for viewing product details that are stored in various warehouses in this example it is first warehouse and focuses on Romance Books
 CREATE VIEW PRODUCT_WAREHOUSE_STORAGE AS
