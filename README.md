@@ -13,6 +13,9 @@ WorksheetTwoExtraQueries.txt and WorksheetTwoSimpleQueries. txt contains the des
 database_data.txt contains all of the SQL code for the data base 
 It is a combination of the python script output and the other data we added to the database
 
+#Sample Indices Folder
+Sample_Indices.txt contains all of the indices utilized to speed up queries
+
 #Samples Inserts and Delete Folder
 Sample_Deletes.txt contains all of the sample deletes
 Sample_Inserts.txt contains all of the sample inserts

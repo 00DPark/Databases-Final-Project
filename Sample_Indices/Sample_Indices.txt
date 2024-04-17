@@ -1,0 +1,6 @@
+--Note indices are already in database code so no need to run them separately
+--Created indices to speed up commonly queried operations
+CREATE INDEX idx_book_isbn_product_number ON BOOK(ISBN, Product_Number);
+CREATE INDEX idx_makes_purchase_loyalty_purchase ON MAKES_PURCHASE(Loyalty_No, Purchase_ID);
+CREATE INDEX idx_written_by_author_isbn ON WRITTEN_BY(Author_ID, ISBN);
+CREATE INDEX idx_is_a_part_of ON PRODUCT_PURCHASE(Product_Number, Purchase_ID);
